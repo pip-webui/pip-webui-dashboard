@@ -1,0 +1,30 @@
+<div class="widget-box pip-picture-slider-widget {{ widgetCtrl.color }} layout-column layout-fill" ng-class="{
+        small: widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1,
+        medium: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1,
+        big: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 2 }" 
+        index='{{ widgetCtrl.index }}' group='{{ widgetCtrl.group }}'>
+
+        <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none">
+            <span class="flex text-overflow">{{ widgetCtrl.options.title }}</span>
+            <pip-menu-widget ng-if="!widgetCtrl.options.hideMenu"></pip-menu-widget>
+        </div>
+
+        <div class="slider-container">
+            <div pip-image-slider pip-animation-type="'fading'" pip-animation-interval="widgetCtrl.animationInterval" 
+                ng-if="widgetCtrl.animationType == 'fading'">
+                <div class="pip-animation-block" ng-repeat="slide in widgetCtrl.options.slides">
+                    <img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="widgetCtrl.onImageLoad($event)"/>
+                    <p class="slide-text" ng-if="slide.text">{{ slide.text }}</p>
+                </div>
+            </div>
+
+            <div pip-image-slider pip-animation-type="'carousel'" pip-animation-interval="widgetCtrl.animationInterval" 
+                ng-if="widgetCtrl.animationType == 'carousel'">
+                <div class="pip-animation-block" ng-repeat="slide in widgetCtrl.options.slides">
+                    <img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="widgetCtrl.onImageLoad($event)"/>
+                    <p class="slide-text" ng-if="slide.text">{{ slide.text }}</p>
+                </div>
+            </div>
+        </div>
+        
+</div>

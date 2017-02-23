@@ -1,0 +1,50 @@
+.pip-add-component-dialog {
+    width: 400px;
+
+  .pip-list-item {
+    height: 60px;
+    padding-left: 24px;
+    padding-right: 12px;
+
+    &:hover .md-icon-button {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .icon-holder {
+      position: relative;
+
+      md-icon {
+        height: 30px;
+        width: 30px;
+      }
+    }
+
+    .pip-badge {
+      position: absolute;
+      top: -7px;
+      right: -10px;
+      font-size: 12px;
+      line-height: 14px;
+      vertical-align: middle;
+      text-align: center;
+      height: 20px;
+      width: 20px;
+      border-radius: 10px;
+      background-color: rgb(239, 83, 80);
+      color: #fff;
+
+      span {
+        line-height: 20px;
+        margin-left: 1px;
+      }
+    }
+
+    .md-icon-button {
+      margin: 0;
+
+      transition: opacity .5s ease;
+      opacity: 0;
+    }
+  }
+}

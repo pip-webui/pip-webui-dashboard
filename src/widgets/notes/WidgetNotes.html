@@ -1,0 +1,10 @@
+<div class="widget-box pip-notes-widget {{ widgetCtrl.color }} layout-column">
+    <div class="widget-heading layout-row layout-align-start-center flex-none" ng-if="widgetCtrl.options.title || widgetCtrl.options.name">
+        <span class="widget-title flex-auto text-overflow">{{ widgetCtrl.options.title || widgetCtrl.options.name }}</span>
+    </div>
+    <pip-menu-widget ng-if="!widgetCtrl.options.hideMenu"></pip-menu-widget>
+    
+    <div class="text-container flex-auto pip-scroll">
+        <p>{{ widgetCtrl.options.text }}</p>
+    </div>
+</div>

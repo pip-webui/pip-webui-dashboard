@@ -1,0 +1,21 @@
+<div class="widget-box pip-event-widget {{ widgetCtrl.color }} layout-column layout-fill" ng-class="{
+        small: widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1,
+        medium: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1,
+        big: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 2 }" >
+    <img ng-if="widgetCtrl.options.image" ng-src="{{widgetCtrl.options.image}}" alt="{{widgetCtrl.options.title || widgetCtrl.options.name}}"
+    />
+    <div class="text-backdrop" style="background-color: rgba(0, 0, 0, {{ widgetCtrl.opacity }})">
+        <div class="widget-heading layout-row layout-align-start-center flex-none">
+            <span class="widget-title flex-auto text-overflow">{{ widgetCtrl.options.title || widgetCtrl.options.name }}</span>
+            <pip-menu-widget ng-if="!widgetCtrl.options.hideMenu"></pip-menu-widget>
+        </div>
+        <div class="text-container flex-auto pip-scroll">
+            <p class="date flex-none" ng-if="widgetCtrl.options.date">
+                {{ widgetCtrl.options.date | formatShortDate }}
+            </p>
+            <p class="text flex-auto">
+                {{ widgetCtrl.options.text || widgetCtrl.options.description }}
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<md-button class="md-accent md-raised md-fab layout-column layout-align-center-center" aria-label="Add component"
+           ng-click="dashboardCtrl.addComponent()">
+    <md-icon md-svg-icon="icons:plus" class="md-headline centered-add-icon"></md-icon>
+</md-button>
+
+<div class="pip-draggable-grid-holder">
+  <pip-draggable-grid pip-tiles-templates="dashboardCtrl.groupedWidgets"
+                      pip-tiles-context="dashboardCtrl.widgetsContext"
+                      pip-draggable-grid="dashboardCtrl.draggableGridOptions"
+                      pip-group-menu-actions="dashboardCtrl.groupMenuActions">
+  </pip-draggable-grid>
+
+  <md-progress-circular md-mode="indeterminate" class="progress-ring"></md-progress-circular>
+
+</div>

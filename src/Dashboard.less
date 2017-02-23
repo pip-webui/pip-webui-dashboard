@@ -1,0 +1,312 @@
+@import "widgets/position/WidgetPosition.less";
+@import "widgets/event/WidgetEvent.less";
+@import "widgets/notes/WidgetNotes.less";
+@import "widgets/statistics/WidgetStatistics.less";
+@import "widgets/calendar/WidgetCalendar.less";
+@import "widgets/picture_slider/WidgetPictureSlider.less";
+@import "dialogs/widget_config/ConfigDialog.less";
+@import "dialogs/add_component/AddComponent.less";
+
+pip-dashboard {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+
+  .widget-box {
+    padding: 8px 12px;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #e0e0e0;
+    transition: all 0.5s ease;
+
+    .widget-icon {
+      height: 48px;
+      width: 48px;
+    }
+
+    &.blue {
+      background: #0288d1;
+      color: #fff;
+      md-icon {
+        color: #fff;
+      }
+    }
+
+    &.green {
+      background: #169688;
+      color: #fff;
+      md-icon {
+        color: #fff;
+      }
+    }
+
+    &.gray {
+      background: #78909c;
+      color: #fff;
+      md-icon {
+        color: #fff;
+      }
+    }
+
+    &.purple {
+      background: #7e5bbf;
+      color: #fff;
+      md-icon {
+        color: #fff;
+      }
+    }
+
+    &.orange {
+      background: #ed6c1f;
+      color: #fff;
+      md-icon {
+        color: #fff;
+      }
+    }
+  }
+
+  .widget-heading {
+    .widget-title {
+      font-family: Roboto;
+      display: block;
+      max-height: (16px * 16px * 2);
+      font-size: 16px;
+      line-height: 21px;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .md-icon-button {
+      padding: 0;
+      margin: 0;
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  .pip-time-widget {
+    .time {
+      font-family: Roboto;
+      line-height: 1;
+
+      transition: font-size .5s ease;
+    }
+
+    .format {
+      color: rgba(255, 255, 255, .54);
+      line-height: 1.3;
+
+      transition: font-size .5s ease;
+    }
+
+    &.small {
+      .time {
+        font-size: 40px;
+      }
+
+      .format {
+        font-size: 20px;
+      }
+    }
+
+    &:not(.small) .time {
+      font-size: 64px;
+    }
+  }
+
+  .pip-calendar-widget {
+    position: relative;
+
+    .widget-content {
+      z-index: 2;
+    }
+
+    .date {
+      font-size: 82px;
+      font-family: Roboto;
+      line-height: 1;
+    }
+
+    .weekday,
+    .month-year {
+      color: #e0e0e0;
+    }
+
+    &.small {
+      .date {
+        font-size: 40px;
+      }
+
+      .weekday,
+      .month-year {
+        font-size: 18px;
+      }
+    }
+
+    &.big {
+      .date {
+        font-size: 120px;
+      }
+
+      .weekday,
+      .month-year {
+        font-size: 40px;
+      }
+    }
+  }
+
+  .widget-menu .md-icon-button {
+    z-index: 10;
+  }
+}
+
+pip-dashboard {
+  .md-fab {
+    display: flex;
+    position: fixed;
+    right: 20px;
+    bottom: 20px
+  }
+
+  .progress-ring {
+    position: absolute;
+    left: ~"calc(50% - 25px)";
+    top: ~"calc(50% - 25px)";
+    opacity: 1;
+  }
+
+  pip-draggable-grid {
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+
+  &.visible {
+    pip-draggable-grid  {
+        opacity: 1;
+    }
+    .progress-ring {
+      opacity: 0;
+    }
+  }
+}
+
+.pip-draggable-grid-holder {
+  padding: 15px;
+}
+
+pip-dashboard.inline-grid {
+  .pip-draggable-group {
+    width: auto;
+    display: inline-block;
+  }
+
+  .title-input-container {
+    max-width: none;
+  }
+}
+
+pip-draggable-grid {
+  display: block;
+
+  .pip-draggable-group {
+    width: ~"calc(100% - 16px)";
+    transition: all 0.5s ease;
+    position: relative;
+  }
+
+  .pip-draggable-tile {
+    position: absolute;
+    overflow: hidden;
+    transition: all .5s;
+
+    &.no-animation {
+      transition: none;
+    }
+  }
+
+  &.drag-transfer {
+    .pip-draggable-group.fict-group {
+      background: #BDBDBD;
+        .fict-group-text-container {
+          opacity: 1;
+        }
+    }
+  }
+}
+
+.pip-draggable-group.dropzone-active {
+    background: #9E9E9E !important;
+}
+
+.pip-draggable-group {
+  min-height: 190px;
+  &.fict-group {
+      text-align: center;
+      .fict-group-text-container {
+        md-icon {
+          color: #eeeeee;
+          margin-right: 8px;
+          margin-bottom: 4px;
+          width: 40px;
+          height: 40px;
+        }
+        opacity: 0;
+        color: #eeeeee;
+        font-size: 20px;
+      }
+  }
+
+  .pip-draggable-group-title {
+    .title-input-container {
+      max-width: 200px;
+      width: ~"calc(100% - 40px)";
+      div, input {
+        width: 100%;
+        height: 20px;
+        padding: 0;
+      }
+
+      div {
+        cursor: pointer;
+      }
+
+      input {
+        outline: none;
+        border: none;
+        background: transparent;
+      }
+    }
+    button, md-menu {
+      opacity: 1;
+      &.ng-hide-remove {
+        transition: opacity .5s ease;
+      }
+      &.ng-hide {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// Restyle submenu in md-menu TODO: later put to appropriate place
+
+md-menu-item {
+  md-menu {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    button {
+      text-align: left !important;
+      margin: auto 0 !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      width: 100%;
+      height: 100%;
+      text-transform: none !important;
+      font-size: 15px !important;
+      font-weight: normal !important;
+    }
+  }
+}
+
