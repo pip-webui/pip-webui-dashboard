@@ -36,11 +36,13 @@ class MainController {
         $scope,//: angular.IScope
         $rootScope,
         $state,
-        $mdSidenav
+        $mdSidenav,
+        pipSystemInfo//: pip.services.ISystemInfo
     ) {
         $scope.title = 'Dashboard';
         $scope.content = STATES;
-        
+        $scope.browser = pipSystemInfo.browserName;
+
         $scope.onSwitchPage = (state) => {
             $mdSidenav('left').close();
             $state.go(state);

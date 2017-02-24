@@ -35,9 +35,6 @@ class DashboardController {
                     },
                     {
                         image: 'http://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/Spain/Madrid/madrid-overview-sunsetovermadrid-xlarge.jpg',
-                    },
-                    {
-                        image: 'http://www.luxair.lu/cms/Destinations/usr_images/luxair/76819_EN_Ticket-Luxembourg-Madrid.jpg'
                     }
                 ]
             },

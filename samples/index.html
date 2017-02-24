@@ -35,7 +35,8 @@
     <script src="index.js"></script>
     <script src="DashboardSample.js"></script>
 </head>
-<body ng-app="app.Dashboard" class="layout-column layout-align-start-center" ng-controller="samplesMainController">
+<body ng-app="app.Dashboard" ng-class="{'pip-windows': browser == 'chrome'}" 
+      class="layout-column layout-align-start-center" ng-controller="samplesMainController">
 <md-toolbar>
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="menu"
