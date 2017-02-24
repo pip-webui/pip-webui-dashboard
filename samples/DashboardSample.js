@@ -25,9 +25,6 @@ class DashboardController {
                         text: 'is the capital city of Spain and the largest municipality in both the Community of Madrid and the Kingdom of Spain.'
                     },
                     {
-                        image: 'http://barcelona10.ru/sites/barcelona10.ru/files/images/20151801135613.jpg',
-                    },
-                    {
                         image: 'https://www.centauro.net/uploads/alquiler-coche-madrid-debod-centauro-rent-a-car.jpg',
                         text: 'The city has a population of almost 3.2 million with a metropolitan area population of approximately 6.5 million.' +
                             'It is the third-largest city in the European Union, after London and Berlin, and its metropolitan' +
