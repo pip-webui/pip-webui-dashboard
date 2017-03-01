@@ -6,7 +6,7 @@
   .widget-heading {
       padding: 16px 16px 0px 16px;
       span {
-          max-width: ~"calc(100% - 20px)";
+          max-width: calc(100% - 20px);
       }
   }
 
