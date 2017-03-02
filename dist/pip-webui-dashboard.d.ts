@@ -179,13 +179,13 @@ export class TilesGridService implements ITilesGridService {
 
 
 
+
 export class MenuWidgetService {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
-
 
 
 

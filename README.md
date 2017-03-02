@@ -4,7 +4,51 @@
 
 Pip.WebUI.Dashboard module provides dashboard component.
 
-Todo: add descriptions of charts and links to samples
+**Dashboard** allows organize information, create group, add tiles and edit. Tiles are resizable and customizable.
+
+In common **dashboard** looks like:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard.png"/>
+</a>
+
+**Dashboard** has several standard tile types:
+
+**Calendar** provides displaying of specific date:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-calendar-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-calendar-tile.png"/>
+</a>
+
+**Event** provides displaying of event with title, description and maybe date or picture:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-event-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-event-tile.png"/>
+</a>
+
+**Note** provides displaying of note with title and text:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-note-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-note-tile.png"/>
+</a>
+
+**Picture slider** provides displaying of image array with fixed title and specific description for each image:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-picture-slider-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-picture-slider-tile.png"/>
+</a>
+
+**Position** provides displaying of specific location using Google Maps:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-position-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-position-tile.png"/>
+</a>
+
+**Statistics** provides displaying of specific chart using D3:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-statistics-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-statistics-tile.png"/>
+</a>
 
 ## Learn more about the module
 
