@@ -14,7 +14,7 @@
   .widget-heading {
       padding: 8px 8px 0px 8px;
       span {
-          max-width: ~"calc(100% - 20px)";
+          max-width: calc(100% - 20px);
       }
   }
 }
