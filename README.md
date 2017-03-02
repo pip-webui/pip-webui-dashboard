@@ -50,6 +50,8 @@ In common **dashboard** looks like:
     <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-statistics-tile.png"/>
 </a>
 
+To try it open: http://webui.pipdevs.com/pip-webui-dashboard/index.html#/
+
 ## Learn more about the module
 
 - [User's guide](https://github.com/pip-webui/pip-webui-charts/blob/master/doc/UsersGuide.md)
