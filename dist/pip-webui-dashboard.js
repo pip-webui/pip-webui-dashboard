@@ -24,6 +24,7 @@ require("./dialogs/widget_config/ConfigDialogController");
 require("./dialogs/add_component/AddComponentDialogController");
 require("./DashboardController");
 require("./DashboardComponent");
+
 },{"./DashboardComponent":2,"./DashboardController":3,"./dialogs/add_component/AddComponentDialogController":4,"./dialogs/widget_config/ConfigDialogController":6,"./draggable/Draggable":9,"./utility/WidgetTemplateUtility":15,"./widgets/Widgets":16}],2:[function(require,module,exports){
 (function () {
     'use strict';
@@ -41,6 +42,7 @@ require("./DashboardComponent");
         .module('pipDashboard')
         .component('pipDashboard', pipDashboard);
 })();
+
 },{}],3:[function(require,module,exports){
 'use strict';
 configureAvailableWidgets.$inject = ['pipAddComponentDialogProvider'];
@@ -236,6 +238,7 @@ angular
     .config(configureAvailableWidgets)
     .run(setTranslations)
     .controller('pipDashboardCtrl', DashboardController);
+
 },{}],4:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -277,6 +280,7 @@ angular
     .module('pipAddDashboardComponentDialog', ['ngMaterial'])
     .controller('pipAddDashboardComponentDialogController', AddComponentDialogController);
 require("./AddComponentProvider");
+
 },{"./AddComponentProvider":5}],5:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -327,6 +331,7 @@ var AddComponentDialogProvider = (function () {
 angular
     .module('pipDashboard')
     .provider('pipAddComponentDialog', AddComponentDialogProvider);
+
 },{}],6:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -376,6 +381,7 @@ angular
     .controller('pipWidgetConfigDialogController', WidgetConfigDialogController);
 require("./ConfigDialogService");
 require("./ConfigDialogExtendComponent");
+
 },{"./ConfigDialogExtendComponent":7,"./ConfigDialogService":8}],7:[function(require,module,exports){
 (function () {
     'use strict';
@@ -396,6 +402,7 @@ require("./ConfigDialogExtendComponent");
         .module('pipWidgetConfigDialog')
         .directive('pipWidgetConfigExtendComponent', pipWidgetConfigComponent);
 })();
+
 },{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -431,6 +438,7 @@ var WidgetConfigDialogService = (function () {
         .module('pipWidgetConfigDialog')
         .service('pipWidgetConfigDialogService', WidgetConfigDialogService);
 })();
+
 },{}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -443,6 +451,7 @@ require("./DraggableController");
 require("./DraggableDirective");
 require("./draggable_group/DraggableTilesGroupService");
 require("./draggable_group/DraggableTilesGroupDirective");
+
 },{"./DraggableController":10,"./DraggableDirective":11,"./DraggableTileService":12,"./draggable_group/DraggableTilesGroupDirective":13,"./draggable_group/DraggableTilesGroupService":14}],10:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -880,6 +889,7 @@ var DraggableController = (function () {
 angular
     .module('pipDragged')
     .controller('pipDraggableCtrl', DraggableController);
+
 },{"./DraggableTileService":12,"./draggable_group/DraggableTilesGroupService":14}],11:[function(require,module,exports){
 'use strict';
 angular
@@ -903,6 +913,7 @@ function DragDirective() {
         }
     };
 }
+
 },{}],12:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1037,6 +1048,7 @@ angular
         return newTile;
     };
 });
+
 },{}],13:[function(require,module,exports){
 'use strict';
 angular
@@ -1062,6 +1074,7 @@ function DraggableTile() {
         }
     };
 }
+
 },{}],14:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1501,6 +1514,7 @@ angular
         return newGrid;
     };
 });
+
 },{}],15:[function(require,module,exports){
 "use strict";
 ImageLoad.$inject = ['$parse'];
@@ -1567,6 +1581,7 @@ angular
     .module('pipDashboard')
     .service('pipWidgetTemplate', widgetTemplateService)
     .directive('pipImageLoad', ImageLoad);
+
 },{}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1582,6 +1597,7 @@ require("./notes/WidgetNotes");
 require("./position/WidgetPosition");
 require("./statistics/WidgetStatistics");
 require("./picture_slider/WidgetPictureSlider");
+
 },{"./calendar/WidgetCalendar":17,"./event/WidgetEvent":18,"./menu/WidgetMenuDirective":19,"./menu/WidgetMenuService":20,"./notes/WidgetNotes":21,"./picture_slider/WidgetPictureSlider":22,"./position/WidgetPosition":23,"./statistics/WidgetStatistics":24}],17:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1643,6 +1659,7 @@ var CalendarWidgetController = (function (_super) {
         .module('pipWidget')
         .component('pipCalendarWidget', pipCalendarWidget);
 })();
+
 },{"../menu/WidgetMenuService":20}],18:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1763,6 +1780,7 @@ var EventWidgetController = (function (_super) {
         .module('pipWidget')
         .component('pipEventWidget', pipEventWidget);
 })();
+
 },{"../menu/WidgetMenuService":20}],19:[function(require,module,exports){
 (function () {
     'use strict';
@@ -1776,6 +1794,7 @@ var EventWidgetController = (function (_super) {
         };
     }
 })();
+
 },{}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1848,6 +1867,7 @@ var MenuWidgetProvider = (function () {
         .module('pipWidget')
         .provider('pipWidgetMenu', MenuWidgetProvider);
 })();
+
 },{}],21:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
@@ -1908,6 +1928,7 @@ var pipNotesWidget = {
 angular
     .module('pipWidget')
     .component('pipNotesWidget', pipNotesWidget);
+
 },{"../menu/WidgetMenuService":20}],22:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
@@ -1970,6 +1991,7 @@ var pipPictureSliderWidget = {
 angular
     .module('pipWidget')
     .component('pipPictureSliderWidget', pipPictureSliderWidget);
+
 },{"../menu/WidgetMenuService":20}],23:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -2071,6 +2093,7 @@ var pipPositionWidget = {
 angular
     .module('pipWidget')
     .component('pipPositionWidget', pipPositionWidget);
+
 },{"../menu/WidgetMenuService":20}],24:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -2131,6 +2154,7 @@ var StatisticsWidgetController = (function (_super) {
         .module('pipWidget')
         .component('pipStatisticsWidget', pipStatisticsWidget);
 })();
+
 },{"../menu/WidgetMenuService":20}],25:[function(require,module,exports){
 (function(module) {
 try {
