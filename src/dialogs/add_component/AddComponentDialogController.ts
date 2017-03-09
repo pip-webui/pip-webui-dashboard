@@ -1,49 +1,53 @@
-'use strict';
+export class widget {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
 
-export class AddComponentDialogController {
-    public _mdDialog: angular.material.IDialogService;
-    public activeGroupIndex: number;
-    public defaultWidgets: any;
+export class AddComponentDialogController implements ng.IController {
+    public defaultWidgets: [widget[]];
     public groups: any;
+    public totalWidgets: number = 0;
 
     constructor(
-        groups, 
-        activeGroupIndex, 
-        widgetList,
-        $mdDialog: angular.material.IDialogService
+        groups, // Later may be group type
+        public activeGroupIndex: number,
+        widgetList: [widget[]],
+        public $mdDialog: angular.material.IDialogService
     ) {
         this.activeGroupIndex = _.isNumber(activeGroupIndex) ? activeGroupIndex : -1;
-        this.defaultWidgets   = _.cloneDeep(widgetList);
+        this.defaultWidgets = _.cloneDeep(widgetList);
         this.groups = _.map(groups, function (group) {
-          return group['title'];
+            return group['title'];
         });
-        this._mdDialog = $mdDialog;
     }
 
-    public add () {
-          this._mdDialog.hide({
+    public add() {
+        this.$mdDialog.hide({
             groupIndex: this.activeGroupIndex,
-            widgets   : this.defaultWidgets
-          });
-        };
-
-    public cancel () {
-          this._mdDialog.cancel();
-        };
-
-    public encrease (groupIndex, widgetIndex) {
-          var widget = this.defaultWidgets[groupIndex][widgetIndex];
-          widget.amount++;
+            widgets: this.defaultWidgets
+        });
     };
 
-    public decrease (groupIndex, widgetIndex) {
-          var widget    = this.defaultWidgets[groupIndex][widgetIndex];
-          widget.amount = widget.amount ? widget.amount - 1 : 0;
+    public cancel() {
+        this.$mdDialog.cancel();
+    };
+
+    public encrease(groupIndex: number, widgetIndex: number) {
+        const widget = this.defaultWidgets[groupIndex][widgetIndex];
+        widget.amount++;
+        this.totalWidgets++;
+    };
+
+    public decrease(groupIndex: number, widgetIndex: number) {
+        const widget = this.defaultWidgets[groupIndex][widgetIndex];
+        widget.amount = widget.amount ? widget.amount - 1 : 0;
+        this.totalWidgets = this.totalWidgets ? this.totalWidgets - 1 : 0;
     };
 }
 
 angular
-    .module('pipAddDashboardComponentDialog', ['ngMaterial'])
-    .controller('pipAddDashboardComponentDialogController', AddComponentDialogController);
+    .module('pipAddDashboardComponentDialog', ['ngMaterial']);
 
 import './AddComponentProvider';

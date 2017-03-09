@@ -1,10 +1,8 @@
-'use strict';
-
 export interface TilesGridConstructor {
-  new (tiles, options, columns, elem);
+  new(tiles, options, columns, elem);
 }
 
-export function ITilesGridConstructor(constructor: TilesGridConstructor, tiles, options, columns, elem):ITilesGridService {
+export function ITilesGridConstructor(constructor: TilesGridConstructor, tiles, options, columns, elem): ITilesGridService {
   return new constructor(tiles, options, columns, elem);
 }
 
@@ -29,7 +27,7 @@ export interface ITilesGridService {
   reserveCells(start, end, elem): void;
   clearElements(): void;
   setAvailableColumns(columns): any;
-  generateGrid(singleTileWidth?): any;
+  generateGrid(singleTileWidth ? ): any;
   setTilesDimensions(onlyPosition, draggedTile): any;
   calcContainerHeight(): any;
   getTileByNode(node): any;
@@ -40,7 +38,7 @@ export interface ITilesGridService {
   updateTileOptions(opts): any;
 }
 
-let MOBILE_LAYOUT_COLUMNS = 2;
+const MOBILE_LAYOUT_COLUMNS = 2;
 
 export class TilesGridService implements ITilesGridService {
   public tiles: any;
@@ -85,12 +83,12 @@ export class TilesGridService implements ITilesGridService {
   public getAvailableCellsDesktop(prevCell, rowSpan, colSpan): any {
     let leftCornerCell;
     let rightCornerCell;
-    let basicCol = prevCell && prevCell.col || 0;
-    let basicRow = this.getBasicRow(prevCell);
+    const basicCol = prevCell && prevCell.col || 0;
+    const basicRow = this.getBasicRow(prevCell);
 
     // Small tile
     if (colSpan === 1 && rowSpan === 1) {
-      let gridCopy = this.gridCells.slice();
+      const gridCopy = this.gridCells.slice();
 
       if (!prevCell) {
         leftCornerCell = gridCopy[0][0];
@@ -98,7 +96,7 @@ export class TilesGridService implements ITilesGridService {
         leftCornerCell = this.getCell(gridCopy, basicRow, basicCol, this.columns);
 
         if (!leftCornerCell) {
-          let rowShift = this.isMobileLayout ? 1 : 2;
+          const rowShift = this.isMobileLayout ? 1 : 2;
           leftCornerCell = this.getCell(gridCopy, basicRow + rowShift, 0, this.columns);
         }
       }
@@ -106,7 +104,7 @@ export class TilesGridService implements ITilesGridService {
 
     // Medium tile
     if (colSpan === 2 && rowSpan === 1) {
-      let prevTileSize = prevCell && prevCell.elem.size || null;
+      const prevTileSize = prevCell && prevCell.elem.size || null;
 
       if (!prevTileSize) {
         leftCornerCell = this.getCellByPosition(basicRow, basicCol);
@@ -174,9 +172,7 @@ export class TilesGridService implements ITilesGridService {
   };
 
   public getCell(src, basicRow, basicCol, columns): any {
-    let cell;
-    let col;
-    let row;
+    let cell, col, row;
 
     if (this.isMobileLayout) {
       // mobile layout
@@ -208,12 +204,12 @@ export class TilesGridService implements ITilesGridService {
   public getAvailableCellsMobile(prevCell, rowSpan, colSpan): any {
     let leftCornerCell;
     let rightCornerCell;
-    let basicRow = this.getBasicRow(prevCell);
-    let basicCol = prevCell && prevCell.col || 0;
+    const basicRow = this.getBasicRow(prevCell);
+    const basicCol = prevCell && prevCell.col || 0;
 
 
     if (colSpan === 1 && rowSpan === 1) {
-      let gridCopy = this.gridCells.slice();
+      const gridCopy = this.gridCells.slice();
 
       if (!prevCell) {
         leftCornerCell = gridCopy[0][0];
@@ -221,7 +217,7 @@ export class TilesGridService implements ITilesGridService {
         leftCornerCell = this.getCell(gridCopy, basicRow, basicCol, this.columns);
 
         if (!leftCornerCell) {
-          let rowShift = this.isMobileLayout ? 1 : 2;
+          const rowShift = this.isMobileLayout ? 1 : 2;
           leftCornerCell = this.getCell(gridCopy, basicRow + rowShift, 0, this.columns);
         }
       }
@@ -266,7 +262,7 @@ export class TilesGridService implements ITilesGridService {
   };
 
   public getCellIndex(srcCell): any {
-    let self = this;
+    const self = this;
     let index;
 
     this.gridCells.forEach((row, rowIndex) => {
@@ -308,18 +304,18 @@ export class TilesGridService implements ITilesGridService {
     return this;
   };
 
-  public generateGrid(singleTileWidth?): any {
-    let self = this;
-    let colsInRow = 0;
-    let rows = 0;
-    let tileWidth = singleTileWidth || this.opts.tileWidth;
-    let offset = document.querySelector('.pip-draggable-group-title').getBoundingClientRect();
-    let gridInRow = [];
+  public generateGrid(singleTileWidth ? ): any {
+    const self = this,
+          tileWidth = singleTileWidth || this.opts.tileWidth,
+          offset = document.querySelector('.pip-draggable-group-title').getBoundingClientRect();
+    let   colsInRow = 0,
+          rows = 0,
+          gridInRow = [];
 
     this.gridCells = [];
 
     this.tiles.forEach((tile, index, srcTiles) => {
-      let tileSize = tile.getSize();
+      const tileSize = tile.getSize();
 
       generateCells(tileSize.colSpan);
 
@@ -338,37 +334,37 @@ export class TilesGridService implements ITilesGridService {
     });
 
     function generateCells(newCellCount) {
-        Array.apply(null, Array(newCellCount)).forEach(() => {
-          if (self.columns < colsInRow + 1) {
-            rows++;
-            colsInRow = 0;
+      Array.apply(null, Array(newCellCount)).forEach(() => {
+        if (self.columns < colsInRow + 1) {
+          rows++;
+          colsInRow = 0;
 
-            self.gridCells.push(gridInRow);
-            gridInRow = [];
-          }
+          self.gridCells.push(gridInRow);
+          gridInRow = [];
+        }
 
-          let top = rows * self.opts.tileHeight + (rows ? rows * self.opts.gutter : 0) + offset.height;
-          let left = colsInRow * tileWidth + (colsInRow ? colsInRow * self.opts.gutter : 0);
+        let top = rows * self.opts.tileHeight + (rows ? rows * self.opts.gutter : 0) + offset.height;
+        let left = colsInRow * tileWidth + (colsInRow ? colsInRow * self.opts.gutter : 0);
 
-          // Describe grid cell size through block corners coordinates
-          gridInRow.push({
-            top: top,
-            left: left,
-            bottom: top + self.opts.tileHeight,
-            right: left + tileWidth,
-            row: rows,
-            col: colsInRow
-          });
-
-          colsInRow++;
+        // Describe grid cell size through block corners coordinates
+        gridInRow.push({
+          top: top,
+          left: left,
+          bottom: top + self.opts.tileHeight,
+          right: left + tileWidth,
+          row: rows,
+          col: colsInRow
         });
-      }
+
+        colsInRow++;
+      });
+    }
 
     return this;
   };
 
   public setTilesDimensions(onlyPosition, draggedTile): any {
-    let self = this;
+    const self = this;
     let currIndex = 0;
     let prevCell;
 
@@ -377,7 +373,7 @@ export class TilesGridService implements ITilesGridService {
     }
 
     this.tiles.forEach((tile) => {
-      let tileSize = tile.getSize();
+      const tileSize = tile.getSize();
       let startCell;
       let width;
       let height;
@@ -447,7 +443,7 @@ export class TilesGridService implements ITilesGridService {
     }
 
     maxHeightSize = _.maxBy(this.tiles, (tile) => {
-      let tileSize = tile['getSize']();
+      const tileSize = tile['getSize']();
       return tileSize.top + tileSize.height;
     })['getSize']();
 
@@ -455,7 +451,7 @@ export class TilesGridService implements ITilesGridService {
 
     if (this.inline) {
       maxWidthSize = _.maxBy(this.tiles, (tile) => {
-        let tileSize = tile['getSize']();
+        const tileSize = tile['getSize']();
         return tileSize.left + tileSize.width;
       })['getSize']();
 
@@ -466,7 +462,7 @@ export class TilesGridService implements ITilesGridService {
   };
 
   public getTileByNode(node): any {
-    let foundTile = this.tiles.filter((tile) => {
+    const foundTile = this.tiles.filter((tile) => {
       return node === tile.getElem();
     });
 
@@ -476,7 +472,7 @@ export class TilesGridService implements ITilesGridService {
   public getTileByCoordinates(coords, draggedTile): any {
     return this.tiles
       .filter((tile) => {
-        let tileSize = tile.getSize();
+        const tileSize = tile.getSize();
 
         return tile !== draggedTile &&
           tileSize.left <= coords.left && coords.left <= (tileSize.left + tileSize.width) &&
@@ -489,8 +485,8 @@ export class TilesGridService implements ITilesGridService {
   };
 
   public swapTiles(movedTile, beforeTile): any {
-    let movedTileIndex = _.findIndex(this.tiles, movedTile);
-    let beforeTileIndex = _.findIndex(this.tiles, beforeTile);
+    const movedTileIndex = _.findIndex(this.tiles, movedTile);
+    const beforeTileIndex = _.findIndex(this.tiles, beforeTile);
 
     this.tiles.splice(movedTileIndex, 1);
     this.tiles.splice(beforeTileIndex, 0, movedTile);
@@ -512,7 +508,7 @@ export class TilesGridService implements ITilesGridService {
   };
 
   public updateTileOptions(opts): any {
-    let index = _.findIndex(this.tiles, (tile) => {
+    const index = _.findIndex(this.tiles, (tile) => {
       return tile['getOptions']() === opts;
     });
 

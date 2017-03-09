@@ -1,29 +1,40 @@
-'use strict';
+{
+  interface DraggableTileAttributes extends ng.IAttributes {
+    pipDraggableTiles: any;
+  }
 
-angular
-  .module('pipDragged')
-  .directive('pipDraggableTiles', DraggableTile);
+  function DraggableTileLink(
+    $scope: ng.IScope,
+    $elem: JQuery,
+    $attr: DraggableTileAttributes
+  ) {
+    const docFrag = document.createDocumentFragment(),
+      group = $scope.$eval($attr.pipDraggableTiles);
 
-function DraggableTile() {
-  return {
-    restrict: 'A',
-    link: function ($scope, $elem, $attr) {
-      var docFrag = document.createDocumentFragment();
-      var group = $scope.$eval($attr.pipDraggableTiles);
+    group.forEach(function (tile) {
+      const tpl = wrapComponent(tile.getCompiledTemplate());
+      docFrag.appendChild(tpl);
+    });
 
-      group.forEach(function (tile) {
-        var tpl = wrapComponent(tile.getCompiledTemplate());
-        docFrag.appendChild(tpl);
-      });
+    $elem.append(docFrag);
 
-      $elem.append(docFrag);
-
-      function wrapComponent(elem) {
-        return $('<div>')
-          .addClass('pip-draggable-tile')
-          .append(elem)
-          .get(0);
-      }
+    function wrapComponent(elem) {
+      return $('<div>')
+        .addClass('pip-draggable-tile')
+        .append(elem)
+        .get(0);
     }
-  };
+  }
+
+  function DraggableTile() {
+    return {
+      restrict: 'A',
+      link: DraggableTileLink
+    };
+  }
+
+  angular
+    .module('pipDragged')
+    .directive('pipDraggableTiles', DraggableTile);
+
 }

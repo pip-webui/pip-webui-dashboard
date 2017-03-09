@@ -1,11 +1,6 @@
-(function () {
-  'use strict';
-
-  angular.module('pipDragged', []);
-})();
+angular.module('pipDragged', []);
 
 import './DraggableTileService';
-import './DraggableController';
-import './DraggableDirective';
+import './DraggableComponent';
 import './draggable_group/DraggableTilesGroupService'
 import './draggable_group/DraggableTilesGroupDirective'

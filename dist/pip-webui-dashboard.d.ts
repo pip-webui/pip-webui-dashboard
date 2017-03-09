@@ -3,24 +3,9 @@ declare module pip.dashboard {
 
 
 
-export let DEFAULT_TILE_WIDTH: number;
-export let DEFAULT_TILE_HEIGHT: number;
-export let UPDATE_GROUPS_EVENT: string;
-
-function DragDirective(): {
-    restrict: string;
-    scope: {
-        tilesTemplates: string;
-        tilesContext: string;
-        options: string;
-        groupMenuActions: string;
-    };
-    templateUrl: string;
-    bindToController: boolean;
-    controllerAs: string;
-    controller: string;
-    link: ($scope: any, $elem: any) => void;
-};
+export const DEFAULT_TILE_WIDTH: number;
+export const DEFAULT_TILE_HEIGHT: number;
+export const UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
 
 export interface DragTileConstructor {
     new (options: any): any;
@@ -70,35 +55,41 @@ export interface IWidgetTemplateService {
 }
 
 
-export class AddComponentDialogController {
-    _mdDialog: angular.material.IDialogService;
+export class widget {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
+export class AddComponentDialogController implements ng.IController {
     activeGroupIndex: number;
-    defaultWidgets: any;
+    $mdDialog: angular.material.IDialogService;
+    defaultWidgets: [widget[]];
     groups: any;
-    constructor(groups: any, activeGroupIndex: any, widgetList: any, $mdDialog: angular.material.IDialogService);
+    totalWidgets: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [widget[]], $mdDialog: angular.material.IDialogService);
     add(): void;
     cancel(): void;
-    encrease(groupIndex: any, widgetIndex: any): void;
-    decrease(groupIndex: any, widgetIndex: any): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
 }
 
 export interface IAddComponentDialogService {
-    show(groups: any, activeGroupIndex: any): any;
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddComponentDialogprovider {
+    configWidgetList(list: [widget[]]): void;
 }
 
 export class WidgetConfigDialogController {
-    dialogTitle: string;
-    $mdDialog: angular.material.IDialogService;
-    transclude: any;
     params: any;
+    $mdDialog: angular.material.IDialogService;
     colors: string[];
     sizes: any;
     sizeId: string;
-    private _$element;
-    private _$timeout;
-    constructor(params: any, $mdDialog: angular.material.IDialogService, $compile: angular.ICompileService, $timeout: angular.ITimeoutService, $injector: any, $scope: angular.IScope, $rootScope: any);
-    onApply(): void;
-    onCancel(): void;
+    onCancel: Function;
+    constructor(params: any, $mdDialog: angular.material.IDialogService);
+    onApply(updatedData: any): void;
 }
 
 
@@ -106,10 +97,6 @@ export interface IWidgetConfigService {
     show(params: any, successCallback?: (key) => void, cancelCallback?: () => void): any;
 }
 
-function DraggableTile(): {
-    restrict: string;
-    link: ($scope: any, $elem: any, $attr: any) => void;
-};
 
 export interface TilesGridConstructor {
     new (tiles: any, options: any, columns: any, elem: any): any;
@@ -180,13 +167,13 @@ export class TilesGridService implements ITilesGridService {
 
 
 
+
 export class MenuWidgetService {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
-
 
 
 

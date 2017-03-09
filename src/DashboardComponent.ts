@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const pipDashboard = {
+  const pipDashboard: ng.IComponentOptions = {
     bindings: {
       gridOptions: '=pipGridOptions',
       groupAdditionalActions: '=pipGroupActions',

@@ -1,17 +1,18 @@
 <md-dialog class="pip-dialog pip-add-component-dialog">
   <md-dialog-content class="layout-column">
     <div class="theme-divider p16 flex-auto">
-      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>Add component</h4>
-      <md-input-container class="layout-row flex-auto m0">
-        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" placeholder="Create New Group"
-          aria-label="Group">
+      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>{{ 'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE' | translate }}</h4>
+      <md-input-container class="layout-row flex-auto m0 tm16">
+        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" 
+            placeholder="{{ 'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP' | translate }}"
+            aria-label="Group">
           <md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option>
         </md-select>
       </md-input-container>
     </div>
     <div class="pip-body pip-scroll p0 flex-auto">
       <p class="md-body-1 theme-text-secondary m0 lp16 rp16" >
-        Use "Enter" or "+" buttons on keyboard to encrease and "Delete" or "-" to decrease tiles amount
+        {{ 'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS' | translate }}
       </p>
       <md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets">
         <md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group">
@@ -34,7 +35,7 @@
     </div>
   </md-dialog-content>
   <md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary">
-    <md-button ng-click="dialogCtrl.cancel()" aria-label="Add">Cancel</md-button>
-    <md-button ng-click="dialogCtrl.add()" arial-label="Cancel">Add</md-button>
+    <md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ 'CANCEL' | translate }}</md-button>
+    <md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ 'ADD' | translate }}</md-button>
   </md-dialog-actions>
 </md-dialog>

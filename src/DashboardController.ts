@@ -1,20 +1,21 @@
 'use strict';
 
 import { IWidgetTemplateService } from './utility/WidgetTemplateUtility';
+import { IAddComponentDialogService, IAddComponentDialogprovider } from './dialogs/add_component/AddComponentProvider'
 
-function setTranslations($injector) {
-  var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+function setTranslations($injector: ng.auto.IInjectorService) {
+  const pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
   if (pipTranslate) {
-    pipTranslate.setTranslations('en', {
+    (<any>pipTranslate).setTranslations('en', {
       DROP_TO_CREATE_NEW_GROUP: 'Drop here to create new group',
     });
-    pipTranslate.setTranslations('ru', {
+    (<any>pipTranslate).setTranslations('ru', {
       DROP_TO_CREATE_NEW_GROUP: 'Перетащите сюда для создания новой группы'
     });
   }
 }
 
-function configureAvailableWidgets(pipAddComponentDialogProvider) {
+function configureAvailableWidgets(pipAddComponentDialogProvider: IAddComponentDialogprovider) {
   pipAddComponentDialogProvider.configWidgetList([
     [{
         title: 'Event',
@@ -51,8 +52,6 @@ function configureAvailableWidgets(pipAddComponentDialogProvider) {
   ]);
 }
 
-import { IAddComponentDialogService } from './dialogs/add_component/AddComponentProvider'
-
 class draggableOptions {
   tileWidth: number;
   tileHeight: number;
@@ -60,14 +59,14 @@ class draggableOptions {
   inline: boolean;
 }
 
-let DEFAULT_GRID_OPTIONS: draggableOptions = {
+const DEFAULT_GRID_OPTIONS: draggableOptions = {
   tileWidth: 150, // 'px'
   tileHeight: 150, // 'px'
   gutter: 10, // 'px'
   inline: false
 };
 
-class DashboardController {
+class DashboardController implements ng.IController {
   private defaultGroupMenuActions: any = [{
       title: 'Add Component',
       callback: (groupIndex) => {
@@ -235,5 +234,5 @@ class DashboardController {
 angular
   .module('pipDashboard')
   .config(configureAvailableWidgets)
-  .run(setTranslations)
+  .config(setTranslations)
   .controller('pipDashboardCtrl', DashboardController);
