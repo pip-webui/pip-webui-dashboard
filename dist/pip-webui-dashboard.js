@@ -25,7 +25,7 @@ require("./dialogs/add_component/AddComponentDialogController");
 require("./DashboardController");
 require("./DashboardComponent");
 
-},{"./DashboardComponent":2,"./DashboardController":3,"./dialogs/add_component/AddComponentDialogController":4,"./dialogs/widget_config/ConfigDialogController":6,"./draggable/Draggable":9,"./utility/WidgetTemplateUtility":15,"./widgets/Widgets":16}],2:[function(require,module,exports){
+},{"./DashboardComponent":2,"./DashboardController":3,"./dialogs/add_component/AddComponentDialogController":4,"./dialogs/widget_config/ConfigDialogController":6,"./draggable/Draggable":9,"./utility/WidgetTemplateUtility":14,"./widgets/Widgets":15}],2:[function(require,module,exports){
 (function () {
     'use strict';
     var pipDashboard = {
@@ -49,7 +49,7 @@ configureAvailableWidgets.$inject = ['pipAddComponentDialogProvider'];
 setTranslations.$inject = ['$injector'];
 Object.defineProperty(exports, "__esModule", { value: true });
 function setTranslations($injector) {
-    var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+    var pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
     if (pipTranslate) {
         pipTranslate.setTranslations('en', {
             DROP_TO_CREATE_NEW_GROUP: 'Drop here to create new group',
@@ -236,104 +236,134 @@ var DashboardController = (function () {
 angular
     .module('pipDashboard')
     .config(configureAvailableWidgets)
-    .run(setTranslations)
+    .config(setTranslations)
     .controller('pipDashboardCtrl', DashboardController);
 
 },{}],4:[function(require,module,exports){
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var widget = (function () {
+    function widget() {
+    }
+    return widget;
+}());
+exports.widget = widget;
 var AddComponentDialogController = (function () {
-    AddComponentDialogController.$inject = ['groups', 'activeGroupIndex', 'widgetList', '$mdDialog'];
     function AddComponentDialogController(groups, activeGroupIndex, widgetList, $mdDialog) {
+        this.activeGroupIndex = activeGroupIndex;
+        this.$mdDialog = $mdDialog;
+        this.totalWidgets = 0;
         this.activeGroupIndex = _.isNumber(activeGroupIndex) ? activeGroupIndex : -1;
         this.defaultWidgets = _.cloneDeep(widgetList);
         this.groups = _.map(groups, function (group) {
             return group['title'];
         });
-        this._mdDialog = $mdDialog;
     }
     AddComponentDialogController.prototype.add = function () {
-        this._mdDialog.hide({
+        this.$mdDialog.hide({
             groupIndex: this.activeGroupIndex,
             widgets: this.defaultWidgets
         });
     };
     ;
     AddComponentDialogController.prototype.cancel = function () {
-        this._mdDialog.cancel();
+        this.$mdDialog.cancel();
     };
     ;
     AddComponentDialogController.prototype.encrease = function (groupIndex, widgetIndex) {
         var widget = this.defaultWidgets[groupIndex][widgetIndex];
         widget.amount++;
+        this.totalWidgets++;
     };
     ;
     AddComponentDialogController.prototype.decrease = function (groupIndex, widgetIndex) {
         var widget = this.defaultWidgets[groupIndex][widgetIndex];
         widget.amount = widget.amount ? widget.amount - 1 : 0;
+        this.totalWidgets = this.totalWidgets ? this.totalWidgets - 1 : 0;
     };
     ;
     return AddComponentDialogController;
 }());
 exports.AddComponentDialogController = AddComponentDialogController;
 angular
-    .module('pipAddDashboardComponentDialog', ['ngMaterial'])
-    .controller('pipAddDashboardComponentDialogController', AddComponentDialogController);
+    .module('pipAddDashboardComponentDialog', ['ngMaterial']);
 require("./AddComponentProvider");
 
 },{"./AddComponentProvider":5}],5:[function(require,module,exports){
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var AddComponentDialogService = (function () {
-    function AddComponentDialogService(widgetList, $mdDialog) {
-        this._mdDialog = $mdDialog;
-        this._widgetList = widgetList;
+var AddComponentDialogController_1 = require("./AddComponentDialogController");
+(function () {
+    'use strict';
+    setTranslations.$inject = ['$injector'];
+    function setTranslations($injector) {
+        var pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
+        if (pipTranslate) {
+            pipTranslate.setTranslations('en', {
+                DASHBOARD_ADD_COMPONENT_DIALOG_TITLE: 'Add component',
+                DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS: 'Use "Enter" or "+" buttons on keyboard to encrease and "Delete" or "-" to decrease tiles amount',
+                DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP: 'Create new group'
+            });
+            pipTranslate.setTranslations('ru', {
+                DASHBOARD_ADD_COMPONENT_DIALOG_TITLE: 'Добавить компонент',
+                DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS: 'Используйте "Enter" или "+" клавиши на клавиатуре чтобы увеличить и "Delete" or "-" чтобы уменшить количество тайлов',
+                DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP: 'Создать новую группу'
+            });
+        }
     }
-    AddComponentDialogService.prototype.show = function (groups, activeGroupIndex) {
-        var _this = this;
-        return this._mdDialog
-            .show({
-            templateUrl: 'dialogs/add_component/AddComponent.html',
-            bindToController: true,
-            controller: 'pipAddDashboardComponentDialogController',
-            controllerAs: 'dialogCtrl',
-            resolve: {
-                groups: function () {
-                    return groups;
-                },
-                activeGroupIndex: function () {
-                    return activeGroupIndex;
-                },
-                widgetList: function () {
-                    return _this._widgetList;
+    var AddComponentDialogService = (function () {
+        function AddComponentDialogService(widgetList, $mdDialog) {
+            this.widgetList = widgetList;
+            this.$mdDialog = $mdDialog;
+        }
+        AddComponentDialogService.prototype.show = function (groups, activeGroupIndex) {
+            var _this = this;
+            return this.$mdDialog
+                .show({
+                templateUrl: 'dialogs/add_component/AddComponent.html',
+                bindToController: true,
+                controller: AddComponentDialogController_1.AddComponentDialogController,
+                controllerAs: 'dialogCtrl',
+                clickOutsideToClose: true,
+                resolve: {
+                    groups: function () {
+                        return groups;
+                    },
+                    activeGroupIndex: function () {
+                        return activeGroupIndex;
+                    },
+                    widgetList: function () {
+                        return _this.widgetList;
+                    }
                 }
-            }
-        });
-    };
-    ;
-    return AddComponentDialogService;
-}());
-var AddComponentDialogProvider = (function () {
-    function AddComponentDialogProvider() {
-        this._widgetList = null;
-        this.configWidgetList = function (list) {
-            this._widgetList = list;
+            });
         };
-    }
-    AddComponentDialogProvider.prototype.$get = ['$mdDialog', function ($mdDialog) {
-        "ngInject";
-        if (this._service == null)
-            this._service = new AddComponentDialogService(this._widgetList, $mdDialog);
-        return this._service;
-    }];
-    return AddComponentDialogProvider;
-}());
-angular
-    .module('pipDashboard')
-    .provider('pipAddComponentDialog', AddComponentDialogProvider);
+        ;
+        return AddComponentDialogService;
+    }());
+    var AddComponentDialogProvider = (function () {
+        function AddComponentDialogProvider() {
+            this._widgetList = null;
+            this.configWidgetList = function (list) {
+                this._widgetList = list;
+            };
+        }
+        AddComponentDialogProvider.prototype.$get = ['$mdDialog', function ($mdDialog) {
+            "ngInject";
+            if (this._service == null)
+                this._service = new AddComponentDialogService(this._widgetList, $mdDialog);
+            return this._service;
+        }];
+        return AddComponentDialogProvider;
+    }());
+    angular
+        .module('pipDashboard')
+        .config(setTranslations)
+        .provider('pipAddComponentDialog', AddComponentDialogProvider);
+})();
 
-},{}],6:[function(require,module,exports){
-'use strict';
+},{"./AddComponentDialogController":4}],6:[function(require,module,exports){
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var TileColors = (function () {
     function TileColors() {
@@ -346,121 +376,171 @@ var TileSizes = (function () {
     }
     return TileSizes;
 }());
-TileSizes.all = [
-    { name: 'SMALL', id: '11' },
-    { name: 'WIDE', id: '21' },
-    { name: 'LARGE', id: '22' }
+TileSizes.all = [{
+        name: 'DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_SMALL',
+        id: '11'
+    },
+    {
+        name: 'DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_WIDE',
+        id: '21'
+    },
+    {
+        name: 'DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_LARGE',
+        id: '22'
+    }
 ];
 var WidgetConfigDialogController = (function () {
-    WidgetConfigDialogController.$inject = ['params', '$mdDialog', '$compile', '$timeout', '$injector', '$scope', '$rootScope'];
-    function WidgetConfigDialogController(params, $mdDialog, $compile, $timeout, $injector, $scope, $rootScope) {
+    WidgetConfigDialogController.$inject = ['params', '$mdDialog'];
+    function WidgetConfigDialogController(params, $mdDialog) {
         "ngInject";
-        this.dialogTitle = "Edit tile";
+        var _this = this;
+        this.params = params;
+        this.$mdDialog = $mdDialog;
         this.colors = TileColors.all;
         this.sizes = TileSizes.all;
         this.sizeId = TileSizes.all[0].id;
-        this.$mdDialog = $mdDialog;
-        this._$timeout = $timeout;
-        this.params = params;
         angular.extend(this, this.params);
         this.sizeId = '' + this.params.size.colSpan + this.params.size.rowSpan;
+        this.onCancel = function () {
+            _this.$mdDialog.cancel();
+        };
     }
-    WidgetConfigDialogController.prototype.onApply = function () {
+    WidgetConfigDialogController.prototype.onApply = function (updatedData) {
         this['size'].sizeX = Number(this.sizeId.substr(0, 1));
         this['size'].sizeY = Number(this.sizeId.substr(1, 1));
-        this.$mdDialog.hide(this);
-    };
-    WidgetConfigDialogController.prototype.onCancel = function () {
-        this.$mdDialog.cancel();
+        this.$mdDialog.hide(updatedData);
     };
     return WidgetConfigDialogController;
 }());
 exports.WidgetConfigDialogController = WidgetConfigDialogController;
 angular
-    .module('pipWidgetConfigDialog', ['ngMaterial'])
-    .controller('pipWidgetConfigDialogController', WidgetConfigDialogController);
+    .module('pipWidgetConfigDialog', ['ngMaterial']);
 require("./ConfigDialogService");
 require("./ConfigDialogExtendComponent");
 
 },{"./ConfigDialogExtendComponent":7,"./ConfigDialogService":8}],7:[function(require,module,exports){
 (function () {
     'use strict';
-    pipWidgetConfigComponent.$inject = ['$templateRequest', '$compile'];
-    function pipWidgetConfigComponent($templateRequest, $compile) {
-        return {
-            restrict: 'E',
-            templateUrl: 'dialogs/widget_config/ConfigDialogExtendComponent.html',
-            scope: false,
-            link: function ($scope, $element, $attrs) {
-                $templateRequest($attrs.pipExtensionUrl, false).then(function (html) {
-                    $element.find('pip-extension-point').replaceWith($compile(html)($scope));
+    var WidgetConfigExtendComponentBindings = {
+        pipExtensionUrl: '<',
+        pipDialogScope: '<',
+        pipApply: '&'
+    };
+    var WidgetConfigExtendComponentChanges = (function () {
+        function WidgetConfigExtendComponentChanges() {
+        }
+        return WidgetConfigExtendComponentChanges;
+    }());
+    var WidgetConfigExtendComponentController = (function () {
+        function WidgetConfigExtendComponentController($templateRequest, $compile, $scope, $element, $attrs) {
+            this.$templateRequest = $templateRequest;
+            this.$compile = $compile;
+            this.$scope = $scope;
+            this.$element = $element;
+            this.$attrs = $attrs;
+        }
+        WidgetConfigExtendComponentController.prototype.$onChanges = function (changes) {
+            var _this = this;
+            if (changes.pipDialogScope) {
+                angular.extend(this, changes.pipDialogScope.currentValue);
+            }
+            if (changes.pipExtensionUrl) {
+                this.$templateRequest(changes.pipExtensionUrl.currentValue, false).then(function (html) {
+                    _this.$element.find('pip-extension-point').replaceWith(_this.$compile(html)(_this.$scope));
                 });
             }
         };
-    }
+        WidgetConfigExtendComponentController.prototype.onApply = function () {
+            this.pipApply({ updatedData: this });
+        };
+        return WidgetConfigExtendComponentController;
+    }());
+    var pipWidgetConfigComponent = {
+        templateUrl: 'dialogs/widget_config/ConfigDialogExtendComponent.html',
+        controller: WidgetConfigExtendComponentController,
+        bindings: WidgetConfigExtendComponentBindings
+    };
     angular
         .module('pipWidgetConfigDialog')
-        .directive('pipWidgetConfigExtendComponent', pipWidgetConfigComponent);
+        .component('pipWidgetConfigExtendComponent', pipWidgetConfigComponent);
 })();
 
 },{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var WidgetConfigDialogService = (function () {
-    WidgetConfigDialogService.$inject = ['$mdDialog'];
-    function WidgetConfigDialogService($mdDialog) {
-        this._mdDialog = $mdDialog;
-    }
-    WidgetConfigDialogService.prototype.show = function (params, successCallback, cancelCallback) {
-        this._mdDialog.show({
-            targetEvent: params.event,
-            templateUrl: params.templateUrl || 'dialogs/widget_config/ConfigDialog.html',
-            controller: 'pipWidgetConfigDialogController',
-            controllerAs: 'vm',
-            locals: { params: params },
-            clickOutsideToClose: true
-        })
-            .then(function (key) {
-            if (successCallback) {
-                successCallback(key);
-            }
-        }, function () {
-            if (cancelCallback) {
-                cancelCallback();
-            }
-        });
-    };
-    return WidgetConfigDialogService;
-}());
+var ConfigDialogController_1 = require("./ConfigDialogController");
 (function () {
     'use strict';
+    setTranslations.$inject = ['$injector'];
+    function setTranslations($injector) {
+        var pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
+        if (pipTranslate) {
+            pipTranslate.setTranslations('en', {
+                DASHBOARD_WIDGET_CONFIG_DIALOG_TITLE: 'Edit tile',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_SMALL: 'Small',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_WIDE: 'Wide',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_LARGE: 'Large'
+            });
+            pipTranslate.setTranslations('ru', {
+                DASHBOARD_WIDGET_CONFIG_DIALOG_TITLE: 'Изменить виджет',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_SMALL: 'Мален.',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_WIDE: 'Широкий',
+                DASHBOARD_WIDGET_CONFIG_DIALOG_SIZE_LARGE: 'Большой'
+            });
+        }
+    }
+    var WidgetConfigDialogService = (function () {
+        WidgetConfigDialogService.$inject = ['$mdDialog'];
+        function WidgetConfigDialogService($mdDialog) {
+            this.$mdDialog = $mdDialog;
+        }
+        WidgetConfigDialogService.prototype.show = function (params, successCallback, cancelCallback) {
+            this.$mdDialog.show({
+                targetEvent: params.event,
+                templateUrl: params.templateUrl || 'dialogs/widget_config/ConfigDialog.html',
+                controller: ConfigDialogController_1.WidgetConfigDialogController,
+                controllerAs: 'vm',
+                locals: {
+                    params: params
+                },
+                clickOutsideToClose: true
+            })
+                .then(function (key) {
+                if (successCallback) {
+                    successCallback(key);
+                }
+            }, function () {
+                if (cancelCallback) {
+                    cancelCallback();
+                }
+            });
+        };
+        return WidgetConfigDialogService;
+    }());
     angular
         .module('pipWidgetConfigDialog')
+        .config(setTranslations)
         .service('pipWidgetConfigDialogService', WidgetConfigDialogService);
 })();
 
-},{}],9:[function(require,module,exports){
+},{"./ConfigDialogController":6}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-(function () {
-    'use strict';
-    angular.module('pipDragged', []);
-})();
+angular.module('pipDragged', []);
 require("./DraggableTileService");
-require("./DraggableController");
-require("./DraggableDirective");
+require("./DraggableComponent");
 require("./draggable_group/DraggableTilesGroupService");
 require("./draggable_group/DraggableTilesGroupDirective");
 
-},{"./DraggableController":10,"./DraggableDirective":11,"./DraggableTileService":12,"./draggable_group/DraggableTilesGroupDirective":13,"./draggable_group/DraggableTilesGroupService":14}],10:[function(require,module,exports){
-'use strict';
+},{"./DraggableComponent":10,"./DraggableTileService":11,"./draggable_group/DraggableTilesGroupDirective":12,"./draggable_group/DraggableTilesGroupService":13}],10:[function(require,module,exports){
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var DraggableTileService_1 = require("./DraggableTileService");
 var DraggableTilesGroupService_1 = require("./draggable_group/DraggableTilesGroupService");
-var SIMPLE_LAYOUT_COLUMNS_COUNT = 2;
 exports.DEFAULT_TILE_WIDTH = 150;
 exports.DEFAULT_TILE_HEIGHT = 150;
 exports.UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
+var SIMPLE_LAYOUT_COLUMNS_COUNT = 2;
 var DEFAULT_OPTIONS = {
     tileWidth: exports.DEFAULT_TILE_WIDTH,
     tileHeight: exports.DEFAULT_TILE_HEIGHT,
@@ -469,452 +549,483 @@ var DEFAULT_OPTIONS = {
     activeDropzoneClass: 'dropzone-active',
     groupContaninerSelector: '.pip-draggable-group:not(.fict-group)',
 };
-var DraggableController = (function () {
-    DraggableController.$inject = ['$scope', '$rootScope', '$compile', '$timeout', '$element', 'pipDragTile', 'pipTilesGrid', 'pipMedia'];
-    function DraggableController($scope, $rootScope, $compile, $timeout, $element, pipDragTile, pipTilesGrid, pipMedia) {
-        var _this = this;
-        this.sourceDropZoneElem = null;
-        this.isSameDropzone = true;
-        this.tileGroups = null;
-        this._$timeout = $timeout;
-        this._$rootScope = $rootScope;
-        this._$scope = $scope;
-        this._$compile = $compile;
-        this._$element = $element;
-        this.opts = _.merge({ mobileBreakpoint: pipMedia.breakpoints.xs }, DEFAULT_OPTIONS, $scope['draggableCtrl'].options);
-        this.groups = $scope['draggableCtrl'].tilesTemplates.map(function (group, groupIndex) {
-            return {
-                title: group.title,
-                editingName: false,
-                index: groupIndex,
-                source: group.source.map(function (tile) {
-                    var tileScope = $rootScope.$new(false, $scope['draggableCtrl'].tilesContext);
-                    tileScope['index'] = tile.opts.index;
-                    tileScope['groupIndex'] = tile.opts.groupIndex;
+{
+    var DraggableController = (function () {
+        function DraggableController($scope, $rootScope, $compile, $timeout, $element, pipDragTile, pipTilesGrid, pipMedia) {
+            var _this = this;
+            this.$scope = $scope;
+            this.$rootScope = $rootScope;
+            this.$compile = $compile;
+            this.$timeout = $timeout;
+            this.$element = $element;
+            this.sourceDropZoneElem = null;
+            this.isSameDropzone = true;
+            this.tileGroups = null;
+            this.opts = _.merge({
+                mobileBreakpoint: pipMedia.breakpoints.xs
+            }, DEFAULT_OPTIONS, $scope['draggableCtrl'].options);
+            this.groups = $scope['draggableCtrl'].tilesTemplates.map(function (group, groupIndex) {
+                return {
+                    title: group.title,
+                    editingName: false,
+                    index: groupIndex,
+                    source: group.source.map(function (tile) {
+                        var tileScope = _this.createTileScope(tile);
+                        return DraggableTileService_1.IDragTileConstructor(DraggableTileService_1.DragTileService, {
+                            tpl: $compile(tile.template)(tileScope),
+                            options: tile.opts,
+                            size: tile.opts.size
+                        });
+                    })
+                };
+            });
+            $scope.$watch('draggableCtrl.tilesTemplates', function (newVal) {
+                _this.watch(newVal);
+            }, true);
+            this.initialize();
+            $(window).on('resize', _.debounce(function () {
+                _this.availableWidth = _this.getContainerWidth();
+                _this.availableColumns = _this.getAvailableColumns(_this.availableWidth);
+                _this.tileGroups.forEach(function (group) {
+                    group
+                        .setAvailableColumns(_this.availableColumns)
+                        .generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth))
+                        .setTilesDimensions()
+                        .calcContainerHeight();
+                });
+            }, 50));
+        }
+        DraggableController.prototype.$postLink = function () {
+            this.$scope.$container = this.$element;
+        };
+        DraggableController.prototype.watch = function (newVal) {
+            var _this = this;
+            var prevVal = this.groups;
+            var changedGroupIndex = null;
+            if (newVal.length > prevVal.length) {
+                this.addGroup(newVal[newVal.length - 1]);
+                return;
+            }
+            if (newVal.length < prevVal.length) {
+                this.removeGroups(newVal);
+                return;
+            }
+            for (var i = 0; i < newVal.length; i++) {
+                var groupWidgetDiff = prevVal[i].source.length - newVal[i].source.length;
+                if (groupWidgetDiff || (newVal[i].removedWidgets && newVal[i].removedWidgets.length > 0)) {
+                    changedGroupIndex = i;
+                    if (groupWidgetDiff < 0) {
+                        var newTiles = newVal[changedGroupIndex].source.slice(groupWidgetDiff);
+                        _.each(newTiles, function (tile) {
+                            console.log('tile', tile);
+                        });
+                        this.addTilesIntoGroup(newTiles, this.tileGroups[changedGroupIndex], this.groupsContainers[changedGroupIndex]);
+                        this.$timeout(function () {
+                            _this.updateTilesGroups();
+                        });
+                    }
+                    else {
+                        this.removeTiles(this.tileGroups[changedGroupIndex], newVal[changedGroupIndex].removedWidgets, this.groupsContainers[changedGroupIndex]);
+                        this.updateTilesOptions(newVal);
+                        this.$timeout(function () {
+                            _this.updateTilesGroups();
+                        });
+                    }
+                    return;
+                }
+            }
+            if (newVal && this.tileGroups) {
+                this.updateTilesOptions(newVal);
+                this.$timeout(function () {
+                    _this.updateTilesGroups();
+                });
+            }
+        };
+        DraggableController.prototype.onTitleClick = function (group, event) {
+            if (!group.editingName) {
+                group.oldTitle = _.clone(group.title);
+                group.editingName = true;
+                this.$timeout(function () {
+                    $(event.currentTarget.children[0]).focus();
+                });
+            }
+        };
+        DraggableController.prototype.cancelEditing = function (group) {
+            group.title = group.oldTitle;
+        };
+        DraggableController.prototype.onBlurTitleInput = function (group) {
+            var _this = this;
+            this.$timeout(function () {
+                group.editingName = false;
+                _this.$rootScope.$broadcast(exports.UPDATE_GROUPS_EVENT, _this.groups);
+                _this.$scope.draggableCtrl.tilesTemplates[group.index].title = group.title;
+            }, 100);
+        };
+        DraggableController.prototype.onKyepressTitleInput = function (group, event) {
+            if (event.keyCode === 13) {
+                this.onBlurTitleInput(group);
+            }
+        };
+        DraggableController.prototype.updateTilesTemplates = function (updateType, source) {
+            switch (updateType) {
+                case 'addGroup':
+                    if (this.groups.length !== this.$scope.draggableCtrl.tilesTemplates.length) {
+                        this.$scope.draggableCtrl.tilesTemplates.push(source);
+                    }
+                    break;
+                case 'moveTile':
+                    var _a = {
+                        fromIndex: source.from.elem.attributes['data-group-id'].value,
+                        toIndex: source.to.elem.attributes['data-group-id'].value,
+                        tileOptions: source.tile.opts.options,
+                        fromTileIndex: source.tile.opts.options.index
+                    }, fromIndex = _a.fromIndex, toIndex = _a.toIndex, tileOptions = _a.tileOptions, fromTileIndex = _a.fromTileIndex;
+                    this.$scope.draggableCtrl.tilesTemplates[fromIndex].source.splice(fromTileIndex, 1);
+                    this.$scope.draggableCtrl.tilesTemplates[toIndex].source.push({
+                        opts: tileOptions
+                    });
+                    this.reIndexTiles(source.from.elem);
+                    this.reIndexTiles(source.to.elem);
+                    break;
+            }
+        };
+        DraggableController.prototype.createTileScope = function (tile) {
+            var tileScope = this.$rootScope.$new(false, this.$scope.draggableCtrl.tilesContext);
+            tileScope.index = tile.opts.index == undefined ? tile.opts.options.index : tile.opts.index;
+            tileScope.groupIndex = tile.opts.groupIndex == undefined ? tile.opts.options.groupIndex : tile.opts.groupIndex;
+            return tileScope;
+        };
+        DraggableController.prototype.removeTiles = function (group, indexes, container) {
+            var tiles = $(container).find('.pip-draggable-tile');
+            _.each(indexes, function (index) {
+                group.tiles.splice(index, 1);
+                tiles[index].remove();
+            });
+            this.reIndexTiles(container);
+        };
+        DraggableController.prototype.reIndexTiles = function (container, gIndex) {
+            var tiles = $(container).find('.pip-draggable-tile'), groupIndex = gIndex === undefined ? container.attributes['data-group-id'].value : gIndex;
+            _.each(tiles, function (tile, index) {
+                var child = $(tile).children()[0];
+                angular.element(child).scope()['index'] = index;
+                angular.element(child).scope()['groupIndex'] = groupIndex;
+            });
+        };
+        DraggableController.prototype.removeGroups = function (newGroups) {
+            var _this = this;
+            var removeIndexes = [], remain = [], containers = [];
+            _.each(this.groups, function (group, index) {
+                if (_.findIndex(newGroups, function (g) {
+                    return g['title'] === group.title;
+                }) < 0) {
+                    removeIndexes.push(index);
+                }
+                else {
+                    remain.push(index);
+                }
+            });
+            _.each(removeIndexes.reverse(), function (index) {
+                _this.groups.splice(index, 1);
+                _this.tileGroups.splice(index, 1);
+            });
+            _.each(remain, function (index) {
+                containers.push(_this.groupsContainers[index]);
+            });
+            this.groupsContainers = containers;
+            _.each(this.groupsContainers, function (container, index) {
+                _this.reIndexTiles(container, index);
+            });
+        };
+        DraggableController.prototype.addGroup = function (sourceGroup) {
+            var _this = this;
+            var group = {
+                title: sourceGroup.title,
+                source: sourceGroup.source.map(function (tile) {
+                    var tileScope = _this.createTileScope(tile);
                     return DraggableTileService_1.IDragTileConstructor(DraggableTileService_1.DragTileService, {
-                        tpl: $compile(tile.template)(tileScope),
+                        tpl: _this.$compile(tile.template)(tileScope),
                         options: tile.opts,
                         size: tile.opts.size
                     });
                 })
             };
-        });
-        $scope.$watch('draggableCtrl.tilesTemplates', function (newVal) {
-            _this.watch(newVal);
-        }, true);
-        this.initialize();
-        $(window).on('resize', _.debounce(function () {
-            _this.availableWidth = _this.getContainerWidth();
-            _this.availableColumns = _this.getAvailableColumns(_this.availableWidth);
-            _this.tileGroups.forEach(function (group) {
-                group
-                    .setAvailableColumns(_this.availableColumns)
+            this.groups.push(group);
+            if (!this.$scope.$$phase)
+                this.$scope.$apply();
+            this.$timeout(function () {
+                _this.groupsContainers = document.querySelectorAll(_this.opts.groupContaninerSelector);
+                _this.tileGroups.push(DraggableTilesGroupService_1.ITilesGridConstructor(DraggableTilesGroupService_1.TilesGridService, group.source, _this.opts, _this.availableColumns, _this.groupsContainers[_this.groupsContainers.length - 1])
+                    .generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth))
+                    .setTilesDimensions()
+                    .calcContainerHeight());
+            });
+            this.updateTilesTemplates('addGroup', sourceGroup);
+        };
+        DraggableController.prototype.addTilesIntoGroup = function (newTiles, group, groupContainer) {
+            var _this = this;
+            newTiles.forEach(function (tile) {
+                var tileScope = _this.createTileScope(tile);
+                var newTile = DraggableTileService_1.IDragTileConstructor(DraggableTileService_1.DragTileService, {
+                    tpl: _this.$compile(tile.template)(tileScope),
+                    options: tile.opts,
+                    size: tile.opts.size
+                });
+                group.addTile(newTile);
+                $('<div>')
+                    .addClass('pip-draggable-tile')
+                    .append(newTile.getCompiledTemplate())
+                    .appendTo(groupContainer);
+            });
+        };
+        DraggableController.prototype.updateTilesOptions = function (optionsGroup) {
+            var _this = this;
+            optionsGroup.forEach(function (optionGroup) {
+                optionGroup.source.forEach(function (tileOptions) {
+                    _this.tileGroups.forEach(function (group) {
+                        group.updateTileOptions(tileOptions.opts);
+                    });
+                });
+            });
+        };
+        DraggableController.prototype.initTilesGroups = function (tileGroups, opts, groupsContainers) {
+            var _this = this;
+            return tileGroups.map(function (group, index) {
+                return DraggableTilesGroupService_1.ITilesGridConstructor(DraggableTilesGroupService_1.TilesGridService, group.source, opts, _this.availableColumns, groupsContainers[index])
                     .generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth))
                     .setTilesDimensions()
                     .calcContainerHeight();
             });
-        }, 50));
-    }
-    DraggableController.prototype.watch = function (newVal) {
-        var _this = this;
-        var prevVal = this.groups;
-        var changedGroupIndex = null;
-        if (newVal.length > prevVal.length) {
-            this.addGroup(newVal[newVal.length - 1]);
-            return;
-        }
-        if (newVal.length < prevVal.length) {
-            this.removeGroups(newVal);
-            return;
-        }
-        for (var i = 0; i < newVal.length; i++) {
-            var groupWidgetDiff = prevVal[i].source.length - newVal[i].source.length;
-            if (groupWidgetDiff || (newVal[i].removedWidgets && newVal[i].removedWidgets.length > 0)) {
-                changedGroupIndex = i;
-                if (groupWidgetDiff < 0) {
-                    var newTiles = newVal[changedGroupIndex].source.slice(groupWidgetDiff);
-                    _.each(newTiles, function (tile) {
-                        console.log('tile', tile);
-                    });
-                    this.addTilesIntoGroup(newTiles, this.tileGroups[changedGroupIndex], this.groupsContainers[changedGroupIndex]);
-                    this._$timeout(function () { _this.updateTilesGroups(); });
+        };
+        DraggableController.prototype.updateTilesGroups = function (onlyPosition, draggedTile) {
+            var _this = this;
+            this.tileGroups.forEach(function (group) {
+                if (!onlyPosition) {
+                    group.generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth));
                 }
-                else {
-                    this.removeTiles(this.tileGroups[changedGroupIndex], newVal[changedGroupIndex].removedWidgets, this.groupsContainers[changedGroupIndex]);
-                    this.updateTilesOptions(newVal);
-                    this._$timeout(function () { _this.updateTilesGroups(); });
-                }
-                return;
-            }
-        }
-        if (newVal && this.tileGroups) {
-            this.updateTilesOptions(newVal);
-            this._$timeout(function () { _this.updateTilesGroups(); });
-        }
-    };
-    DraggableController.prototype.onTitleClick = function (group, event) {
-        if (!group.editingName) {
-            group.oldTitle = _.clone(group.title);
-            group.editingName = true;
-            this._$timeout(function () {
-                $(event.currentTarget.children[0]).focus();
+                group
+                    .setTilesDimensions(onlyPosition, draggedTile)
+                    .calcContainerHeight();
             });
-        }
-    };
-    DraggableController.prototype.cancelEditing = function (group) {
-        group.title = group.oldTitle;
-    };
-    DraggableController.prototype.onBlurTitleInput = function (group) {
-        var _this = this;
-        this._$timeout(function () {
-            group.editingName = false;
-            _this._$rootScope.$broadcast(exports.UPDATE_GROUPS_EVENT, _this.groups);
-            _this._$scope['draggableCtrl'].tilesTemplates[group.index].title = group.title;
-        }, 100);
-    };
-    DraggableController.prototype.onKyepressTitleInput = function (group, event) {
-        if (event.keyCode === 13) {
-            this.onBlurTitleInput(group);
-        }
-    };
-    DraggableController.prototype.updateTilesTemplates = function (updateType, source) {
-        switch (updateType) {
-            case 'addGroup':
-                if (this.groups.length !== this._$scope['draggableCtrl'].tilesTemplates.length) {
-                    this._$scope['draggableCtrl'].tilesTemplates.push(source);
+        };
+        DraggableController.prototype.getContainerWidth = function () {
+            var container = this.$scope.$container || $('body');
+            return container.width();
+        };
+        DraggableController.prototype.getAvailableColumns = function (availableWidth) {
+            return this.opts.mobileBreakpoint > availableWidth ? SIMPLE_LAYOUT_COLUMNS_COUNT :
+                Math.floor(availableWidth / (this.opts.tileWidth + this.opts.gutter));
+        };
+        DraggableController.prototype.getActiveGroupAndTile = function (elem) {
+            var active = {};
+            this.tileGroups.forEach(function (group) {
+                var foundTile = group.getTileByNode(elem);
+                if (foundTile) {
+                    active['group'] = group;
+                    active['tile'] = foundTile;
+                    return;
                 }
-                break;
-            case 'moveTile':
-                var _a = {
-                    fromIndex: source.from.elem.attributes['data-group-id'].value,
-                    toIndex: source.to.elem.attributes['data-group-id'].value,
-                    tileOptions: source.tile.opts.options,
-                    fromTileIndex: source.tile.opts.options.index
-                }, fromIndex = _a.fromIndex, toIndex = _a.toIndex, tileOptions = _a.tileOptions, fromTileIndex = _a.fromTileIndex;
-                this._$scope['draggableCtrl'].tilesTemplates[fromIndex].source.splice(fromTileIndex, 1);
-                this._$scope['draggableCtrl'].tilesTemplates[toIndex].source.push({ opts: tileOptions });
-                this.reIndexTiles(source.from.elem);
-                this.reIndexTiles(source.to.elem);
-                break;
-        }
-    };
-    DraggableController.prototype.removeTiles = function (group, indexes, container) {
-        var tiles = $(container).find('.pip-draggable-tile');
-        _.each(indexes, function (index) {
-            group.tiles.splice(index, 1);
-            tiles[index].remove();
-        });
-        this.reIndexTiles(container);
-    };
-    DraggableController.prototype.reIndexTiles = function (container, gIndex) {
-        var tiles = $(container).find('.pip-draggable-tile'), groupIndex = gIndex === undefined ? container.attributes['data-group-id'].value : gIndex;
-        _.each(tiles, function (tile, index) {
-            var child = $(tile).children()[0];
-            angular.element(child).scope()['index'] = index;
-            angular.element(child).scope()['groupIndex'] = groupIndex;
-        });
-    };
-    DraggableController.prototype.removeGroups = function (newGroups) {
-        var _this = this;
-        var removeIndexes = [], remain = [], containers = [];
-        _.each(this.groups, function (group, index) {
-            if (_.findIndex(newGroups, function (g) { return g['title'] === group.title; }) < 0) {
-                removeIndexes.push(index);
+            });
+            return active;
+        };
+        DraggableController.prototype.getSingleTileWidthForMobile = function (availableWidth) {
+            return this.opts.mobileBreakpoint > availableWidth ? availableWidth / 2 - this.opts.gutter : null;
+        };
+        DraggableController.prototype.onDragStartListener = function (event) {
+            var activeEntities = this.getActiveGroupAndTile(event.target);
+            this.container = $(event.target).parent('.pip-draggable-group').get(0);
+            this.draggedTile = activeEntities['tile'];
+            this.activeDraggedGroup = activeEntities['group'];
+            this.$element.addClass('drag-transfer');
+            this.draggedTile.startDrag();
+        };
+        DraggableController.prototype.onDragMoveListener = function (event) {
+            var _this = this;
+            var target = event.target;
+            var x = (parseFloat(target.style.left) || 0) + event.dx;
+            var y = (parseFloat(target.style.top) || 0) + event.dy;
+            this.containerOffset = this.getContainerOffset();
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+            var belowElement = this.activeDraggedGroup.getTileByCoordinates({
+                left: event.pageX - this.containerOffset.left,
+                top: event.pageY - this.containerOffset.top
+            }, this.draggedTile);
+            if (belowElement) {
+                var draggedTileIndex = this.activeDraggedGroup.getTileIndex(this.draggedTile);
+                var belowElemIndex = this.activeDraggedGroup.getTileIndex(belowElement);
+                if ((draggedTileIndex + 1) === belowElemIndex) {
+                    return;
+                }
+                this.activeDraggedGroup
+                    .swapTiles(this.draggedTile, belowElement)
+                    .setTilesDimensions(true, this.draggedTile);
+                this.$timeout(function () {
+                    _this.setGroupContainersHeight();
+                }, 0);
+            }
+        };
+        DraggableController.prototype.onDragEndListener = function () {
+            this.draggedTile.stopDrag(this.isSameDropzone);
+            this.$element.removeClass('drag-transfer');
+            this.activeDraggedGroup = null;
+            this.draggedTile = null;
+        };
+        DraggableController.prototype.getContainerOffset = function () {
+            var containerRect = this.container.getBoundingClientRect();
+            return {
+                left: containerRect.left,
+                top: containerRect.top
+            };
+        };
+        DraggableController.prototype.setGroupContainersHeight = function () {
+            this.tileGroups.forEach(function (tileGroup) {
+                tileGroup.calcContainerHeight();
+            });
+        };
+        DraggableController.prototype.moveTile = function (from, to, tile) {
+            var elem;
+            var movedTile = from.removeTile(tile);
+            var tileScope = this.createTileScope(tile);
+            $(this.groupsContainers[_.findIndex(this.tileGroups, from)])
+                .find(movedTile.getElem())
+                .remove();
+            if (to !== null) {
+                to.addTile(movedTile);
+                elem = this.$compile(movedTile.getElem())(tileScope);
+                $(this.groupsContainers[_.findIndex(this.tileGroups, to)])
+                    .append(elem);
+                this.$timeout(to.setTilesDimensions.bind(to, true));
+            }
+            this.updateTilesTemplates('moveTile', {
+                from: from,
+                to: to,
+                tile: movedTile
+            });
+        };
+        DraggableController.prototype.onDropListener = function (event) {
+            var droppedGroupIndex = event.target.attributes['data-group-id'].value;
+            var droppedGroup = this.tileGroups[droppedGroupIndex];
+            if (this.activeDraggedGroup !== droppedGroup) {
+                this.moveTile(this.activeDraggedGroup, droppedGroup, this.draggedTile);
+            }
+            this.updateTilesGroups(true);
+            this.sourceDropZoneElem = null;
+        };
+        DraggableController.prototype.onDropToFictGroupListener = function (event) {
+            var _this = this;
+            var from = this.activeDraggedGroup;
+            var tile = this.draggedTile;
+            this.addGroup({
+                title: 'New group',
+                source: []
+            });
+            this.$timeout(function () {
+                _this.moveTile(from, _this.tileGroups[_this.tileGroups.length - 1], tile);
+                _this.updateTilesGroups(true);
+            });
+            this.sourceDropZoneElem = null;
+        };
+        DraggableController.prototype.onDropEnterListener = function (event) {
+            if (!this.sourceDropZoneElem) {
+                this.sourceDropZoneElem = event.dragEvent.dragEnter;
+            }
+            if (this.sourceDropZoneElem !== event.dragEvent.dragEnter) {
+                event.dragEvent.dragEnter.classList.add('dropzone-active');
+                $('body').css('cursor', 'copy');
+                this.isSameDropzone = false;
             }
             else {
-                remain.push(index);
+                $('body').css('cursor', '');
+                this.isSameDropzone = true;
             }
-        });
-        _.each(removeIndexes.reverse(), function (index) {
-            _this.groups.splice(index, 1);
-            _this.tileGroups.splice(index, 1);
-        });
-        _.each(remain, function (index) {
-            containers.push(_this.groupsContainers[index]);
-        });
-        this.groupsContainers = containers;
-        _.each(this.groupsContainers, function (container, index) {
-            _this.reIndexTiles(container, index);
-        });
-    };
-    DraggableController.prototype.addGroup = function (sourceGroup) {
-        var _this = this;
-        var group = {
-            title: sourceGroup.title,
-            source: sourceGroup.source.map(function (tile) {
-                var tileScope = _this._$rootScope.$new(false, _this._$scope['draggableCtrl'].tilesContext);
-                tileScope['index'] = tile.opts.index == undefined ? tile.opts.options.index : tile.opts.index;
-                tileScope['groupIndex'] = tile.opts.groupIndex == undefined ? tile.opts.options.groupIndex : tile.opts.groupIndex;
-                return DraggableTileService_1.IDragTileConstructor(DraggableTileService_1.DragTileService, {
-                    tpl: _this._$compile(tile.template)(tileScope),
-                    options: tile.opts,
-                    size: tile.opts.size
-                });
-            })
         };
-        this.groups.push(group);
-        if (!this._$scope.$$phase)
-            this._$scope.$apply();
-        this._$timeout(function () {
-            _this.groupsContainers = document.querySelectorAll(_this.opts.groupContaninerSelector);
-            _this.tileGroups.push(DraggableTilesGroupService_1.ITilesGridConstructor(DraggableTilesGroupService_1.TilesGridService, group.source, _this.opts, _this.availableColumns, _this.groupsContainers[_this.groupsContainers.length - 1])
-                .generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth))
-                .setTilesDimensions()
-                .calcContainerHeight());
-        });
-        this.updateTilesTemplates('addGroup', sourceGroup);
-    };
-    DraggableController.prototype.addTilesIntoGroup = function (newTiles, group, groupContainer) {
-        var _this = this;
-        newTiles.forEach(function (tile) {
-            var tileScope = _this._$rootScope.$new(false, _this._$scope['draggableCtrl'].tilesContext);
-            tileScope['index'] = tile.opts.index == undefined ? tile.opts.options.index : tile.opts.index;
-            tileScope['groupIndex'] = tile.opts.groupIndex == undefined ? tile.opts.options.groupIndex : tile.opts.groupIndex;
-            var newTile = DraggableTileService_1.IDragTileConstructor(DraggableTileService_1.DragTileService, {
-                tpl: _this._$compile(tile.template)(tileScope),
-                options: tile.opts,
-                size: tile.opts.size
-            });
-            group.addTile(newTile);
-            $('<div>')
-                .addClass('pip-draggable-tile')
-                .append(newTile.getCompiledTemplate())
-                .appendTo(groupContainer);
-        });
-    };
-    DraggableController.prototype.updateTilesOptions = function (optionsGroup) {
-        var _this = this;
-        optionsGroup.forEach(function (optionGroup) {
-            optionGroup.source.forEach(function (tileOptions) {
-                _this.tileGroups.forEach(function (group) {
-                    group.updateTileOptions(tileOptions.opts);
-                });
-            });
-        });
-    };
-    DraggableController.prototype.initTilesGroups = function (tileGroups, opts, groupsContainers) {
-        var _this = this;
-        return tileGroups.map(function (group, index) {
-            return DraggableTilesGroupService_1.ITilesGridConstructor(DraggableTilesGroupService_1.TilesGridService, group.source, opts, _this.availableColumns, groupsContainers[index])
-                .generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth))
-                .setTilesDimensions()
-                .calcContainerHeight();
-        });
-    };
-    DraggableController.prototype.updateTilesGroups = function (onlyPosition, draggedTile) {
-        var _this = this;
-        this.tileGroups.forEach(function (group) {
-            if (!onlyPosition) {
-                group.generateGrid(_this.getSingleTileWidthForMobile(_this.availableWidth));
+        DraggableController.prototype.onDropDeactivateListener = function (event) {
+            if (this.sourceDropZoneElem !== event.target) {
+                event.target.classList.remove(this.opts.activeDropzoneClass);
+                $('body').css('cursor', '');
             }
-            group
-                .setTilesDimensions(onlyPosition, draggedTile)
-                .calcContainerHeight();
-        });
-    };
-    DraggableController.prototype.getContainerWidth = function () {
-        var container = this._$scope['$container'] || $('body');
-        return container.width();
-    };
-    DraggableController.prototype.getAvailableColumns = function (availableWidth) {
-        return this.opts.mobileBreakpoint > availableWidth ? SIMPLE_LAYOUT_COLUMNS_COUNT
-            : Math.floor(availableWidth / (this.opts.tileWidth + this.opts.gutter));
-    };
-    DraggableController.prototype.getActiveGroupAndTile = function (elem) {
-        var active = {};
-        this.tileGroups.forEach(function (group) {
-            var foundTile = group.getTileByNode(elem);
-            if (foundTile) {
-                active['group'] = group;
-                active['tile'] = foundTile;
-                return;
-            }
-        });
-        return active;
-    };
-    DraggableController.prototype.getSingleTileWidthForMobile = function (availableWidth) {
-        return this.opts.mobileBreakpoint > availableWidth ? availableWidth / 2 - this.opts.gutter : null;
-    };
-    DraggableController.prototype.onDragStartListener = function (event) {
-        var activeEntities = this.getActiveGroupAndTile(event.target);
-        this.container = $(event.target).parent('.pip-draggable-group').get(0);
-        this.draggedTile = activeEntities['tile'];
-        this.activeDraggedGroup = activeEntities['group'];
-        this._$element.addClass('drag-transfer');
-        this.draggedTile.startDrag();
-    };
-    DraggableController.prototype.onDragMoveListener = function (event) {
-        var _this = this;
-        var target = event.target;
-        var x = (parseFloat(target.style.left) || 0) + event.dx;
-        var y = (parseFloat(target.style.top) || 0) + event.dy;
-        this.containerOffset = this.getContainerOffset();
-        target.style.left = x + 'px';
-        target.style.top = y + 'px';
-        var belowElement = this.activeDraggedGroup.getTileByCoordinates({
-            left: event.pageX - this.containerOffset.left,
-            top: event.pageY - this.containerOffset.top
-        }, this.draggedTile);
-        if (belowElement) {
-            var draggedTileIndex = this.activeDraggedGroup.getTileIndex(this.draggedTile);
-            var belowElemIndex = this.activeDraggedGroup.getTileIndex(belowElement);
-            if ((draggedTileIndex + 1) === belowElemIndex) {
-                return;
-            }
-            this.activeDraggedGroup
-                .swapTiles(this.draggedTile, belowElement)
-                .setTilesDimensions(true, this.draggedTile);
-            this._$timeout(function () { _this.setGroupContainersHeight(); }, 0);
-        }
-    };
-    DraggableController.prototype.onDragEndListener = function () {
-        this.draggedTile.stopDrag(this.isSameDropzone);
-        this._$element.removeClass('drag-transfer');
-        this.activeDraggedGroup = null;
-        this.draggedTile = null;
-    };
-    DraggableController.prototype.getContainerOffset = function () {
-        var containerRect = this.container.getBoundingClientRect();
-        return {
-            left: containerRect.left,
-            top: containerRect.top
         };
-    };
-    DraggableController.prototype.setGroupContainersHeight = function () {
-        this.tileGroups.forEach(function (tileGroup) {
-            tileGroup.calcContainerHeight();
-        });
-    };
-    DraggableController.prototype.moveTile = function (from, to, tile) {
-        var elem;
-        var movedTile = from.removeTile(tile);
-        var tileScope = this._$rootScope.$new(false, this._$scope['draggableCtrl'].tilesContext);
-        tileScope['index'] = tile.opts.index == undefined ? tile.opts.options.index : tile.opts.index;
-        tileScope['groupIndex'] = tile.opts.groupIndex == undefined ? tile.opts.options.groupIndex : tile.opts.groupIndex;
-        $(this.groupsContainers[_.findIndex(this.tileGroups, from)])
-            .find(movedTile.getElem())
-            .remove();
-        if (to !== null) {
-            to.addTile(movedTile);
-            elem = this._$compile(movedTile.getElem())(tileScope);
-            $(this.groupsContainers[_.findIndex(this.tileGroups, to)])
-                .append(elem);
-            this._$timeout(to.setTilesDimensions.bind(to, true));
-        }
-        this.updateTilesTemplates('moveTile', { from: from, to: to, tile: movedTile });
-    };
-    DraggableController.prototype.onDropListener = function (event) {
-        var droppedGroupIndex = event.target.attributes['data-group-id'].value;
-        var droppedGroup = this.tileGroups[droppedGroupIndex];
-        if (this.activeDraggedGroup !== droppedGroup) {
-            this.moveTile(this.activeDraggedGroup, droppedGroup, this.draggedTile);
-        }
-        this.updateTilesGroups(true);
-        this.sourceDropZoneElem = null;
-    };
-    DraggableController.prototype.onDropToFictGroupListener = function (event) {
-        var _this = this;
-        var from = this.activeDraggedGroup;
-        var tile = this.draggedTile;
-        this.addGroup({ title: 'New group', source: [] });
-        this._$timeout(function () {
-            _this.moveTile(from, _this.tileGroups[_this.tileGroups.length - 1], tile);
-            _this.updateTilesGroups(true);
-        });
-        this.sourceDropZoneElem = null;
-    };
-    DraggableController.prototype.onDropEnterListener = function (event) {
-        if (!this.sourceDropZoneElem) {
-            this.sourceDropZoneElem = event.dragEvent.dragEnter;
-        }
-        if (this.sourceDropZoneElem !== event.dragEvent.dragEnter) {
-            event.dragEvent.dragEnter.classList.add('dropzone-active');
-            $('body').css('cursor', 'copy');
-            this.isSameDropzone = false;
-        }
-        else {
-            $('body').css('cursor', '');
-            this.isSameDropzone = true;
-        }
-    };
-    DraggableController.prototype.onDropDeactivateListener = function (event) {
-        if (this.sourceDropZoneElem !== event.target) {
+        DraggableController.prototype.onDropLeaveListener = function (event) {
             event.target.classList.remove(this.opts.activeDropzoneClass);
-            $('body').css('cursor', '');
-        }
-    };
-    DraggableController.prototype.onDropLeaveListener = function (event) {
-        event.target.classList.remove(this.opts.activeDropzoneClass);
-    };
-    DraggableController.prototype.initialize = function () {
-        var _this = this;
-        this._$timeout(function () {
-            _this.availableWidth = _this.getContainerWidth();
-            _this.availableColumns = _this.getAvailableColumns(_this.availableWidth);
-            _this.groupsContainers = document.querySelectorAll(_this.opts.groupContaninerSelector);
-            _this.tileGroups = _this.initTilesGroups(_this.groups, _this.opts, _this.groupsContainers);
-            interact('.pip-draggable-tile')
-                .draggable({
-                autoScroll: true,
-                onstart: function (event) { _this.onDragStartListener(event); },
-                onmove: function (event) { _this.onDragMoveListener(event); },
-                onend: function (event) { _this.onDragEndListener(); }
-            });
-            interact('.pip-draggable-group.fict-group')
-                .dropzone({
-                ondrop: function (event) { console.log('here'); _this.onDropToFictGroupListener(event); },
-                ondragenter: function (event) { _this.onDropEnterListener(event); },
-                ondropdeactivate: function (event) { _this.onDropDeactivateListener(event); },
-                ondragleave: function (event) { _this.onDropLeaveListener(event); }
-            });
-            interact('.pip-draggable-group')
-                .dropzone({
-                ondrop: function (event) { _this.onDropListener(event); },
-                ondragenter: function (event) { _this.onDropEnterListener(event); },
-                ondropdeactivate: function (event) { _this.onDropDeactivateListener(event); },
-                ondragleave: function (event) { _this.onDropLeaveListener(event); }
-            });
-            _this._$scope['$container']
-                .on('mousedown touchstart', 'md-menu .md-icon-button', function () {
-                interact('.pip-draggable-tile').draggable(false);
-                $(_this).trigger('click');
-            })
-                .on('mouseup touchend', function () {
-                interact('.pip-draggable-tile').draggable(true);
-            });
-        }, 0);
-    };
-    return DraggableController;
-}());
-angular
-    .module('pipDragged')
-    .controller('pipDraggableCtrl', DraggableController);
-
-},{"./DraggableTileService":12,"./draggable_group/DraggableTilesGroupService":14}],11:[function(require,module,exports){
-'use strict';
-angular
-    .module('pipDragged')
-    .directive('pipDraggableGrid', DragDirective);
-function DragDirective() {
-    return {
-        restrict: 'E',
-        scope: {
+        };
+        DraggableController.prototype.initialize = function () {
+            var _this = this;
+            this.$timeout(function () {
+                _this.availableWidth = _this.getContainerWidth();
+                _this.availableColumns = _this.getAvailableColumns(_this.availableWidth);
+                _this.groupsContainers = document.querySelectorAll(_this.opts.groupContaninerSelector);
+                _this.tileGroups = _this.initTilesGroups(_this.groups, _this.opts, _this.groupsContainers);
+                interact('.pip-draggable-tile')
+                    .draggable({
+                    autoScroll: true,
+                    onstart: function (event) {
+                        _this.onDragStartListener(event);
+                    },
+                    onmove: function (event) {
+                        _this.onDragMoveListener(event);
+                    },
+                    onend: function (event) {
+                        _this.onDragEndListener();
+                    }
+                });
+                interact('.pip-draggable-group.fict-group')
+                    .dropzone({
+                    ondrop: function (event) {
+                        _this.onDropToFictGroupListener(event);
+                    },
+                    ondragenter: function (event) {
+                        _this.onDropEnterListener(event);
+                    },
+                    ondropdeactivate: function (event) {
+                        _this.onDropDeactivateListener(event);
+                    },
+                    ondragleave: function (event) {
+                        _this.onDropLeaveListener(event);
+                    }
+                });
+                interact('.pip-draggable-group')
+                    .dropzone({
+                    ondrop: function (event) {
+                        _this.onDropListener(event);
+                    },
+                    ondragenter: function (event) {
+                        _this.onDropEnterListener(event);
+                    },
+                    ondropdeactivate: function (event) {
+                        _this.onDropDeactivateListener(event);
+                    },
+                    ondragleave: function (event) {
+                        _this.onDropLeaveListener(event);
+                    }
+                });
+                _this.$scope['$container']
+                    .on('mousedown touchstart', 'md-menu .md-icon-button', function () {
+                    interact('.pip-draggable-tile').draggable(false);
+                    $(_this).trigger('click');
+                })
+                    .on('mouseup touchend', function () {
+                    interact('.pip-draggable-tile').draggable(true);
+                });
+            }, 0);
+        };
+        return DraggableController;
+    }());
+    var DragComponent = {
+        bindings: {
             tilesTemplates: '=pipTilesTemplates',
             tilesContext: '=pipTilesContext',
             options: '=pipDraggableGrid',
             groupMenuActions: '=pipGroupMenuActions'
         },
         templateUrl: 'draggable/Draggable.html',
-        bindToController: true,
         controllerAs: 'draggableCtrl',
-        controller: 'pipDraggableCtrl',
-        link: function ($scope, $elem) {
-            $scope.$container = $elem;
-        }
+        controller: DraggableController
     };
+    angular.module('pipDragged')
+        .component('pipDraggableGrid', DragComponent);
 }
 
-},{}],12:[function(require,module,exports){
+},{"./DraggableTileService":11,"./draggable_group/DraggableTilesGroupService":13}],11:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 function IDragTileConstructor(constructor, options) {
@@ -1049,34 +1160,35 @@ angular
     };
 });
 
-},{}],13:[function(require,module,exports){
-'use strict';
-angular
-    .module('pipDragged')
-    .directive('pipDraggableTiles', DraggableTile);
-function DraggableTile() {
-    return {
-        restrict: 'A',
-        link: function ($scope, $elem, $attr) {
-            var docFrag = document.createDocumentFragment();
-            var group = $scope.$eval($attr.pipDraggableTiles);
-            group.forEach(function (tile) {
-                var tpl = wrapComponent(tile.getCompiledTemplate());
-                docFrag.appendChild(tpl);
-            });
-            $elem.append(docFrag);
-            function wrapComponent(elem) {
-                return $('<div>')
-                    .addClass('pip-draggable-tile')
-                    .append(elem)
-                    .get(0);
-            }
+},{}],12:[function(require,module,exports){
+{
+    function DraggableTileLink($scope, $elem, $attr) {
+        var docFrag = document.createDocumentFragment(), group = $scope.$eval($attr.pipDraggableTiles);
+        group.forEach(function (tile) {
+            var tpl = wrapComponent(tile.getCompiledTemplate());
+            docFrag.appendChild(tpl);
+        });
+        $elem.append(docFrag);
+        function wrapComponent(elem) {
+            return $('<div>')
+                .addClass('pip-draggable-tile')
+                .append(elem)
+                .get(0);
         }
-    };
+    }
+    function DraggableTile() {
+        return {
+            restrict: 'A',
+            link: DraggableTileLink
+        };
+    }
+    angular
+        .module('pipDragged')
+        .directive('pipDraggableTiles', DraggableTile);
 }
 
-},{}],14:[function(require,module,exports){
-'use strict';
+},{}],13:[function(require,module,exports){
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function ITilesGridConstructor(constructor, tiles, options, columns, elem) {
     return new constructor(tiles, options, columns, elem);
@@ -1210,9 +1322,7 @@ var TilesGridService = (function () {
     };
     ;
     TilesGridService.prototype.getCell = function (src, basicRow, basicCol, columns) {
-        var cell;
-        var col;
-        var row;
+        var cell, col, row;
         if (this.isMobileLayout) {
             for (col = basicCol; col < columns; col++) {
                 if (!src[basicRow][col].elem) {
@@ -1332,12 +1442,8 @@ var TilesGridService = (function () {
     };
     ;
     TilesGridService.prototype.generateGrid = function (singleTileWidth) {
-        var self = this;
-        var colsInRow = 0;
-        var rows = 0;
-        var tileWidth = singleTileWidth || this.opts.tileWidth;
-        var offset = document.querySelector('.pip-draggable-group-title').getBoundingClientRect();
-        var gridInRow = [];
+        var self = this, tileWidth = singleTileWidth || this.opts.tileWidth, offset = document.querySelector('.pip-draggable-group-title').getBoundingClientRect();
+        var colsInRow = 0, rows = 0, gridInRow = [];
         this.gridCells = [];
         this.tiles.forEach(function (tile, index, srcTiles) {
             var tileSize = tile.getSize();
@@ -1515,74 +1621,78 @@ angular
     };
 });
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
-ImageLoad.$inject = ['$parse'];
 Object.defineProperty(exports, "__esModule", { value: true });
-var widgetTemplateService = (function () {
-    widgetTemplateService.$inject = ['$interpolate', '$compile', '$templateRequest'];
-    function widgetTemplateService($interpolate, $compile, $templateRequest) {
-        this._$interpolate = $interpolate;
-        this._$compile = $compile;
-        this._$templateRequest = $templateRequest;
-    }
-    widgetTemplateService.prototype.getTemplate = function (source, tpl, tileScope, strictCompile) {
-        var _this = this;
-        var template = source.template, templateUrl = source.templateUrl, type = source.type;
-        var result;
-        if (type) {
-            var interpolated = tpl ? this._$interpolate(tpl)(source) : this._$interpolate(template)(source);
-            return strictCompile == true ?
-                (tileScope ? this._$compile(interpolated)(tileScope) : this._$compile(interpolated)) :
-                interpolated;
+{
+    var widgetTemplateService = (function () {
+        widgetTemplateService.$inject = ['$interpolate', '$compile', '$templateRequest'];
+        function widgetTemplateService($interpolate, $compile, $templateRequest) {
+            this._$interpolate = $interpolate;
+            this._$compile = $compile;
+            this._$templateRequest = $templateRequest;
         }
-        if (template) {
-            return tileScope ? this._$compile(template)(tileScope) : this._$compile(template);
-        }
-        if (templateUrl) {
-            this._$templateRequest(templateUrl, false).then(function (html) {
-                result = tileScope ? _this._$compile(html)(tileScope) : _this._$compile(html);
-            });
-        }
-        return result;
+        widgetTemplateService.prototype.getTemplate = function (source, tpl, tileScope, strictCompile) {
+            var _this = this;
+            var template = source.template, templateUrl = source.templateUrl, type = source.type;
+            var result;
+            if (type) {
+                var interpolated = tpl ? this._$interpolate(tpl)(source) : this._$interpolate(template)(source);
+                return strictCompile == true ?
+                    (tileScope ? this._$compile(interpolated)(tileScope) : this._$compile(interpolated)) :
+                    interpolated;
+            }
+            if (template) {
+                return tileScope ? this._$compile(template)(tileScope) : this._$compile(template);
+            }
+            if (templateUrl) {
+                this._$templateRequest(templateUrl, false).then(function (html) {
+                    result = tileScope ? _this._$compile(html)(tileScope) : _this._$compile(html);
+                });
+            }
+            return result;
+        };
+        widgetTemplateService.prototype.setImageMarginCSS = function ($element, image) {
+            var containerWidth = $element.width ? $element.width() : $element.clientWidth, containerHeight = $element.height ? $element.height() : $element.clientHeight, imageWidth = (image[0] ? image[0].naturalWidth : image.naturalWidth) || image.width, imageHeight = (image[0] ? image[0].naturalHeight : image.naturalWidth) || image.height, margin = 0, cssParams = {};
+            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
+                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
+                cssParams['margin-left'] = '' + margin + 'px';
+                cssParams['height'] = '' + containerHeight + 'px';
+                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
+                cssParams['margin-top'] = '';
+            }
+            else {
+                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
+                cssParams['margin-top'] = '' + margin + 'px';
+                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
+                cssParams['width'] = '' + containerWidth + 'px';
+                cssParams['margin-left'] = '';
+            }
+            $(image).css(cssParams);
+        };
+        return widgetTemplateService;
+    }());
+    var ImageLoad = function ImageLoad($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var callback = $parse(attrs.pipImageLoad);
+                element.bind('load', function (event) {
+                    callback(scope, {
+                        $event: event
+                    });
+                });
+            }
+        };
     };
-    widgetTemplateService.prototype.setImageMarginCSS = function ($element, image) {
-        var containerWidth = $element.width ? $element.width() : $element.clientWidth, containerHeight = $element.height ? $element.height() : $element.clientHeight, imageWidth = (image[0] ? image[0].naturalWidth : image.naturalWidth) || image.width, imageHeight = (image[0] ? image[0].naturalHeight : image.naturalWidth) || image.height, margin = 0, cssParams = {};
-        if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
-            margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
-            cssParams['margin-left'] = '' + margin + 'px';
-            cssParams['height'] = '' + containerHeight + 'px';
-            cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
-            cssParams['margin-top'] = '';
-        }
-        else {
-            margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
-            cssParams['margin-top'] = '' + margin + 'px';
-            cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
-            cssParams['width'] = '' + containerWidth + 'px';
-            cssParams['margin-left'] = '';
-        }
-        $(image).css(cssParams);
-    };
-    return widgetTemplateService;
-}());
-function ImageLoad($parse) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var callback = $parse(attrs.pipImageLoad);
-            element.bind('load', function (event) {
-                callback(scope, { $event: event });
-            });
-        }
-    };
+    ImageLoad.$inject = ['$parse'];
+    angular
+        .module('pipDashboard')
+        .service('pipWidgetTemplate', widgetTemplateService)
+        .directive('pipImageLoad', ImageLoad);
 }
-angular
-    .module('pipDashboard')
-    .service('pipWidgetTemplate', widgetTemplateService)
-    .directive('pipImageLoad', ImageLoad);
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (function () {
@@ -1598,7 +1708,7 @@ require("./position/WidgetPosition");
 require("./statistics/WidgetStatistics");
 require("./picture_slider/WidgetPictureSlider");
 
-},{"./calendar/WidgetCalendar":17,"./event/WidgetEvent":18,"./menu/WidgetMenuDirective":19,"./menu/WidgetMenuService":20,"./notes/WidgetNotes":21,"./picture_slider/WidgetPictureSlider":22,"./position/WidgetPosition":23,"./statistics/WidgetStatistics":24}],17:[function(require,module,exports){
+},{"./calendar/WidgetCalendar":16,"./event/WidgetEvent":17,"./menu/WidgetMenuDirective":18,"./menu/WidgetMenuService":19,"./notes/WidgetNotes":20,"./picture_slider/WidgetPictureSlider":21,"./position/WidgetPosition":22,"./statistics/WidgetStatistics":23}],16:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1612,41 +1722,44 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var WidgetMenuService_1 = require("../menu/WidgetMenuService");
-var CalendarWidgetController = (function (_super) {
-    __extends(CalendarWidgetController, _super);
-    function CalendarWidgetController(pipWidgetMenu, $scope, pipWidgetConfigDialogService) {
-        var _this = _super.call(this) || this;
-        _this.color = 'blue';
-        _this._$scope = $scope;
-        _this._configDialog = pipWidgetConfigDialogService;
-        if (_this['options']) {
-            _this.menu = _this['options']['menu'] ? _.union(_this.menu, _this['options']['menu']) : _this.menu;
-            _this.menu.push({ title: 'Configurate', click: function () {
-                    _this.onConfigClick();
-                } });
-            _this['options'].date = _this['options'].date || new Date();
-            _this.color = _this['options'].color || _this.color;
+{
+    var CalendarWidgetController = (function (_super) {
+        __extends(CalendarWidgetController, _super);
+        function CalendarWidgetController(pipWidgetMenu, $scope, pipWidgetConfigDialogService) {
+            var _this = _super.call(this) || this;
+            _this.color = 'blue';
+            _this._$scope = $scope;
+            _this._configDialog = pipWidgetConfigDialogService;
+            if (_this['options']) {
+                _this.menu = _this['options']['menu'] ? _.union(_this.menu, _this['options']['menu']) : _this.menu;
+                _this.menu.push({
+                    title: 'Configurate',
+                    click: function () {
+                        _this.onConfigClick();
+                    }
+                });
+                _this['options'].date = _this['options'].date || new Date();
+                _this.color = _this['options'].color || _this.color;
+            }
+            return _this;
         }
-        return _this;
-    }
-    CalendarWidgetController.prototype.onConfigClick = function () {
-        var _this = this;
-        this._configDialog.show({
-            dialogClass: 'pip-calendar-config',
-            color: this.color,
-            size: this['options'].size,
-            date: this['options'].date,
-            extensionUrl: 'widgets/calendar/ConfigDialogExtension.html'
-        }, function (result) {
-            _this.color = result.color;
-            _this['options'].color = result.color;
-            _this.changeSize(result.size);
-            _this['options'].date = result.date;
-        });
-    };
-    return CalendarWidgetController;
-}(WidgetMenuService_1.MenuWidgetService));
-(function () {
+        CalendarWidgetController.prototype.onConfigClick = function () {
+            var _this = this;
+            this._configDialog.show({
+                dialogClass: 'pip-calendar-config',
+                color: this.color,
+                size: this['options'].size,
+                date: this['options'].date,
+                extensionUrl: 'widgets/calendar/ConfigDialogExtension.html'
+            }, function (result) {
+                _this.color = result.color;
+                _this['options'].color = result.color;
+                _this.changeSize(result.size);
+                _this['options'].date = result.date;
+            });
+        };
+        return CalendarWidgetController;
+    }(WidgetMenuService_1.MenuWidgetService));
     var pipCalendarWidget = {
         bindings: {
             options: '=pipOptions',
@@ -1658,9 +1771,9 @@ var CalendarWidgetController = (function (_super) {
     angular
         .module('pipWidget')
         .component('pipCalendarWidget', pipCalendarWidget);
-})();
+}
 
-},{"../menu/WidgetMenuService":20}],18:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],17:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1781,7 +1894,7 @@ var EventWidgetController = (function (_super) {
         .component('pipEventWidget', pipEventWidget);
 })();
 
-},{"../menu/WidgetMenuService":20}],19:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],18:[function(require,module,exports){
 (function () {
     'use strict';
     angular
@@ -1795,7 +1908,7 @@ var EventWidgetController = (function (_super) {
     }
 })();
 
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var MenuWidgetService = (function () {
@@ -1868,7 +1981,7 @@ var MenuWidgetProvider = (function () {
         .provider('pipWidgetMenu', MenuWidgetProvider);
 })();
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1929,7 +2042,7 @@ angular
     .module('pipWidget')
     .component('pipNotesWidget', pipNotesWidget);
 
-},{"../menu/WidgetMenuService":20}],22:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],21:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1992,7 +2105,7 @@ angular
     .module('pipWidget')
     .component('pipPictureSliderWidget', pipPictureSliderWidget);
 
-},{"../menu/WidgetMenuService":20}],23:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],22:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -2094,7 +2207,7 @@ angular
     .module('pipWidget')
     .component('pipPositionWidget', pipPositionWidget);
 
-},{"../menu/WidgetMenuService":20}],24:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],23:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -2155,7 +2268,7 @@ var StatisticsWidgetController = (function (_super) {
         .component('pipStatisticsWidget', pipStatisticsWidget);
 })();
 
-},{"../menu/WidgetMenuService":20}],25:[function(require,module,exports){
+},{"../menu/WidgetMenuService":19}],24:[function(require,module,exports){
 (function(module) {
 try {
   module = angular.module('pipDashboard.Templates');
@@ -2187,20 +2300,8 @@ try {
   module = angular.module('pipDashboard.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dialogs/add_component/AddComponent.html',
-    '<md-dialog class="pip-dialog pip-add-component-dialog"><md-dialog-content class="layout-column"><div class="theme-divider p16 flex-auto"><h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs="">Add component<md-input-container class="layout-row flex-auto m0"><md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" placeholder="Create New Group" aria-label="Group"><md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option></md-select></md-input-container></h3></div><div class="pip-body pip-scroll p0 flex-auto"><p class="md-body-1 theme-text-secondary m0 lp16 rp16">Use "Enter" or "+" buttons on keyboard to encrease and "Delete" or "-" to decrease tiles amount</p><md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets"><md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group"><div class="icon-holder flex-none"><md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon><div class="pip-badge theme-badge md-warn" ng-if="item.amount"><span>{{ item.amount }}</span></div></div><span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease"><md-icon md-svg-icon="icons:plus-circle"></md-icon></md-button><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease"><md-icon md-svg-icon="icons:minus-circle"></md-icon></md-button></md-list-item><md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider></md-list></div></md-dialog-content><md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary"><md-button ng-click="dialogCtrl.cancel()" aria-label="Add">Cancel</md-button><md-button ng-click="dialogCtrl.add()" arial-label="Cancel">Add</md-button></md-dialog-actions></md-dialog>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dialogs/widget_config/ConfigDialog.html',
-    '<md-dialog class="pip-dialog pip-widget-config-dialog {{ vm.params.dialogClass }}" width="400" md-theme="{{vm.theme}}"><pip-widget-config-extend-component class="layout-column" pip-extension-url="{{ vm.params.extensionUrl }}"></pip-widget-config-extend-component></md-dialog>');
+    '<md-dialog class="pip-dialog pip-widget-config-dialog {{ vm.params.dialogClass }}" width="400" md-theme="{{vm.theme}}"><pip-widget-config-extend-component class="layout-column" pip-dialog-scope="vm" pip-extension-url="vm.params.extensionUrl" pip-apply="vm.onApply(updatedData)"></pip-widget-config-extend-component></md-dialog>');
 }]);
 })();
 
@@ -2212,7 +2313,19 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dialogs/widget_config/ConfigDialogExtendComponent.html',
-    '<h3 class="tm0 flex-none">{{vm.dialogTitle}}</h3><div class="pip-body pip-scroll p16 bp0 flex-auto"><pip-extension-point></pip-extension-point><pip-toggle-buttons class="bm16" ng-if="!vm.hideSizes" pip-buttons="vm.sizes" ng-model="vm.sizeId"></pip-toggle-buttons><pip-color-picker ng-if="!vm.hideColors" pip-colors="vm.colors" ng-model="vm.color"></pip-color-picker></div><div class="pip-footer flex-none"><div><md-button class="md-accent" ng-click="vm.onCancel()">Cancel</md-button><md-button class="md-accent" ng-click="vm.onApply()">Apply</md-button></div></div>');
+    '<h3 class="tm0 flex-none">{{ \'DASHBOARD_WIDGET_CONFIG_DIALOG_TITLE\' | translate }}</h3><div class="pip-body pip-scroll p16 bp0 flex-auto"><pip-extension-point></pip-extension-point><pip-toggle-buttons class="bm16" ng-if="!$ctrl.hideSizes" pip-buttons="$ctrl.sizes" ng-model="$ctrl.sizeId"></pip-toggle-buttons><pip-color-picker ng-if="!$ctrl.hideColors" pip-colors="$ctrl.colors" ng-model="$ctrl.color"></pip-color-picker></div><div class="pip-footer flex-none"><div><md-button class="md-accent" ng-click="$ctrl.onCancel()">{{ \'CANCEL\' | translate }}</md-button><md-button class="md-accent" ng-click="$ctrl.onApply()">{{ \'APPLY\' | translate }}</md-button></div></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dialogs/add_component/AddComponent.html',
+    '<md-dialog class="pip-dialog pip-add-component-dialog"><md-dialog-content class="layout-column"><div class="theme-divider p16 flex-auto"><h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs="">{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE\' | translate }}<md-input-container class="layout-row flex-auto m0 tm16"><md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" placeholder="{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP\' | translate }}" aria-label="Group"><md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option></md-select></md-input-container></h3></div><div class="pip-body pip-scroll p0 flex-auto"><p class="md-body-1 theme-text-secondary m0 lp16 rp16">{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS\' | translate }}</p><md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets"><md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group"><div class="icon-holder flex-none"><md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon><div class="pip-badge theme-badge md-warn" ng-if="item.amount"><span>{{ item.amount }}</span></div></div><span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease"><md-icon md-svg-icon="icons:plus-circle"></md-icon></md-button><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease"><md-icon md-svg-icon="icons:minus-circle"></md-icon></md-button></md-list-item><md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider></md-list></div></md-dialog-content><md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary"><md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ \'CANCEL\' | translate }}</md-button><md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ \'ADD\' | translate }}</md-button></md-dialog-actions></md-dialog>');
 }]);
 })();
 
@@ -2224,7 +2337,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/calendar/ConfigDialogExtension.html',
-    '<div class="w-stretch bm16">Date:<md-datepicker ng-model="vm.date" class="w-stretch"></md-datepicker></div>');
+    '<div class="w-stretch bm16">Date:<md-datepicker ng-model="$ctrl.date" class="w-stretch"></md-datepicker></div>');
 }]);
 })();
 
@@ -2248,8 +2361,8 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/event/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="vm.title"></md-input-container>Date:<md-datepicker ng-model="vm.date" class="w-stretch bm8"></md-datepicker><md-input-container class="w-stretch"><label>Description:</label> <textarea type="text" ng-model="vm.text">\n' +
-    '    </textarea></md-input-container>Backdrop\'s opacity:<md-slider aria-label="opacity" type="number" min="0.1" max="0.9" step="0.01" ng-model="vm.opacity" ng-change="vm.onOpacitytest(vm.opacity)"></md-slider></div>');
+    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="$ctrl.title"></md-input-container>Date:<md-datepicker ng-model="$ctrl.date" class="w-stretch bm8"></md-datepicker><md-input-container class="w-stretch"><label>Description:</label> <textarea type="text" ng-model="$ctrl.text">\n' +
+    '    </textarea></md-input-container>Backdrop\'s opacity:<md-slider aria-label="opacity" type="number" min="0.1" max="0.9" step="0.01" ng-model="$ctrl.opacity" ng-change="$ctrl.onOpacitytest($ctrl.opacity)"></md-slider></div>');
 }]);
 })();
 
@@ -2285,7 +2398,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/notes/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="vm.title"></md-input-container><md-input-container class="w-stretch tm0"><label>Text:</label> <textarea type="text" ng-model="vm.text">\n' +
+    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="$ctrl.title"></md-input-container><md-input-container class="w-stretch tm0"><label>Text:</label> <textarea type="text" ng-model="$ctrl.text">\n' +
     '    </textarea></md-input-container></div>');
 }]);
 })();
@@ -2322,7 +2435,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/position/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Location name:</label> <input type="text" ng-model="vm.locationName"></md-input-container></div>');
+    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Location name:</label> <input type="text" ng-model="$ctrl.locationName"></md-input-container></div>');
 }]);
 })();
 
@@ -2352,7 +2465,7 @@ module.run(['$templateCache', function($templateCache) {
 
 
 
-},{}]},{},[25,1,2,3,4,5,6,7,8,13,14,9,10,11,12,15,17,18,19,20,21,22,23,24,16])(25)
+},{}]},{},[24,1,2,3,4,5,6,7,8,12,13,9,10,11,14,16,17,18,19,20,21,22,23,15])(24)
 });
 
 //# sourceMappingURL=pip-webui-dashboard.js.map

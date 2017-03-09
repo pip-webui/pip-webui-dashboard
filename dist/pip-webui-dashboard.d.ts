@@ -55,6 +55,22 @@ export interface IWidgetTemplateService {
 }
 
 
+export class WidgetConfigDialogController {
+    params: any;
+    $mdDialog: angular.material.IDialogService;
+    colors: string[];
+    sizes: any;
+    sizeId: string;
+    onCancel: Function;
+    constructor(params: any, $mdDialog: angular.material.IDialogService);
+    onApply(updatedData: any): void;
+}
+
+
+export interface IWidgetConfigService {
+    show(params: any, successCallback?: (key) => void, cancelCallback?: () => void): any;
+}
+
 export class widget {
     title: string;
     icon: string;
@@ -79,22 +95,6 @@ export interface IAddComponentDialogService {
 }
 export interface IAddComponentDialogprovider {
     configWidgetList(list: [widget[]]): void;
-}
-
-export class WidgetConfigDialogController {
-    params: any;
-    $mdDialog: angular.material.IDialogService;
-    colors: string[];
-    sizes: any;
-    sizeId: string;
-    onCancel: Function;
-    constructor(params: any, $mdDialog: angular.material.IDialogService);
-    onApply(updatedData: any): void;
-}
-
-
-export interface IWidgetConfigService {
-    show(params: any, successCallback?: (key) => void, cancelCallback?: () => void): any;
 }
 
 
@@ -167,13 +167,13 @@ export class TilesGridService implements ITilesGridService {
 
 
 
-
 export class MenuWidgetService {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
+
 
 
 
