@@ -1,8 +1,4 @@
-(() => {
-  'use strict';
-
-  angular.module('pipWidget', []);
-})();
+angular.module('pipWidget', []);
 
 import './calendar/WidgetCalendar';
 import './event/WidgetEvent';

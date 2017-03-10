@@ -4,15 +4,15 @@
     </md-button>
 
     <md-menu-content width="4">
-        <md-menu-item ng-repeat="item in widgetCtrl.menu">
-            <md-button ng-if="!item.submenu" ng-click="widgetCtrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button>
+        <md-menu-item ng-repeat="item in $ctrl.menu">
+            <md-button ng-if="!item.submenu" ng-click="$ctrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button>
 
             <md-menu ng-if="item.submenu">
-                <md-button ng-click="widgetCtrl.callAction(item.action)">{{:: item.title }}</md-button>
+                <md-button ng-click="$ctrl.callAction(item.action)">{{:: item.title }}</md-button>
 
                 <md-menu-content>
                     <md-menu-item ng-repeat="subitem in item.submenu">
-                        <md-button ng-click="widgetCtrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button>
+                        <md-button ng-click="$ctrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>

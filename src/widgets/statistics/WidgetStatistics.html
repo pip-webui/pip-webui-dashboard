@@ -1,16 +1,16 @@
 <div class="widget-box pip-statistics-widget layout-column layout-fill"
      ng-class="{
-        small: widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1,
-        medium: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1,
-        big: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 2 }">
+        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,
+        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,
+        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }">
     <div class="widget-heading layout-row layout-align-start-center flex-none">
-        <span class="widget-title flex-auto text-overflow">{{ widgetCtrl.options.title || widgetCtrl.options.name }}</span>
+        <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>
         <pip-menu-widget></pip-menu-widget>
     </div>
-    <div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="widgetCtrl.options.series && !widgetCtrl.reset">
-        <pip-pie-chart pip-series="widgetCtrl.options.series" ng-if="!widgetCtrl.options.chartType || widgetCtrl.options.chartType == 'pie'"
+    <div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.series && !$ctrl.reset">
+        <pip-pie-chart pip-series="$ctrl.options.series" ng-if="!$ctrl.options.chartType || $ctrl.options.chartType == 'pie'"
                     pip-donut="true" 
-                    pip-pie-size="widgetCtrl.chartSize" 
+                    pip-pie-size="$ctrl.chartSize" 
                     pip-show-total="true" 
                     pip-centered="true">
         </pip-pie-chart>

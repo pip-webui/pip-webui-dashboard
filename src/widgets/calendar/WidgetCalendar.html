@@ -1,28 +1,27 @@
-<div class="widget-box pip-calendar-widget {{ widgetCtrl.color }} layout-column layout-fill tp0"
-     ng-class="{
-        small: widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1,
-        medium: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1,
-        big: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 2 }">
+<div class="widget-box pip-calendar-widget {{ $ctrl.color }} layout-column layout-fill tp0"
+     ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,
+        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,
+        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }">
   <div class="widget-heading layout-row layout-align-end-center flex-none">
     <pip-menu-widget></pip-menu-widget>
   </div>
 
   <div class="widget-content flex-auto layout-row layout-align-center-center"
-       ng-if="widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1">
-    <span class="date lm24 rm12">{{ widgetCtrl.options.date.getDate() }}</span>
+       ng-if="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1">
+    <span class="date lm24 rm12">{{ $ctrl.options.date.getDate() }}</span>
     <div class="flex-auto layout-column">
-      <span class="weekday md-headline">{{ widgetCtrl.options.date | formatLongDayOfWeek }}</span>
-      <span class="month-year md-headline">{{ widgetCtrl.options.date | formatLongMonth }} {{ widgetCtrl.options.date | formatYear }}</span>
+      <span class="weekday md-headline">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>
+      <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span>
     </div>
   </div>
 
   <div class="widget-content flex-auto layout-column layout-align-space-around-center"
-       ng-hide="widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1">
+       ng-hide="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1">
     <span class="weekday md-headline"
-          ng-hide="widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1">{{ widgetCtrl.options.date | formatLongDayOfWeek }}</span>
+          ng-hide="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>
     <span class="weekday"
-          ng-show="widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1">{{ widgetCtrl.options.date | formatLongDayOfWeek }}</span>
-    <span class="date lm12 rm12">{{ widgetCtrl.options.date.getDate() }}</span>
-    <span class="month-year md-headline">{{ widgetCtrl.options.date | formatLongMonth }} {{ widgetCtrl.options.date | formatYear }}</span>
+          ng-show="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>
+    <span class="date lm12 rm12">{{ $ctrl.options.date.getDate() }}</span>
+    <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span>
   </div>
 </div>

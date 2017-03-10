@@ -1,5 +1,5 @@
 import {
-  widget,
+  AddComponentDialogWidget,
   AddComponentDialogController
 } from './AddComponentDialogController';
 
@@ -8,7 +8,7 @@ export interface IAddComponentDialogService {
 }
 
 export interface IAddComponentDialogprovider {
-  configWidgetList(list: [widget[]]): void;
+  configWidgetList(list: [AddComponentDialogWidget[]]): void;
 }
 
 (function () {
@@ -33,7 +33,7 @@ export interface IAddComponentDialogprovider {
   class AddComponentDialogService implements IAddComponentDialogService {
 
     public constructor(
-      private widgetList: [widget[]],
+      private widgetList: [AddComponentDialogWidget[]],
       private $mdDialog: angular.material.IDialogService
     ) {}
 
@@ -62,11 +62,11 @@ export interface IAddComponentDialogprovider {
 
   class AddComponentDialogProvider implements IAddComponentDialogprovider {
     private _service: AddComponentDialogService;
-    private _widgetList: [widget[]] = null;
+    private _widgetList: [AddComponentDialogWidget[]] = null;
 
     constructor() {}
 
-    public configWidgetList = function (list: [widget[]]) {
+    public configWidgetList = function (list: [AddComponentDialogWidget[]]) {
       this._widgetList = list;
     };
 

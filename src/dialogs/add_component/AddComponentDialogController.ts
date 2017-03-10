@@ -1,4 +1,4 @@
-export class widget {
+export class AddComponentDialogWidget {
     title: string;
     icon: string;
     name: string;
@@ -6,14 +6,14 @@ export class widget {
 }
 
 export class AddComponentDialogController implements ng.IController {
-    public defaultWidgets: [widget[]];
+    public defaultWidgets: [AddComponentDialogWidget[]];
     public groups: any;
     public totalWidgets: number = 0;
 
     constructor(
         groups, // Later may be group type
         public activeGroupIndex: number,
-        widgetList: [widget[]],
+        widgetList: [AddComponentDialogWidget[]],
         public $mdDialog: angular.material.IDialogService
     ) {
         this.activeGroupIndex = _.isNumber(activeGroupIndex) ? activeGroupIndex : -1;

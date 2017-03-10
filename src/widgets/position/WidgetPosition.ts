@@ -5,109 +5,104 @@ import {
   IWidgetConfigService
 } from '../../dialogs/widget_config/ConfigDialogService';
 
-class PositionWidgetController extends MenuWidgetService {
-  private _$scope: angular.IScope;
-  private _$timeout: angular.ITimeoutService;
-  private _configDialog: IWidgetConfigService;
-  private _locationDialog: any;
+{
+  class PositionWidgetController extends MenuWidgetService {
+    public showPosition: boolean = true;
 
-  public showPosition: boolean = true;
+    constructor(
+      $scope: angular.IScope,
+      private $timeout: angular.ITimeoutService,
+      private $element: any,
+      private pipWidgetConfigDialogService: IWidgetConfigService,
+      private pipLocationEditDialog: any,
+    ) {
+      super();
 
-  constructor(
-    pipWidgetMenu: any,
-    $scope: angular.IScope,
-    $timeout: angular.ITimeoutService,
-    $element: any,
-    pipWidgetConfigDialogService: IWidgetConfigService,
-    pipLocationEditDialog: any,
-  ) {
-    super();
-    this._$scope = $scope;
-    this._$timeout = $timeout;
-    this._configDialog = pipWidgetConfigDialogService;
-    this._locationDialog = pipLocationEditDialog;
+      if (this.options) {
+        if (this.options.menu) this.menu = _.union(this.menu, this.options.menu);
+      }
 
-    if (this['options']) {
-      if (this['options']['menu']) this.menu = _.union(this.menu, this['options']['menu']);
+      this.menu.push({
+        title: 'Configurate',
+        click: () => {
+          this.onConfigClick();
+        }
+      });
+      this.menu.push({
+        title: 'Change location',
+        click: () => {
+          this.openLocationEditDialog();
+        }
+      });
+
+      this.options.location = this.options.location || this.options.position;
+
+      $scope.$watch('widgetCtrl.options.location', () => {
+        this.reDrawPosition();
+      });
+
+      // TODO it doesn't work
+      $scope.$watch(() => {
+        return $element.is(':visible');
+      }, (newVal) => {
+        if (newVal == true) this.reDrawPosition();
+      });
     }
 
-    this.menu.push({
-      title: 'Configurate',
-      click: () => {
-        this.onConfigClick();
-      }
-    });
-    this.menu.push({
-      title: 'Change location',
-      click: () => {
-        this.openLocationEditDialog();
-      }
-    });
+    private onConfigClick() {
+      this.pipWidgetConfigDialogService.show({
+        dialogClass: 'pip-position-config',
+        locals: {
+          size: this.options.size,
+          locationName: this.options.locationName,
+          hideColors: true,
+        },
+        extensionUrl: 'widgets/position/ConfigDialogExtension.html'
+      }, (result: any) => {
+        this.changeSize(result.size);
+        this.options.locationName = result.locationName;
+      });
+    }
 
-    this['options'].location = this['options'].location || this['options'].position;
+    public changeSize(params) {
+      this.options.size.colSpan = params.sizeX;
+      this.options.size.rowSpan = params.sizeY;
 
-    $scope.$watch('widgetCtrl.options.location', () => {
       this.reDrawPosition();
-    });
+    }
 
-    // TODO it doesn't work
-    $scope.$watch(() => { return $element.is(':visible'); }, (newVal) => {
-      if (newVal == true) this.reDrawPosition();
-    });
+    public openLocationEditDialog() {
+      this.pipLocationEditDialog.show({
+        locationName: this.options.locationName,
+        locationPos: this.options.location
+      }, (newPosition) => {
+        if (newPosition) {
+          this.options.location = newPosition.location;
+          this.options.locationName = newPosition.locatioName;
+        }
+      });
+    }
+
+    private reDrawPosition() {
+      this.showPosition = false;
+      this.$timeout(() => {
+        this.showPosition = true;
+      }, 50);
+    }
   }
 
-  private onConfigClick() {
-    this._configDialog.show({
-      dialogClass: 'pip-position-config',
-      size: this['options'].size,
-      locationName: this['options'].locationName,
-      hideColors: true,
-      extensionUrl: 'widgets/position/ConfigDialogExtension.html'
-    }, (result: any) => {
-      this.changeSize(result.size);
-      this['options'].locationName = result.locationName;
-    });
+
+  const PositionWidget: ng.IComponentOptions = {
+    bindings: {
+      options: '=pipOptions',
+      index: '=',
+      group: '='
+    },
+    controller: PositionWidgetController,
+    templateUrl: 'widgets/position/WidgetPosition.html'
   }
 
-  public changeSize(params) {
-    this['options'].size.colSpan = params.sizeX;
-    this['options'].size.rowSpan = params.sizeY;
-
-    this.reDrawPosition();
-  }
-
-  public openLocationEditDialog() {
-    this._locationDialog.show({
-      locationName: this['options'].locationName,
-      locationPos: this['options'].location
-    }, (newPosition) => {
-      if (newPosition) {
-        this['options'].location = newPosition.location;
-        this['options'].locationName = newPosition.locatioName;
-      }
-    });
-  }
-
-  private reDrawPosition() {
-    this.showPosition = false;
-    this._$timeout(() => {
-      this.showPosition = true;
-    }, 50);
-  }
+  angular
+    .module('pipWidget')
+    .component('pipPositionWidget', PositionWidget);
 }
-
-
-let pipPositionWidget = {
-  bindings: {
-    options: '=pipOptions',
-    index: '=',
-    group: '='
-  },
-  controller: PositionWidgetController,
-  controllerAs: 'widgetCtrl',
-  templateUrl: 'widgets/position/WidgetPosition.html'
-}
-
-angular
-  .module('pipWidget')
-  .component('pipPositionWidget', pipPositionWidget);

@@ -7,61 +7,54 @@ import {
 
 {
   class CalendarWidgetController extends MenuWidgetService {
-    private _$scope: angular.IScope;
-    private _configDialog: IWidgetConfigService;
-
-    public color: string = 'blue';
-
     constructor(
-      pipWidgetMenu: any,
-      $scope: angular.IScope,
-      pipWidgetConfigDialogService: IWidgetConfigService
+      private pipWidgetConfigDialogService: IWidgetConfigService
     ) {
       super();
-      this._$scope = $scope;
-      this._configDialog = pipWidgetConfigDialogService;
 
-      if (this['options']) {
-        this.menu = this['options']['menu'] ? _.union(this.menu, this['options']['menu']) : this.menu;
+      if (this.options) {
+        this.menu = this.options.menu ? _.union(this.menu, this.options.menu) : this.menu;
         this.menu.push({
           title: 'Configurate',
           click: () => {
             this.onConfigClick();
           }
         });
-        this['options'].date = this['options'].date || new Date();
-        this.color = this['options'].color || this.color;
+        this.options.date = this.options.date || new Date();
+        this.color = this.options.color || 'blue';
       }
     }
 
     private onConfigClick() {
-      this._configDialog.show({
+      this.pipWidgetConfigDialogService.show({
         dialogClass: 'pip-calendar-config',
-        color: this.color,
-        size: this['options'].size,
-        date: this['options'].date,
+        locals: {
+          color: this.color,
+          size: this.options.size,
+          date: this.options.date,
+        },
         extensionUrl: 'widgets/calendar/ConfigDialogExtension.html'
       }, (result: any) => {
-        this.color = result.color;
-        this['options'].color = result.color;
         this.changeSize(result.size);
-        this['options'].date = result.date;
+
+        this.color = result.color;
+        this.options.color = result.color;
+        this.options.date = result.date;
       });
     }
 
   }
 
-  const pipCalendarWidget: ng.IComponentOptions = {
+  const CalendarWidget: ng.IComponentOptions = {
     bindings: {
       options: '=pipOptions',
     },
     controller: CalendarWidgetController,
-    controllerAs: 'widgetCtrl',
     templateUrl: 'widgets/calendar/WidgetCalendar.html'
   }
 
   angular
     .module('pipWidget')
-    .component('pipCalendarWidget', pipCalendarWidget);
+    .component('pipCalendarWidget', CalendarWidget);
 
 }

@@ -27,9 +27,19 @@ const DEFAULT_OPTIONS = {
 };
 
 {
+
+  interface IDraggableBindings {
+      tilesTemplates: any;
+      tilesContext: any;
+      options: any;
+      groupMenuActions: any;
+      $container: JQuery;
+  }
+
   interface IDraggableControllerScope extends ng.IScope {
-    draggableCtrl: any;
     $container: JQuery;
+    tilesTemplates: any;
+    options: any;
   }
 
   interface ITileScope extends ng.IScope {
@@ -37,7 +47,7 @@ const DEFAULT_OPTIONS = {
     groupIndex: number | string;
   }
 
-  class DraggableController implements ng.IComponentController {
+  class DraggableController implements ng.IComponentController, IDraggableBindings {
     public opts: any;
     public groups: any;
     public sourceDropZoneElem: any = null;
@@ -50,6 +60,11 @@ const DEFAULT_OPTIONS = {
     public activeDraggedGroup: any;
     public draggedTile: any;
     public containerOffset: any;
+    public tilesTemplates: any;
+    public tilesContext: any;
+    public options: any;
+    public groupMenuActions: any;
+    public $container: JQuery;
 
     constructor(
       private $scope: IDraggableControllerScope,
@@ -63,9 +78,9 @@ const DEFAULT_OPTIONS = {
     ) {
       this.opts = _.merge({
         mobileBreakpoint: pipMedia.breakpoints.xs
-      }, DEFAULT_OPTIONS, $scope['draggableCtrl'].options);
+      }, DEFAULT_OPTIONS, this.options);
 
-      this.groups = $scope['draggableCtrl'].tilesTemplates.map((group, groupIndex) => {
+      this.groups = this.tilesTemplates.map((group, groupIndex) => {
         return {
           title: group.title,
           editingName: false,
@@ -83,7 +98,7 @@ const DEFAULT_OPTIONS = {
       });
 
       // Add templates watcher
-      $scope.$watch('draggableCtrl.tilesTemplates', (newVal) => {
+      $scope.$watch('$ctrl.tilesTemplates', (newVal) => {
         this.watch(newVal);
       }, true);
 
@@ -107,7 +122,7 @@ const DEFAULT_OPTIONS = {
 
     // Post link function
     public $postLink() {
-      this.$scope.$container = this.$element;
+      this.$container = this.$element;
     }
 
     // Watch handler
@@ -184,7 +199,7 @@ const DEFAULT_OPTIONS = {
         group.editingName = false;
         this.$rootScope.$broadcast(UPDATE_GROUPS_EVENT, this.groups);
         // Update title in outer scope
-        this.$scope.draggableCtrl.tilesTemplates[group.index].title = group.title;
+        this.tilesTemplates[group.index].title = group.title;
       }, 100);
     }
 
@@ -198,8 +213,8 @@ const DEFAULT_OPTIONS = {
     private updateTilesTemplates(updateType: string, source ? : any) {
       switch (updateType) {
         case 'addGroup':
-          if (this.groups.length !== this.$scope.draggableCtrl.tilesTemplates.length) {
-            this.$scope.draggableCtrl.tilesTemplates.push(source);
+          if (this.groups.length !== this.tilesTemplates.length) {
+            this.tilesTemplates.push(source);
           }
           break;
         case 'moveTile':
@@ -214,8 +229,8 @@ const DEFAULT_OPTIONS = {
             tileOptions: source.tile.opts.options,
             fromTileIndex: source.tile.opts.options.index
           }
-          this.$scope.draggableCtrl.tilesTemplates[fromIndex].source.splice(fromTileIndex, 1);
-          this.$scope.draggableCtrl.tilesTemplates[toIndex].source.push({
+          this.tilesTemplates[fromIndex].source.splice(fromTileIndex, 1);
+          this.tilesTemplates[toIndex].source.push({
             opts: tileOptions
           });
 
@@ -227,7 +242,7 @@ const DEFAULT_OPTIONS = {
 
     // Manage tiles functions
     private createTileScope(tile: any): ITileScope {
-      const tileScope = < ITileScope > this.$rootScope.$new(false, this.$scope.draggableCtrl.tilesContext);
+      const tileScope = < ITileScope > this.$rootScope.$new(false, this.tilesContext);
       tileScope.index = tile.opts.index == undefined ? tile.opts.options.index : tile.opts.index;
       tileScope.groupIndex = tile.opts.groupIndex == undefined ? tile.opts.options.groupIndex : tile.opts.groupIndex;
 
@@ -369,7 +384,7 @@ const DEFAULT_OPTIONS = {
     }
 
     private getContainerWidth(): any {
-      const container = this.$scope.$container || $('body');
+      const container = this.$container || $('body');
       return container.width();
     }
 
@@ -601,7 +616,7 @@ const DEFAULT_OPTIONS = {
             }
           });
 
-        this.$scope['$container']
+        this.$container
           .on('mousedown touchstart', 'md-menu .md-icon-button', () => {
             interact('.pip-draggable-tile').draggable(false);
             $(this).trigger('click');
@@ -622,7 +637,6 @@ const DEFAULT_OPTIONS = {
       groupMenuActions: '=pipGroupMenuActions'
     },
     templateUrl: 'draggable/Draggable.html',
-    controllerAs: 'draggableCtrl',
     controller: DraggableController
   }
 

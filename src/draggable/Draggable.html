@@ -1,18 +1,18 @@
 <div class="pip-draggable-holder">
   <div class="pip-draggable-group" 
-       ng-repeat="group in draggableCtrl.groups" 
+       ng-repeat="group in $ctrl.groups" 
        data-group-id="{{ $index }}" 
        pip-draggable-tiles="group.source">
     <div class="pip-draggable-group-title layout-row layout-align-start-center">
-      <div class="title-input-container" ng-click="draggableCtrl.onTitleClick(group, $event)">
-        <input ng-if="group.editingName" ng-blur="draggableCtrl.onBlurTitleInput(group)" 
-               ng-keypress="draggableCtrl.onKyepressTitleInput(group, $event)"
+      <div class="title-input-container" ng-click="$ctrl.onTitleClick(group, $event)">
+        <input ng-if="group.editingName" ng-blur="$ctrl.onBlurTitleInput(group)" 
+               ng-keypress="$ctrl.onKyepressTitleInput(group, $event)"
                ng-model="group.title">
         </input>
         <div class="text-overflow flex-none" ng-if="!group.editingName">{{ group.title }}</div>
       </div>
       <md-button class="md-icon-button flex-none layout-align-center-center" 
-        ng-show="group.editingName" ng-click="draggableCtrl.cancelEditing(group)"
+        ng-show="group.editingName" ng-click="$ctrl.cancelEditing(group)"
         aria-label="Cancel">
         <md-icon md-svg-icon="icons:cross"></md-icon>
       </md-button>
@@ -21,7 +21,7 @@
           <md-icon md-svg-icon="icons:dots"></md-icon>
         </md-button>
         <md-menu-content width="4">
-          <md-menu-item ng-repeat="action in draggableCtrl.groupMenuActions">
+          <md-menu-item ng-repeat="action in $ctrl.groupMenuActions">
             <md-button ng-click="action.callback(groupId)">{{ action.title }}</md-button>
           </md-menu-item>
         </md-menu-content>

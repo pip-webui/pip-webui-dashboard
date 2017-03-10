@@ -1,18 +1,18 @@
 <div class="pip-position-widget widget-box p0 layout-column layout-fill"
      ng-class="{
-        small: widgetCtrl.options.size.colSpan == 1 && widgetCtrl.options.size.rowSpan == 1,
-        medium: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 1,
-        big: widgetCtrl.options.size.colSpan == 2 && widgetCtrl.options.size.rowSpan == 2 }"
-        index='{{ widgetCtrl.index }}' group='{{ widgetCtrl.group }}'>
-    <div class="position-absolute-right-top" ng-if="!widgetCtrl.options.locationName">
-        <pip-menu-widget ng-if="!widgetCtrl.options.hideMenu"></pip-menu-widget>
+        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,
+        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,
+        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"
+        index='{{ $ctrl.index }}' group='{{ $ctrl.group }}'>
+    <div class="position-absolute-right-top" ng-if="!$ctrl.options.locationName">
+        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
     </div>
 
-    <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none" ng-if="widgetCtrl.options.locationName">
-        <span class="flex text-overflow">{{ widgetCtrl.options.locationName }}</span>
-        <pip-menu-widget ng-if="!widgetCtrl.options.hideMenu"></pip-menu-widget>
+    <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none" ng-if="$ctrl.options.locationName">
+        <span class="flex text-overflow">{{ $ctrl.options.locationName }}</span>
+        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
     </div>
 
-    <pip-location-map class="flex" ng-if="widgetCtrl.showPosition" pip-stretch="true" pip-rebind="true"
-        pip-location-pos="widgetCtrl.options.location"></pip-location>
+    <pip-location-map class="flex" ng-if="$ctrl.showPosition" pip-stretch="true" pip-rebind="true"
+        pip-location-pos="$ctrl.options.location"></pip-location>
 </div>

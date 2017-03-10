@@ -1,7 +1,13 @@
 import { WidgetConfigDialogController } from './ConfigDialogController';
 
 export interface IWidgetConfigService {
-    show(params: any, successCallback ? : (key) => void, cancelCallback ? : () => void): any;
+    show(params: IWidgetConfigDialogOptions, successCallback ? : (key) => void, cancelCallback ? : () => void): any;
+}
+
+export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
+    dialogClass?: string;
+    extensionUrl?: string;
+    event?: any;
 }
 
 (function () {
@@ -30,14 +36,15 @@ export interface IWidgetConfigService {
             public $mdDialog: angular.material.IDialogService
         ) {}
 
-        public show(params, successCallback ? : (key) => void, cancelCallback ? : () => void) {
+        public show(params: IWidgetConfigDialogOptions, successCallback ? : (key) => void, cancelCallback ? : () => void) {
             this.$mdDialog.show({
                     targetEvent: params.event,
                     templateUrl: params.templateUrl || 'dialogs/widget_config/ConfigDialog.html',
                     controller: WidgetConfigDialogController,
+                    bindToController: true,
                     controllerAs: 'vm',
                     locals: {
-                        params: params
+                        params: params.locals
                     },
                     clickOutsideToClose: true
                 })
