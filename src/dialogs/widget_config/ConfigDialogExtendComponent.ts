@@ -1,7 +1,4 @@
-
-(function() {
-    'use strict';
-    
+{    
     interface IWidgetConfigExtendComponentBindings {
         [key: string]: any;
 
@@ -67,4 +64,4 @@
     angular
         .module('pipWidgetConfigDialog')
         .component('pipWidgetConfigExtendComponent', pipWidgetConfigComponent);
-})();
+}

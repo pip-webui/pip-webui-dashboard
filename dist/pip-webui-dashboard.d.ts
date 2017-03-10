@@ -1,6 +1,24 @@
 declare module pip.dashboard {
 
 
+export interface IWidgetTemplateService {
+    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
+    setImageMarginCSS($element: any, image: any): void;
+}
+
+export interface IDashboardWidget {
+    options: any;
+    color: string;
+    size: Object | string | number;
+}
+export class DashboardWidget implements IDashboardWidget {
+    options: any;
+    color: string;
+    size: Object | string | number;
+    constructor();
+}
+
+
 
 export const DEFAULT_TILE_WIDTH: number;
 export const DEFAULT_TILE_HEIGHT: number;
@@ -48,45 +66,6 @@ export class DragTileService implements IDragTileService {
     setOptions(options: any): any;
 }
 
-export interface IWidgetTemplateService {
-    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
-    setImageMarginCSS($element: any, image: any): void;
-}
-
-export interface IDashboardWidget {
-    options: any;
-    color: string;
-    size: Object | string | number;
-}
-export class DashboardWidget implements IDashboardWidget {
-    options: any;
-    color: string;
-    size: Object | string | number;
-    constructor();
-}
-
-
-export class WidgetConfigDialogController {
-    params: any;
-    $mdDialog: angular.material.IDialogService;
-    colors: string[];
-    sizes: any;
-    sizeId: string;
-    onCancel: Function;
-    constructor(params: any, $mdDialog: angular.material.IDialogService);
-    onApply(updatedData: any): void;
-}
-
-
-export interface IWidgetConfigService {
-    show(params: IWidgetConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
-}
-export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
-    dialogClass?: string;
-    extensionUrl?: string;
-    event?: any;
-}
-
 export class AddComponentDialogWidget {
     title: string;
     icon: string;
@@ -112,6 +91,41 @@ export interface IAddComponentDialogService {
 export interface IAddComponentDialogprovider {
     configWidgetList(list: [AddComponentDialogWidget[]]): void;
 }
+
+export class WidgetConfigDialogController {
+    params: any;
+    $mdDialog: angular.material.IDialogService;
+    colors: string[];
+    sizes: any;
+    sizeId: string;
+    onCancel: Function;
+    constructor(params: any, $mdDialog: angular.material.IDialogService);
+    onApply(updatedData: any): void;
+}
+
+
+export interface IWidgetConfigService {
+    show(params: IWidgetConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
+}
+export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
+    dialogClass?: string;
+    extensionUrl?: string;
+    event?: any;
+}
+
+
+
+
+export class MenuWidgetService extends DashboardWidget {
+    menu: any;
+    constructor();
+    callAction(actionName: any, params: any, item: any): void;
+    changeSize(params: any): void;
+}
+
+
+
+
 
 
 export interface TilesGridConstructor {
@@ -179,20 +193,6 @@ export class TilesGridService implements ITilesGridService {
     removeTile(removeTile: any): any;
     updateTileOptions(opts: any): any;
 }
-
-
-
-export class MenuWidgetService extends DashboardWidget {
-    menu: any;
-    constructor();
-    callAction(actionName: any, params: any, item: any): void;
-    changeSize(params: any): void;
-}
-
-
-
-
-
 
 }
 

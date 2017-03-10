@@ -137,5 +137,4 @@ import {
   angular
     .module('pipWidget')
     .component('pipEventWidget', EventWidget);
-
 }

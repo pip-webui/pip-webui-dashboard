@@ -11,10 +11,8 @@ export interface IAddComponentDialogprovider {
   configWidgetList(list: [AddComponentDialogWidget[]]): void;
 }
 
-(function () {
-  'use strict';
-
-  function setTranslations($injector: ng.auto.IInjectorService) {
+{
+  const setTranslations = function($injector: ng.auto.IInjectorService) {
     const pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
     if (pipTranslate) {
       (<any>pipTranslate).setTranslations('en', {
@@ -84,4 +82,4 @@ export interface IAddComponentDialogprovider {
     .module('pipDashboard')
     .config(setTranslations)
     .provider('pipAddComponentDialog', AddComponentDialogProvider);
-})();
+}

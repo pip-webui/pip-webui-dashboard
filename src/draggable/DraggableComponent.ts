@@ -27,7 +27,6 @@ const DEFAULT_OPTIONS = {
 };
 
 {
-
   interface IDraggableBindings {
       tilesTemplates: any;
       tilesContext: any;

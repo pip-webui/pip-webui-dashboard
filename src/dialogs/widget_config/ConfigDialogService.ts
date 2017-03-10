@@ -10,10 +10,8 @@ export interface IWidgetConfigDialogOptions extends angular.material.IDialogOpti
     event?: any;
 }
 
-(function () {
-    'use strict';
-
-    function setTranslations($injector: ng.auto.IInjectorService) {
+{
+    const setTranslations = function($injector: ng.auto.IInjectorService) {
         const pipTranslate = $injector.has('pipTranslateProvider') ? $injector.get('pipTranslateProvider') : null;
         if (pipTranslate) {
             ( < any > pipTranslate).setTranslations('en', {
@@ -64,5 +62,4 @@ export interface IWidgetConfigDialogOptions extends angular.material.IDialogOpti
         .module('pipWidgetConfigDialog')
         .config(setTranslations)
         .service('pipWidgetConfigDialogService', WidgetConfigDialogService);
-
-})();
+}
