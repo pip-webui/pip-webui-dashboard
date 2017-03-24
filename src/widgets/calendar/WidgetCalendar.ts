@@ -3,7 +3,7 @@ import {
 } from '../menu/WidgetMenuService';
 import {
   IWidgetConfigService
-} from '../../dialogs/widget_config/ConfigDialogService';
+} from '../../dialogs/tile_config/ConfigDialogService';
 
 {
   class CalendarWidgetController extends MenuWidgetService {

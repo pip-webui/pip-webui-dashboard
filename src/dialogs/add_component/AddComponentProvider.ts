@@ -79,7 +79,8 @@ export interface IAddComponentDialogprovider {
   }
 
   angular
-    .module('pipDashboard')
+    .module('pipAddDashboardComponentDialog')
     .config(setTranslations)
     .provider('pipAddComponentDialog', AddComponentDialogProvider);
+    console.log('add provider pipAddComponentDialog');
 }

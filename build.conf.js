@@ -16,6 +16,12 @@ module.exports = {
         images: true,
         dist: false
     },
+    browserify: {
+        entries: [
+            './src/index.ts',
+            './temp/pip-webui-dashboard-html.min.js',
+        ]
+    }, 
     file: {
         lib: [
             '../pip-webui-lib/dist/**/*',

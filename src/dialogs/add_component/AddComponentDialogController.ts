@@ -46,8 +46,3 @@ export class AddComponentDialogController implements ng.IController {
         this.totalWidgets = this.totalWidgets ? this.totalWidgets - 1 : 0;
     };
 }
-
-angular
-    .module('pipAddDashboardComponentDialog', ['ngMaterial']);
-
-import './AddComponentProvider';
