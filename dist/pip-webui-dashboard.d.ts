@@ -66,6 +66,32 @@ export class DashboardWidget implements IDashboardWidget {
 }
 
 
+export class AddComponentDialogWidget {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
+export class AddComponentDialogController implements ng.IController {
+    activeGroupIndex: number;
+    $mdDialog: angular.material.IDialogService;
+    defaultWidgets: [AddComponentDialogWidget[]];
+    groups: any;
+    totalWidgets: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [AddComponentDialogWidget[]], $mdDialog: angular.material.IDialogService);
+    add(): void;
+    cancel(): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
+}
+
+export interface IAddComponentDialogService {
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddComponentDialogprovider {
+    configWidgetList(list: [AddComponentDialogWidget[]]): void;
+}
+
 export class WidgetConfigDialogController {
     params: any;
     $mdDialog: angular.material.IDialogService;
@@ -167,32 +193,6 @@ export class MenuWidgetService extends DashboardWidget {
 
 
 
-
-export class AddComponentDialogWidget {
-    title: string;
-    icon: string;
-    name: string;
-    amount: number;
-}
-export class AddComponentDialogController implements ng.IController {
-    activeGroupIndex: number;
-    $mdDialog: angular.material.IDialogService;
-    defaultWidgets: [AddComponentDialogWidget[]];
-    groups: any;
-    totalWidgets: number;
-    constructor(groups: any, activeGroupIndex: number, widgetList: [AddComponentDialogWidget[]], $mdDialog: angular.material.IDialogService);
-    add(): void;
-    cancel(): void;
-    encrease(groupIndex: number, widgetIndex: number): void;
-    decrease(groupIndex: number, widgetIndex: number): void;
-}
-
-export interface IAddComponentDialogService {
-    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
-}
-export interface IAddComponentDialogprovider {
-    configWidgetList(list: [AddComponentDialogWidget[]]): void;
-}
 
 }
 

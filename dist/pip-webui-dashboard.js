@@ -2341,6 +2341,58 @@ try {
   module = angular.module('pipDashboard.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dialogs/add_component/AddComponent.html',
+    '<md-dialog class="pip-dialog pip-add-component-dialog">\n' +
+    '  <md-dialog-content class="layout-column">\n' +
+    '    <div class="theme-divider p16 flex-auto">\n' +
+    '      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE\' | translate }}</h4>\n' +
+    '      <md-input-container class="layout-row flex-auto m0 tm16">\n' +
+    '        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" \n' +
+    '            placeholder="{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP\' | translate }}"\n' +
+    '            aria-label="Group">\n' +
+    '          <md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option>\n' +
+    '        </md-select>\n' +
+    '      </md-input-container>\n' +
+    '    </div>\n' +
+    '    <div class="pip-body pip-scroll p0 flex-auto">\n' +
+    '      <p class="md-body-1 theme-text-secondary m0 lp16 rp16" >\n' +
+    '        {{ \'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS\' | translate }}\n' +
+    '      </p>\n' +
+    '      <md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets">\n' +
+    '        <md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group">\n' +
+    '          <div class="icon-holder flex-none">\n' +
+    '            <md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon>\n' +
+    '            <div class="pip-badge theme-badge md-warn" ng-if="item.amount">\n' +
+    '              <span>{{ item.amount }}</span>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '          <span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span>\n' +
+    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease">\n' +
+    '            <md-icon md-svg-icon="icons:plus-circle"></md-icon>\n' +
+    '          </md-button>\n' +
+    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease">\n' +
+    '            <md-icon md-svg-icon="icons:minus-circle"></md-icon>\n' +
+    '          </md-button>\n' +
+    '        </md-list-item>\n' +
+    '        <md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider>\n' +
+    '      </md-list>\n' +
+    '    </div>\n' +
+    '  </md-dialog-content>\n' +
+    '  <md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary">\n' +
+    '    <md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ \'CANCEL\' | translate }}</md-button>\n' +
+    '    <md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ \'ADD\' | translate }}</md-button>\n' +
+    '  </md-dialog-actions>\n' +
+    '</md-dialog>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dialogs/widget_config/ConfigDialog.html',
     '<md-dialog class="pip-dialog pip-widget-config-dialog {{ vm.params.dialogClass }}" width="400" md-theme="{{vm.theme}}">\n' +
     '    <pip-widget-config-extend-component class="layout-column" pip-dialog-scope="vm" pip-extension-url="vm.params.extensionUrl" \n' +
@@ -2685,58 +2737,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</div>\n' +
     '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dialogs/add_component/AddComponent.html',
-    '<md-dialog class="pip-dialog pip-add-component-dialog">\n' +
-    '  <md-dialog-content class="layout-column">\n' +
-    '    <div class="theme-divider p16 flex-auto">\n' +
-    '      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE\' | translate }}</h4>\n' +
-    '      <md-input-container class="layout-row flex-auto m0 tm16">\n' +
-    '        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" \n' +
-    '            placeholder="{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP\' | translate }}"\n' +
-    '            aria-label="Group">\n' +
-    '          <md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option>\n' +
-    '        </md-select>\n' +
-    '      </md-input-container>\n' +
-    '    </div>\n' +
-    '    <div class="pip-body pip-scroll p0 flex-auto">\n' +
-    '      <p class="md-body-1 theme-text-secondary m0 lp16 rp16" >\n' +
-    '        {{ \'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS\' | translate }}\n' +
-    '      </p>\n' +
-    '      <md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets">\n' +
-    '        <md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group">\n' +
-    '          <div class="icon-holder flex-none">\n' +
-    '            <md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon>\n' +
-    '            <div class="pip-badge theme-badge md-warn" ng-if="item.amount">\n' +
-    '              <span>{{ item.amount }}</span>\n' +
-    '            </div>\n' +
-    '          </div>\n' +
-    '          <span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span>\n' +
-    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease">\n' +
-    '            <md-icon md-svg-icon="icons:plus-circle"></md-icon>\n' +
-    '          </md-button>\n' +
-    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease">\n' +
-    '            <md-icon md-svg-icon="icons:minus-circle"></md-icon>\n' +
-    '          </md-button>\n' +
-    '        </md-list-item>\n' +
-    '        <md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider>\n' +
-    '      </md-list>\n' +
-    '    </div>\n' +
-    '  </md-dialog-content>\n' +
-    '  <md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary">\n' +
-    '    <md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ \'CANCEL\' | translate }}</md-button>\n' +
-    '    <md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ \'ADD\' | translate }}</md-button>\n' +
-    '  </md-dialog-actions>\n' +
-    '</md-dialog>');
 }]);
 })();
 
