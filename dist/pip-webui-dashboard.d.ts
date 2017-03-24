@@ -66,6 +66,27 @@ export class DashboardWidget implements IDashboardWidget {
 }
 
 
+export class WidgetConfigDialogController {
+    params: any;
+    $mdDialog: angular.material.IDialogService;
+    colors: string[];
+    sizes: any;
+    sizeId: string;
+    onCancel: Function;
+    constructor(params: any, $mdDialog: angular.material.IDialogService);
+    onApply(updatedData: any): void;
+}
+
+
+export interface IWidgetConfigService {
+    show(params: IWidgetConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
+}
+export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
+    dialogClass?: string;
+    extensionUrl?: string;
+    event?: any;
+}
+
 
 export interface TilesGridConstructor {
     new (tiles: any, options: any, columns: any, elem: any): any;
@@ -133,6 +154,20 @@ export class TilesGridService implements ITilesGridService {
     updateTileOptions(opts: any): any;
 }
 
+
+
+
+export class MenuWidgetService extends DashboardWidget {
+    menu: any;
+    constructor();
+    callAction(actionName: any, params: any, item: any): void;
+    changeSize(params: any): void;
+}
+
+
+
+
+
 export class AddComponentDialogWidget {
     title: string;
     icon: string;
@@ -158,41 +193,6 @@ export interface IAddComponentDialogService {
 export interface IAddComponentDialogprovider {
     configWidgetList(list: [AddComponentDialogWidget[]]): void;
 }
-
-export class WidgetConfigDialogController {
-    params: any;
-    $mdDialog: angular.material.IDialogService;
-    colors: string[];
-    sizes: any;
-    sizeId: string;
-    onCancel: Function;
-    constructor(params: any, $mdDialog: angular.material.IDialogService);
-    onApply(updatedData: any): void;
-}
-
-
-export interface IWidgetConfigService {
-    show(params: IWidgetConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
-}
-export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
-    dialogClass?: string;
-    extensionUrl?: string;
-    event?: any;
-}
-
-
-
-
-export class MenuWidgetService extends DashboardWidget {
-    menu: any;
-    constructor();
-    callAction(actionName: any, params: any, item: any): void;
-    changeSize(params: any): void;
-}
-
-
-
-
 
 }
 

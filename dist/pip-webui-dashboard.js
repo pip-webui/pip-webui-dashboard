@@ -20,7 +20,6 @@ require("./utility/WidgetTemplateUtility");
 require("./dialogs/widget_config/ConfigDialogController");
 require("./dialogs/add_component/AddComponentDialogController");
 require("./DashboardComponent");
-
 },{"./DashboardComponent":2,"./dialogs/add_component/AddComponentDialogController":3,"./dialogs/widget_config/ConfigDialogController":5,"./draggable/Draggable":8,"./utility/WidgetTemplateUtility":13,"./widgets/Widgets":15}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -225,7 +224,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .config(setTranslations)
         .component('pipDashboard', pipDashboard);
 }
-
 },{}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -275,7 +273,6 @@ exports.AddComponentDialogController = AddComponentDialogController;
 angular
     .module('pipAddDashboardComponentDialog', ['ngMaterial']);
 require("./AddComponentProvider");
-
 },{"./AddComponentProvider":4}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -347,7 +344,6 @@ var AddComponentDialogController_1 = require("./AddComponentDialogController");
         .config(setTranslations)
         .provider('pipAddComponentDialog', AddComponentDialogProvider);
 }
-
 },{"./AddComponentDialogController":3}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -403,7 +399,6 @@ angular
     .module('pipWidgetConfigDialog', ['ngMaterial']);
 require("./ConfigDialogService");
 require("./ConfigDialogExtendComponent");
-
 },{"./ConfigDialogExtendComponent":6,"./ConfigDialogService":7}],6:[function(require,module,exports){
 {
     var WidgetConfigExtendComponentBindings = {
@@ -449,7 +444,6 @@ require("./ConfigDialogExtendComponent");
         .module('pipWidgetConfigDialog')
         .component('pipWidgetConfigExtendComponent', pipWidgetConfigComponent);
 }
-
 },{}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -507,7 +501,6 @@ var ConfigDialogController_1 = require("./ConfigDialogController");
         .config(setTranslations)
         .service('pipWidgetConfigDialogService', WidgetConfigDialogService);
 }
-
 },{"./ConfigDialogController":5}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -516,7 +509,6 @@ require("./DraggableTileService");
 require("./DraggableComponent");
 require("./draggable_group/DraggableTilesGroupService");
 require("./draggable_group/DraggableTilesGroupDirective");
-
 },{"./DraggableComponent":9,"./DraggableTileService":10,"./draggable_group/DraggableTilesGroupDirective":11,"./draggable_group/DraggableTilesGroupService":12}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1008,7 +1000,6 @@ var DEFAULT_OPTIONS = {
     angular.module('pipDragged')
         .component('pipDraggableGrid', DragComponent);
 }
-
 },{"./DraggableTileService":10,"./draggable_group/DraggableTilesGroupService":12}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1143,7 +1134,6 @@ angular
         return newTile;
     };
 });
-
 },{}],11:[function(require,module,exports){
 {
     function DraggableTileLink($scope, $elem, $attr) {
@@ -1170,7 +1160,6 @@ angular
         .module('pipDragged')
         .directive('pipDraggableTiles', DraggableTile);
 }
-
 },{}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1604,7 +1593,6 @@ angular
         return newGrid;
     };
 });
-
 },{}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1675,7 +1663,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .service('pipWidgetTemplate', widgetTemplateService)
         .directive('pipImageLoad', ImageLoad);
 }
-
 },{}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1685,7 +1672,6 @@ var DashboardWidget = (function () {
     return DashboardWidget;
 }());
 exports.DashboardWidget = DashboardWidget;
-
 },{}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1698,7 +1684,6 @@ require("./notes/WidgetNotes");
 require("./position/WidgetPosition");
 require("./statistics/WidgetStatistics");
 require("./picture_slider/WidgetPictureSlider");
-
 },{"./calendar/WidgetCalendar":16,"./event/WidgetEvent":17,"./menu/WidgetMenuDirective":18,"./menu/WidgetMenuService":19,"./notes/WidgetNotes":20,"./picture_slider/WidgetPictureSlider":21,"./position/WidgetPosition":22,"./statistics/WidgetStatistics":23}],16:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1762,7 +1747,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipCalendarWidget', CalendarWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],17:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1890,7 +1874,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipEventWidget', EventWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],18:[function(require,module,exports){
 (function () {
     'use strict';
@@ -1904,7 +1887,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         };
     }
 })();
-
 },{}],19:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1988,7 +1970,6 @@ exports.MenuWidgetService = MenuWidgetService;
         .module('pipWidget')
         .provider('pipWidgetMenu', MenuWidgetProvider);
 }
-
 },{"../WidgetClass":14}],20:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -2053,7 +2034,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipNotesWidget', NotesWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],21:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
@@ -2115,7 +2095,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipPictureSliderWidget', PictureSliderWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],22:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -2222,7 +2201,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipPositionWidget', PositionWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],23:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -2280,7 +2258,6 @@ var WidgetMenuService_1 = require("../menu/WidgetMenuService");
         .module('pipWidget')
         .component('pipStatisticsWidget', StatisticsWidget);
 }
-
 },{"../menu/WidgetMenuService":19}],24:[function(require,module,exports){
 (function(module) {
 try {
@@ -2290,7 +2267,22 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('Dashboard.html',
-    '<md-button class="md-accent md-raised md-fab layout-column layout-align-center-center" aria-label="Add component" ng-click="$ctrl.addComponent()"><md-icon md-svg-icon="icons:plus" class="md-headline centered-add-icon"></md-icon></md-button><div class="pip-draggable-grid-holder"><pip-draggable-grid pip-tiles-templates="$ctrl.groupedWidgets" pip-tiles-context="$ctrl.widgetsContext" pip-draggable-grid="$ctrl.draggableGridOptions" pip-group-menu-actions="$ctrl.groupMenuActions"></pip-draggable-grid><md-progress-circular md-mode="indeterminate" class="progress-ring"></md-progress-circular></div>');
+    '<md-button class="md-accent md-raised md-fab layout-column layout-align-center-center" aria-label="Add component"\n' +
+    '           ng-click="$ctrl.addComponent()">\n' +
+    '    <md-icon md-svg-icon="icons:plus" class="md-headline centered-add-icon"></md-icon>\n' +
+    '</md-button>\n' +
+    '\n' +
+    '<div class="pip-draggable-grid-holder">\n' +
+    '  <pip-draggable-grid pip-tiles-templates="$ctrl.groupedWidgets"\n' +
+    '                      pip-tiles-context="$ctrl.widgetsContext"\n' +
+    '                      pip-draggable-grid="$ctrl.draggableGridOptions"\n' +
+    '                      pip-group-menu-actions="$ctrl.groupMenuActions">\n' +
+    '  </pip-draggable-grid>\n' +
+    '  \n' +
+    '  <md-progress-circular md-mode="indeterminate" class="progress-ring"></md-progress-circular>\n' +
+    '\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 
@@ -2302,19 +2294,43 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('draggable/Draggable.html',
-    '<div class="pip-draggable-holder"><div class="pip-draggable-group" ng-repeat="group in $ctrl.groups" data-group-id="{{ $index }}" pip-draggable-tiles="group.source"><div class="pip-draggable-group-title layout-row layout-align-start-center"><div class="title-input-container" ng-click="$ctrl.onTitleClick(group, $event)"><input ng-if="group.editingName" ng-blur="$ctrl.onBlurTitleInput(group)" ng-keypress="$ctrl.onKyepressTitleInput(group, $event)" ng-model="group.title"><div class="text-overflow flex-none" ng-if="!group.editingName">{{ group.title }}</div></div><md-button class="md-icon-button flex-none layout-align-center-center" ng-show="group.editingName" ng-click="$ctrl.cancelEditing(group)" aria-label="Cancel"><md-icon md-svg-icon="icons:cross"></md-icon></md-button><md-menu class="flex-none layout-column" md-position-mode="target-right target" ng-show="!group.editingName"><md-button class="md-icon-button flex-none layout-align-center-center" ng-click="$mdOpenMenu(); groupId = $index" aria-label="Menu"><md-icon md-svg-icon="icons:dots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="action in $ctrl.groupMenuActions"><md-button ng-click="action.callback(groupId)">{{ action.title }}</md-button></md-menu-item></md-menu-content></md-menu></div></div><div class="pip-draggable-group fict-group layout-align-center-center layout-column tm16"><div class="fict-group-text-container"><md-icon md-svg-icon="icons:plus"></md-icon>{{ \'DROP_TO_CREATE_NEW_GROUP\' | translate }}</div></div></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dialogs/add_component/AddComponent.html',
-    '<md-dialog class="pip-dialog pip-add-component-dialog"><md-dialog-content class="layout-column"><div class="theme-divider p16 flex-auto"><h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs="">{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE\' | translate }}<md-input-container class="layout-row flex-auto m0 tm16"><md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" placeholder="{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP\' | translate }}" aria-label="Group"><md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option></md-select></md-input-container></h3></div><div class="pip-body pip-scroll p0 flex-auto"><p class="md-body-1 theme-text-secondary m0 lp16 rp16">{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS\' | translate }}</p><md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets"><md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group"><div class="icon-holder flex-none"><md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon><div class="pip-badge theme-badge md-warn" ng-if="item.amount"><span>{{ item.amount }}</span></div></div><span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease"><md-icon md-svg-icon="icons:plus-circle"></md-icon></md-button><md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease"><md-icon md-svg-icon="icons:minus-circle"></md-icon></md-button></md-list-item><md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider></md-list></div></md-dialog-content><md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary"><md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ \'CANCEL\' | translate }}</md-button><md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ \'ADD\' | translate }}</md-button></md-dialog-actions></md-dialog>');
+    '<div class="pip-draggable-holder">\n' +
+    '  <div class="pip-draggable-group" \n' +
+    '       ng-repeat="group in $ctrl.groups" \n' +
+    '       data-group-id="{{ $index }}" \n' +
+    '       pip-draggable-tiles="group.source">\n' +
+    '    <div class="pip-draggable-group-title layout-row layout-align-start-center">\n' +
+    '      <div class="title-input-container" ng-click="$ctrl.onTitleClick(group, $event)">\n' +
+    '        <input ng-if="group.editingName" ng-blur="$ctrl.onBlurTitleInput(group)" \n' +
+    '               ng-keypress="$ctrl.onKyepressTitleInput(group, $event)"\n' +
+    '               ng-model="group.title">\n' +
+    '        </input>\n' +
+    '        <div class="text-overflow flex-none" ng-if="!group.editingName">{{ group.title }}</div>\n' +
+    '      </div>\n' +
+    '      <md-button class="md-icon-button flex-none layout-align-center-center" \n' +
+    '        ng-show="group.editingName" ng-click="$ctrl.cancelEditing(group)"\n' +
+    '        aria-label="Cancel">\n' +
+    '        <md-icon md-svg-icon="icons:cross"></md-icon>\n' +
+    '      </md-button>\n' +
+    '      <md-menu class="flex-none layout-column" md-position-mode="target-right target" ng-show="!group.editingName">\n' +
+    '        <md-button class="md-icon-button flex-none layout-align-center-center" ng-click="$mdOpenMenu(); groupId = $index" aria-label="Menu">\n' +
+    '          <md-icon md-svg-icon="icons:dots"></md-icon>\n' +
+    '        </md-button>\n' +
+    '        <md-menu-content width="4">\n' +
+    '          <md-menu-item ng-repeat="action in $ctrl.groupMenuActions">\n' +
+    '            <md-button ng-click="action.callback(groupId)">{{ action.title }}</md-button>\n' +
+    '          </md-menu-item>\n' +
+    '        </md-menu-content>\n' +
+    '      </md-menu>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <div class="pip-draggable-group fict-group layout-align-center-center layout-column tm16" >\n' +
+    '    <div class="fict-group-text-container">\n' +
+    '          <md-icon md-svg-icon="icons:plus"></md-icon>{{ \'DROP_TO_CREATE_NEW_GROUP\' | translate }}\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2326,7 +2342,11 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dialogs/widget_config/ConfigDialog.html',
-    '<md-dialog class="pip-dialog pip-widget-config-dialog {{ vm.params.dialogClass }}" width="400" md-theme="{{vm.theme}}"><pip-widget-config-extend-component class="layout-column" pip-dialog-scope="vm" pip-extension-url="vm.params.extensionUrl" pip-apply="vm.onApply(updatedData)"></pip-widget-config-extend-component></md-dialog>');
+    '<md-dialog class="pip-dialog pip-widget-config-dialog {{ vm.params.dialogClass }}" width="400" md-theme="{{vm.theme}}">\n' +
+    '    <pip-widget-config-extend-component class="layout-column" pip-dialog-scope="vm" pip-extension-url="vm.params.extensionUrl" \n' +
+    '        pip-apply="vm.onApply(updatedData)">\n' +
+    '    </pip-widget-config-extend-component>\n' +
+    '</md-dialog>');
 }]);
 })();
 
@@ -2338,7 +2358,21 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dialogs/widget_config/ConfigDialogExtendComponent.html',
-    '<h3 class="tm0 flex-none">{{ \'DASHBOARD_WIDGET_CONFIG_DIALOG_TITLE\' | translate }}</h3><div class="pip-body pip-scroll p16 bp0 flex-auto"><pip-extension-point></pip-extension-point><pip-toggle-buttons class="bm16" ng-if="!$ctrl.hideSizes" pip-buttons="$ctrl.sizes" ng-model="$ctrl.sizeId"></pip-toggle-buttons><pip-color-picker ng-if="!$ctrl.hideColors" pip-colors="$ctrl.colors" ng-model="$ctrl.color"></pip-color-picker></div><div class="pip-footer flex-none"><div><md-button class="md-accent" ng-click="$ctrl.onCancel()">{{ \'CANCEL\' | translate }}</md-button><md-button class="md-accent" ng-click="$ctrl.onApply()">{{ \'APPLY\' | translate }}</md-button></div></div>');
+    '<h3 class="tm0 flex-none">{{ \'DASHBOARD_WIDGET_CONFIG_DIALOG_TITLE\' | translate }}</h3>\n' +
+    '<div class="pip-body pip-scroll p16 bp0 flex-auto">\n' +
+    '    <pip-extension-point></pip-extension-point>\n' +
+    '    <pip-toggle-buttons class="bm16" ng-if="!$ctrl.hideSizes" pip-buttons="$ctrl.sizes" ng-model="$ctrl.sizeId">\n' +
+    '    </pip-toggle-buttons>\n' +
+    '    <pip-color-picker ng-if="!$ctrl.hideColors" pip-colors="$ctrl.colors" ng-model="$ctrl.color">\n' +
+    '    </pip-color-picker>\n' +
+    '</div>\n' +
+    '</div>\n' +
+    '<div class="pip-footer flex-none">\n' +
+    '    <div>\n' +
+    '        <md-button class="md-accent" ng-click="$ctrl.onCancel()">{{ \'CANCEL\' | translate }}</md-button>\n' +
+    '        <md-button class="md-accent" ng-click="$ctrl.onApply()">{{ \'APPLY\' | translate }}</md-button>\n' +
+    '    </div>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2350,7 +2384,11 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/calendar/ConfigDialogExtension.html',
-    '<div class="w-stretch bm16">Date:<md-datepicker ng-model="$ctrl.date" class="w-stretch"></md-datepicker></div>');
+    '<div class="w-stretch bm16">\n' +
+    '    Date:\n' +
+    '    <md-datepicker ng-model="$ctrl.date" class="w-stretch ">\n' +
+    '    </md-datepicker>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2362,7 +2400,34 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/calendar/WidgetCalendar.html',
-    '<div class="widget-box pip-calendar-widget {{ $ctrl.color }} layout-column layout-fill tp0" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"><div class="widget-heading layout-row layout-align-end-center flex-none"><pip-menu-widget></pip-menu-widget></div><div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1"><span class="date lm24 rm12">{{ $ctrl.options.date.getDate() }}</span><div class="flex-auto layout-column"><span class="weekday md-headline">{{ $ctrl.options.date | formatLongDayOfWeek }}</span> <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span></div></div><div class="widget-content flex-auto layout-column layout-align-space-around-center" ng-hide="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1"><span class="weekday md-headline" ng-hide="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span> <span class="weekday" ng-show="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span> <span class="date lm12 rm12">{{ $ctrl.options.date.getDate() }}</span> <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span></div></div>');
+    '<div class="widget-box pip-calendar-widget {{ $ctrl.color }} layout-column layout-fill tp0"\n' +
+    '     ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }">\n' +
+    '  <div class="widget-heading layout-row layout-align-end-center flex-none">\n' +
+    '    <pip-menu-widget></pip-menu-widget>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <div class="widget-content flex-auto layout-row layout-align-center-center"\n' +
+    '       ng-if="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1">\n' +
+    '    <span class="date lm24 rm12">{{ $ctrl.options.date.getDate() }}</span>\n' +
+    '    <div class="flex-auto layout-column">\n' +
+    '      <span class="weekday md-headline">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>\n' +
+    '      <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <div class="widget-content flex-auto layout-column layout-align-space-around-center"\n' +
+    '       ng-hide="$ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1">\n' +
+    '    <span class="weekday md-headline"\n' +
+    '          ng-hide="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>\n' +
+    '    <span class="weekday"\n' +
+    '          ng-show="$ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1">{{ $ctrl.options.date | formatLongDayOfWeek }}</span>\n' +
+    '    <span class="date lm12 rm12">{{ $ctrl.options.date.getDate() }}</span>\n' +
+    '    <span class="month-year md-headline">{{ $ctrl.options.date | formatLongMonth }} {{ $ctrl.options.date | formatYear }}</span>\n' +
+    '  </div>\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 
@@ -2374,8 +2439,26 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/event/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="$ctrl.title"></md-input-container>Date:<md-datepicker ng-model="$ctrl.date" class="w-stretch bm8"></md-datepicker><md-input-container class="w-stretch"><label>Description:</label> <textarea type="text" ng-model="$ctrl.text">\n' +
-    '    </textarea></md-input-container>Backdrop\'s opacity:<md-slider aria-label="opacity" type="number" min="0.1" max="0.9" step="0.01" ng-model="$ctrl.opacity" ng-change="$ctrl.onOpacitytest($ctrl.opacity)"></md-slider></div>');
+    '<div class="w-stretch">\n' +
+    '    <md-input-container class="w-stretch bm0">\n' +
+    '        <label>Title:</label>\n' +
+    '        <input type="text" ng-model="$ctrl.title"/>\n' +
+    '    </md-input-container>\n' +
+    '\n' +
+    '    Date:\n' +
+    '    <md-datepicker ng-model="$ctrl.date" class="w-stretch bm8">\n' +
+    '    </md-datepicker>\n' +
+    '\n' +
+    '    <md-input-container class="w-stretch">\n' +
+    '        <label>Description:</label>\n' +
+    '        <textarea type="text" ng-model="$ctrl.text"/>\n' +
+    '    </md-input-container>\n' +
+    '\n' +
+    '    Backdrop\'s opacity:\n' +
+    '    <md-slider aria-label="opacity"  type="number" min="0.1" max="0.9" step="0.01" \n' +
+    '        ng-model="$ctrl.opacity" ng-change="$ctrl.onOpacitytest($ctrl.opacity)">\n' +
+    '    </md-slider>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2387,7 +2470,27 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/event/WidgetEvent.html',
-    '<div class="widget-box pip-event-widget {{ $ctrl.color }} layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"><img ng-if="$ctrl.options.image" ng-src="{{$ctrl.options.image}}" alt="{{$ctrl.options.title || $ctrl.options.name}}"><div class="text-backdrop" style="background-color: rgba(0, 0, 0, {{ $ctrl.opacity }})"><div class="widget-heading layout-row layout-align-start-center flex-none"><span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span><pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget></div><div class="text-container flex-auto pip-scroll"><p class="date flex-none" ng-if="$ctrl.options.date">{{ $ctrl.options.date | formatShortDate }}</p><p class="text flex-auto">{{ $ctrl.options.text || $ctrl.options.description }}</p></div></div></div>');
+    '<div class="widget-box pip-event-widget {{ $ctrl.color }} layout-column layout-fill" ng-class="{\n' +
+    '        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }" >\n' +
+    '    <img ng-if="$ctrl.options.image" ng-src="{{$ctrl.options.image}}" alt="{{$ctrl.options.title || $ctrl.options.name}}"\n' +
+    '    />\n' +
+    '    <div class="text-backdrop" style="background-color: rgba(0, 0, 0, {{ $ctrl.opacity }})">\n' +
+    '        <div class="widget-heading layout-row layout-align-start-center flex-none">\n' +
+    '            <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>\n' +
+    '            <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>\n' +
+    '        </div>\n' +
+    '        <div class="text-container flex-auto pip-scroll">\n' +
+    '            <p class="date flex-none" ng-if="$ctrl.options.date">\n' +
+    '                {{ $ctrl.options.date | formatShortDate }}\n' +
+    '            </p>\n' +
+    '            <p class="text flex-auto">\n' +
+    '                {{ $ctrl.options.text || $ctrl.options.description }}\n' +
+    '            </p>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2399,19 +2502,28 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/menu/WidgetMenu.html',
-    '<md-menu class="widget-menu" md-position-mode="target-right target"><md-button class="md-icon-button flex-none" ng-click="$mdOpenMenu()" aria-label="Menu"><md-icon md-svg-icon="icons:vdots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="item in $ctrl.menu"><md-button ng-if="!item.submenu" ng-click="$ctrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button><md-menu ng-if="item.submenu"><md-button ng-click="$ctrl.callAction(item.action)">{{:: item.title }}</md-button><md-menu-content><md-menu-item ng-repeat="subitem in item.submenu"><md-button ng-click="$ctrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button></md-menu-item></md-menu-content></md-menu></md-menu-item></md-menu-content></md-menu>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('widgets/picture_slider/WidgetPictureSlider.html',
-    '<div class="widget-box pip-picture-slider-widget {{ $ctrl.color }} layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }" index="{{ $ctrl.index }}" group="{{ $ctrl.group }}"><div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none"><span class="flex text-overflow">{{ $ctrl.options.title }}</span><pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget></div><div class="slider-container"><div pip-image-slider="" pip-animation-type="\'fading\'" pip-animation-interval="$ctrl.animationInterval" ng-if="$ctrl.animationType == \'fading\'"><div class="pip-animation-block" ng-repeat="slide in $ctrl.options.slides"><img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="$ctrl.onImageLoad($event)"><p class="slide-text" ng-if="slide.text">{{ slide.text }}</p></div></div><div pip-image-slider="" pip-animation-type="\'carousel\'" pip-animation-interval="$ctrl.animationInterval" ng-if="$ctrl.animationType == \'carousel\'"><div class="pip-animation-block" ng-repeat="slide in $ctrl.options.slides"><img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="$ctrl.onImageLoad($event)"><p class="slide-text" ng-if="slide.text">{{ slide.text }}</p></div></div></div></div>');
+    '<md-menu class="widget-menu" md-position-mode="target-right target">\n' +
+    '    <md-button class="md-icon-button flex-none" ng-click="$mdOpenMenu()" aria-label="Menu">\n' +
+    '        <md-icon md-svg-icon="icons:vdots"></md-icon>\n' +
+    '    </md-button>\n' +
+    '\n' +
+    '    <md-menu-content width="4">\n' +
+    '        <md-menu-item ng-repeat="item in $ctrl.menu">\n' +
+    '            <md-button ng-if="!item.submenu" ng-click="$ctrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button>\n' +
+    '\n' +
+    '            <md-menu ng-if="item.submenu">\n' +
+    '                <md-button ng-click="$ctrl.callAction(item.action)">{{:: item.title }}</md-button>\n' +
+    '\n' +
+    '                <md-menu-content>\n' +
+    '                    <md-menu-item ng-repeat="subitem in item.submenu">\n' +
+    '                        <md-button ng-click="$ctrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button>\n' +
+    '                    </md-menu-item>\n' +
+    '                </md-menu-content>\n' +
+    '            </md-menu>\n' +
+    '        </md-menu-item>\n' +
+    '\n' +
+    '    </md-menu-content>\n' +
+    '</md-menu>');
 }]);
 })();
 
@@ -2423,8 +2535,17 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/notes/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="$ctrl.title"></md-input-container><md-input-container class="w-stretch tm0"><label>Text:</label> <textarea type="text" ng-model="$ctrl.text">\n' +
-    '    </textarea></md-input-container></div>');
+    '<div class="w-stretch">\n' +
+    '    <md-input-container class="w-stretch bm0">\n' +
+    '        <label>Title:</label>\n' +
+    '        <input type="text" ng-model="$ctrl.title"/>\n' +
+    '    </md-input-container>\n' +
+    '\n' +
+    '    <md-input-container class="w-stretch tm0">\n' +
+    '        <label>Text:</label>\n' +
+    '        <textarea type="text" ng-model="$ctrl.text"/>\n' +
+    '    </md-input-container>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2436,7 +2557,57 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/notes/WidgetNotes.html',
-    '<div class="widget-box pip-notes-widget {{ $ctrl.color }} layout-column"><div class="widget-heading layout-row layout-align-start-center flex-none" ng-if="$ctrl.options.title || $ctrl.options.name"><span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span></div><pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget><div class="text-container flex-auto pip-scroll"><p>{{ $ctrl.options.text }}</p></div></div>');
+    '<div class="widget-box pip-notes-widget {{ $ctrl.color }} layout-column">\n' +
+    '    <div class="widget-heading layout-row layout-align-start-center flex-none" ng-if="$ctrl.options.title || $ctrl.options.name">\n' +
+    '        <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>\n' +
+    '    </div>\n' +
+    '    <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>\n' +
+    '    \n' +
+    '    <div class="text-container flex-auto pip-scroll">\n' +
+    '        <p>{{ $ctrl.options.text }}</p>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('widgets/picture_slider/WidgetPictureSlider.html',
+    '<div class="widget-box pip-picture-slider-widget {{ $ctrl.color }} layout-column layout-fill" ng-class="{\n' +
+    '        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }" \n' +
+    '        index=\'{{ $ctrl.index }}\' group=\'{{ $ctrl.group }}\'>\n' +
+    '\n' +
+    '        <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none">\n' +
+    '            <span class="flex text-overflow">{{ $ctrl.options.title }}</span>\n' +
+    '            <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <div class="slider-container">\n' +
+    '            <div pip-image-slider pip-animation-type="\'fading\'" pip-animation-interval="$ctrl.animationInterval" \n' +
+    '                ng-if="$ctrl.animationType == \'fading\'">\n' +
+    '                <div class="pip-animation-block" ng-repeat="slide in $ctrl.options.slides">\n' +
+    '                    <img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="$ctrl.onImageLoad($event)"/>\n' +
+    '                    <p class="slide-text" ng-if="slide.text">{{ slide.text }}</p>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div pip-image-slider pip-animation-type="\'carousel\'" pip-animation-interval="$ctrl.animationInterval" \n' +
+    '                ng-if="$ctrl.animationType == \'carousel\'">\n' +
+    '                <div class="pip-animation-block" ng-repeat="slide in $ctrl.options.slides">\n' +
+    '                    <img ng-src="{{ slide.image }}" alt="{{ slide.image }}" pip-image-load="$ctrl.onImageLoad($event)"/>\n' +
+    '                    <p class="slide-text" ng-if="slide.text">{{ slide.text }}</p>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2448,7 +2619,12 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/position/ConfigDialogExtension.html',
-    '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Location name:</label> <input type="text" ng-model="$ctrl.locationName"></md-input-container></div>');
+    '<div class="w-stretch">\n' +
+    '    <md-input-container class="w-stretch bm0">\n' +
+    '        <label>Location name:</label>\n' +
+    '        <input type="text" ng-model="$ctrl.locationName"/>\n' +
+    '    </md-input-container>\n' +
+    '</div>');
 }]);
 })();
 
@@ -2460,7 +2636,25 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/position/WidgetPosition.html',
-    '<div class="pip-position-widget widget-box p0 layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }" index="{{ $ctrl.index }}" group="{{ $ctrl.group }}"><div class="position-absolute-right-top" ng-if="!$ctrl.options.locationName"><pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget></div><div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none" ng-if="$ctrl.options.locationName"><span class="flex text-overflow">{{ $ctrl.options.locationName }}</span><pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget></div><pip-location-map class="flex" ng-if="$ctrl.showPosition" pip-stretch="true" pip-rebind="true" pip-location-pos="$ctrl.options.location"></pip-location-map></div>');
+    '<div class="pip-position-widget widget-box p0 layout-column layout-fill"\n' +
+    '     ng-class="{\n' +
+    '        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"\n' +
+    '        index=\'{{ $ctrl.index }}\' group=\'{{ $ctrl.group }}\'>\n' +
+    '    <div class="position-absolute-right-top" ng-if="!$ctrl.options.locationName">\n' +
+    '        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none" ng-if="$ctrl.options.locationName">\n' +
+    '        <span class="flex text-overflow">{{ $ctrl.options.locationName }}</span>\n' +
+    '        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <pip-location-map class="flex" ng-if="$ctrl.showPosition" pip-stretch="true" pip-rebind="true"\n' +
+    '        pip-location-pos="$ctrl.options.location"></pip-location>\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 
@@ -2472,7 +2666,77 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('widgets/statistics/WidgetStatistics.html',
-    '<div class="widget-box pip-statistics-widget layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"><div class="widget-heading layout-row layout-align-start-center flex-none"><span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span><pip-menu-widget></pip-menu-widget></div><div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.series && !$ctrl.reset"><pip-pie-chart pip-series="$ctrl.options.series" ng-if="!$ctrl.options.chartType || $ctrl.options.chartType == \'pie\'" pip-donut="true" pip-pie-size="$ctrl.chartSize" pip-show-total="true" pip-centered="true"></pip-pie-chart></div></div>');
+    '<div class="widget-box pip-statistics-widget layout-column layout-fill"\n' +
+    '     ng-class="{\n' +
+    '        small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1,\n' +
+    '        big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }">\n' +
+    '    <div class="widget-heading layout-row layout-align-start-center flex-none">\n' +
+    '        <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>\n' +
+    '        <pip-menu-widget></pip-menu-widget>\n' +
+    '    </div>\n' +
+    '    <div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.series && !$ctrl.reset">\n' +
+    '        <pip-pie-chart pip-series="$ctrl.options.series" ng-if="!$ctrl.options.chartType || $ctrl.options.chartType == \'pie\'"\n' +
+    '                    pip-donut="true" \n' +
+    '                    pip-pie-size="$ctrl.chartSize" \n' +
+    '                    pip-show-total="true" \n' +
+    '                    pip-centered="true">\n' +
+    '        </pip-pie-chart>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dialogs/add_component/AddComponent.html',
+    '<md-dialog class="pip-dialog pip-add-component-dialog">\n' +
+    '  <md-dialog-content class="layout-column">\n' +
+    '    <div class="theme-divider p16 flex-auto">\n' +
+    '      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_TITLE\' | translate }}</h4>\n' +
+    '      <md-input-container class="layout-row flex-auto m0 tm16">\n' +
+    '        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" \n' +
+    '            placeholder="{{ \'DASHBOARD_ADD_COMPONENT_DIALOG_CREATE_NEW_GROUP\' | translate }}"\n' +
+    '            aria-label="Group">\n' +
+    '          <md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option>\n' +
+    '        </md-select>\n' +
+    '      </md-input-container>\n' +
+    '    </div>\n' +
+    '    <div class="pip-body pip-scroll p0 flex-auto">\n' +
+    '      <p class="md-body-1 theme-text-secondary m0 lp16 rp16" >\n' +
+    '        {{ \'DASHBOARD_ADD_COMPONENT_DIALOG_USE_HOT_KEYS\' | translate }}\n' +
+    '      </p>\n' +
+    '      <md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets">\n' +
+    '        <md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group">\n' +
+    '          <div class="icon-holder flex-none">\n' +
+    '            <md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon>\n' +
+    '            <div class="pip-badge theme-badge md-warn" ng-if="item.amount">\n' +
+    '              <span>{{ item.amount }}</span>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '          <span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span>\n' +
+    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease">\n' +
+    '            <md-icon md-svg-icon="icons:plus-circle"></md-icon>\n' +
+    '          </md-button>\n' +
+    '          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease">\n' +
+    '            <md-icon md-svg-icon="icons:minus-circle"></md-icon>\n' +
+    '          </md-button>\n' +
+    '        </md-list-item>\n' +
+    '        <md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider>\n' +
+    '      </md-list>\n' +
+    '    </div>\n' +
+    '  </md-dialog-content>\n' +
+    '  <md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary">\n' +
+    '    <md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ \'CANCEL\' | translate }}</md-button>\n' +
+    '    <md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ \'ADD\' | translate }}</md-button>\n' +
+    '  </md-dialog-actions>\n' +
+    '</md-dialog>');
 }]);
 })();
 
