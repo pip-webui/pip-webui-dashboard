@@ -48,12 +48,10 @@ export class DragTileService implements IDragTileService {
     setOptions(options: any): any;
 }
 
-
 export interface IWidgetTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
     setImageMarginCSS($element: any, image: any): void;
 }
-
 
 export interface IDashboardWidget {
     options: any;
@@ -67,42 +65,15 @@ export class DashboardWidget implements IDashboardWidget {
     constructor();
 }
 
-export class AddComponentDialogWidget {
-    title: string;
-    icon: string;
-    name: string;
-    amount: number;
-}
-export class AddComponentDialogController implements ng.IController {
-    activeGroupIndex: number;
-    $mdDialog: angular.material.IDialogService;
-    defaultWidgets: [AddComponentDialogWidget[]];
-    groups: any;
-    totalWidgets: number;
-    constructor(groups: any, activeGroupIndex: number, widgetList: [AddComponentDialogWidget[]], $mdDialog: angular.material.IDialogService);
-    add(): void;
-    cancel(): void;
-    encrease(groupIndex: number, widgetIndex: number): void;
-    decrease(groupIndex: number, widgetIndex: number): void;
-}
-
-export interface IAddComponentDialogService {
-    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
-}
-export interface IAddComponentDialogprovider {
-    configWidgetList(list: [AddComponentDialogWidget[]]): void;
-}
-
 
 export class WidgetConfigDialogController {
     params: any;
-    extensionUrl: any;
     $mdDialog: angular.material.IDialogService;
     colors: string[];
     sizes: any;
     sizeId: string;
     onCancel: Function;
-    constructor(params: any, extensionUrl: any, $mdDialog: angular.material.IDialogService);
+    constructor(params: any, $mdDialog: angular.material.IDialogService);
     onApply(updatedData: any): void;
 }
 
@@ -115,7 +86,6 @@ export interface IWidgetConfigDialogOptions extends angular.material.IDialogOpti
     extensionUrl?: string;
     event?: any;
 }
-
 
 
 export interface TilesGridConstructor {
@@ -186,6 +156,7 @@ export class TilesGridService implements ITilesGridService {
 
 
 
+
 export class MenuWidgetService extends DashboardWidget {
     menu: any;
     constructor();
@@ -197,6 +168,31 @@ export class MenuWidgetService extends DashboardWidget {
 
 
 
+export class AddComponentDialogWidget {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
+export class AddComponentDialogController implements ng.IController {
+    activeGroupIndex: number;
+    $mdDialog: angular.material.IDialogService;
+    defaultWidgets: [AddComponentDialogWidget[]];
+    groups: any;
+    totalWidgets: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [AddComponentDialogWidget[]], $mdDialog: angular.material.IDialogService);
+    add(): void;
+    cancel(): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
+}
+
+export interface IAddComponentDialogService {
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddComponentDialogprovider {
+    configWidgetList(list: [AddComponentDialogWidget[]]): void;
+}
 
 }
 
