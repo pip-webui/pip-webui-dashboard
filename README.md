@@ -6,48 +6,46 @@ Pip.WebUI.Dashboard module provides dashboard component.
 
 **Dashboard** allows organize information, create group, add tiles and edit. Tiles are resizable and customizable.
 
-In common **dashboard** looks like:
+In common on desktop **dashboard** looks so:
 
 <a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard.png" style="border: 3px ridge #c8d2df; display: inline-block">
     <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard.png"/>
 </a>
 
-**Dashboard** has several standard tile types:
+**Dashboard** on tablet looks so: 
 
-**Calendar** provides displaying of specific date:
-
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-calendar-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-calendar-tile.png"/>
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-tablet-landscape.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-tablet-landscape.png"/>
 </a>
 
-**Event** provides displaying of event with title, description and maybe date or picture:
-
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-event-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-event-tile.png"/>
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-tablet-portrait.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-tablet-portrait.png"/>
 </a>
 
-**Note** provides displaying of note with title and text:
+Phone version of **dashboard** looks so:
 
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-note-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-note-tile.png"/>
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-phone.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-phone.png"/>
 </a>
 
-**Picture slider** provides displaying of image array with fixed title and specific description for each image:
+**Dashboard component** has a few dialogs:
 
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-picture-slider-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-picture-slider-tile.png"/>
+**Add Tiles Dialog** allows add specific tiles to specific group:
+
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-add-tiles-dialog.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-add-tiles-dialog.png"/>
 </a>
 
-**Position** provides displaying of specific location using Google Maps:
+**Tile configuration Dialog** allows update information of specific tile. You can include specific template into this dialog:
 
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-position-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-position-tile.png"/>
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-edit-tile-dialog.png" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-edit-tile-dialog.png"/>
 </a>
 
-**Statistics** provides displaying of specific chart using D3:
+**Draggable tiles** are draggable and resizable. Also You can change tile's color, configurate and put inside any content or information:
 
-<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-statistics-tile.png" style="border: 3px ridge #c8d2df; display: inline-block">
-    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-statistics-tile.png"/>
+<a href="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-draggable-tiles.gif" style="border: 3px ridge #c8d2df; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-dashboard/raw/master/doc/images/img-dashboard-draggable-tiles.gif"/>
 </a>
 
 To try it open: http://webui.pipdevs.com/pip-webui-dashboard/index.html#/

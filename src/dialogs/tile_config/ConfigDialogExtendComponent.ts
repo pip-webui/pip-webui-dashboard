@@ -41,9 +41,10 @@
 
         public $onChanges(changes: WidgetConfigExtendComponentChanges) {
             if (changes.pipDialogScope) {
+                delete changes.pipDialogScope.currentValue['$scope'];
                 angular.extend(this, changes.pipDialogScope.currentValue);
             }
-            if (changes.pipExtensionUrl) {
+            if (changes.pipExtensionUrl && changes.pipExtensionUrl.currentValue) {
                 this.$templateRequest(changes.pipExtensionUrl.currentValue, false).then((html) => {
                     this.$element.find('pip-extension-point').replaceWith(this.$compile(html)(this.$scope));
                 });
@@ -56,7 +57,7 @@
     }
 
     const pipWidgetConfigComponent: ng.IComponentOptions = {
-        templateUrl: 'dialogs/widget_config/ConfigDialogExtendComponent.html',
+        templateUrl: 'dialogs/tile_config/ConfigDialogExtendComponent.html',
         controller: WidgetConfigExtendComponentController,
         bindings: WidgetConfigExtendComponentBindings
     }

@@ -37,11 +37,12 @@ export interface IWidgetConfigDialogOptions extends angular.material.IDialogOpti
         public show(params: IWidgetConfigDialogOptions, successCallback ? : (key) => void, cancelCallback ? : () => void) {
             this.$mdDialog.show({
                     targetEvent: params.event,
-                    templateUrl: params.templateUrl || 'dialogs/widget_config/ConfigDialog.html',
+                    templateUrl: params.templateUrl || 'dialogs/tile_config/ConfigDialog.html',
                     controller: WidgetConfigDialogController,
                     bindToController: true,
                     controllerAs: 'vm',
                     locals: {
+                        extensionUrl: params.extensionUrl,
                         params: params.locals
                     },
                     clickOutsideToClose: true

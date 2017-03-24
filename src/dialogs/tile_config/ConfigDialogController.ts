@@ -27,6 +27,7 @@ export class WidgetConfigDialogController {
 
     constructor(
         public params,
+        public extensionUrl,
         public $mdDialog: angular.material.IDialogService
     ) {
         "ngInject";
@@ -45,9 +46,3 @@ export class WidgetConfigDialogController {
         this.$mdDialog.hide(updatedData);
     }
 }
-
-angular
-    .module('pipWidgetConfigDialog', ['ngMaterial']);
-
-import './ConfigDialogService';
-import './ConfigDialogExtendComponent';
