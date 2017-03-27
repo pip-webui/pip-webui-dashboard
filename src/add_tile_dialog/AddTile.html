@@ -1,0 +1,41 @@
+<md-dialog class="pip-dialog pip-add-component-dialog">
+  <md-dialog-content class="layout-column">
+    <div class="theme-divider p16 flex-auto">
+      <h3 class="hide-xs m0 bm16 theme-text-primary" hide-xs>{{ 'DASHBOARD_ADD_TILE_DIALOG_TITLE' | translate }}</h4>
+      <md-input-container class="layout-row flex-auto m0 tm16">
+        <md-select class="flex-auto m0 theme-text-primary" ng-model="dialogCtrl.activeGroupIndex" 
+            placeholder="{{ 'DASHBOARD_ADD_TILE_DIALOG_CREATE_NEW_GROUP' | translate }}"
+            aria-label="Group">
+          <md-option ng-value="$index" ng-repeat="group in dialogCtrl.groups">{{ group }}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="pip-body pip-scroll p0 flex-auto">
+      <p class="md-body-1 theme-text-secondary m0 lp16 rp16" >
+        {{ 'DASHBOARD_ADD_TILE_DIALOG_USE_HOT_KEYS' | translate }}
+      </p>
+      <md-list ng-init="groupIndex = $index" ng-repeat="group in dialogCtrl.defaultWidgets">
+        <md-list-item class="layout-row pip-list-item lp16 rp16" ng-repeat="item in group">
+          <div class="icon-holder flex-none">
+            <md-icon md-svg-icon="icons:{{:: item.icon }}"></md-icon>
+            <div class="pip-badge theme-badge md-warn" ng-if="item.amount">
+              <span>{{ item.amount }}</span>
+            </div>
+          </div>
+          <span class="flex-auto lm24 theme-text-primary">{{:: item.title }}</span>
+          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.encrease(groupIndex, $index)" aria-label="Encrease">
+            <md-icon md-svg-icon="icons:plus-circle"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button flex-none" ng-click="dialogCtrl.decrease(groupIndex, $index)" aria-label="Decrease">
+            <md-icon md-svg-icon="icons:minus-circle"></md-icon>
+          </md-button>
+        </md-list-item>
+        <md-divider class="lm72 tm8 bm8" ng-if="groupIndex !== (dialogCtrl.defaultWidgets.length - 1)"></md-divider>
+      </md-list>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions class="flex-none layout-align-end-center theme-divider divider-top theme-text-primary">
+    <md-button ng-click="dialogCtrl.cancel()" aria-label="Cancel">{{ 'CANCEL' | translate }}</md-button>
+    <md-button ng-click="dialogCtrl.add()" ng-disabled="dialogCtrl.totalWidgets === 0" arial-label="Add">{{ 'ADD' | translate }}</md-button>
+  </md-dialog-actions>
+</md-dialog>

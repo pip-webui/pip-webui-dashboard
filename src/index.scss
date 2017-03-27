@@ -1,11 +1,11 @@
-@import "widgets/position/WidgetPosition";
-@import "widgets/event/WidgetEvent";
-@import "widgets/notes/WidgetNotes";
-@import "widgets/statistics/WidgetStatistics";
-@import "widgets/calendar/WidgetCalendar";
-@import "widgets/picture_slider/WidgetPictureSlider";
-@import "dialogs/tile_config/ConfigDialog";
-@import "dialogs/add_component/AddComponent";
+@import "position_tile/PositionTile";
+@import "event_tile/EventTile";
+@import "note_tile/NoteTile";
+@import "statistics_tile/StatisticsTile";
+@import "calendar_tile/CalendarTile";
+@import "picture_slider_tile/PictureSliderTile";
+@import "tile_config_dialog/ConfigDialog";
+@import "add_tile_dialog/AddTile";
 
 pip-dashboard {
   overflow: auto;

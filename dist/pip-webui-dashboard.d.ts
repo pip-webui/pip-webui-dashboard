@@ -1,5 +1,67 @@
 declare module pip.dashboard {
 
+export class AddTileDialog {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
+export class AddTileDialogController implements ng.IController {
+    activeGroupIndex: number;
+    $mdDialog: angular.material.IDialogService;
+    defaultTiles: [AddTileDialog[]];
+    groups: any;
+    totalTiles: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [AddTileDialog[]], $mdDialog: angular.material.IDialogService);
+    add(): void;
+    cancel(): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
+}
+
+export interface IAddTileDialogService {
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddTileDialogprovider {
+    configWidgetList(list: [AddTileDialog[]]): void;
+}
+
+
+
+export class TileConfigDialogController {
+    params: any;
+    extensionUrl: any;
+    $mdDialog: angular.material.IDialogService;
+    colors: string[];
+    sizes: any;
+    sizeId: string;
+    onCancel: Function;
+    constructor(params: any, extensionUrl: any, $mdDialog: angular.material.IDialogService);
+    onApply(updatedData: any): void;
+}
+
+
+export interface ITileConfigService {
+    show(params: ITileConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
+}
+export interface ITileConfigDialogOptions extends angular.material.IDialogOptions {
+    dialogClass?: string;
+    extensionUrl?: string;
+    event?: any;
+}
+
+
+export interface IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+}
+export class DashboardTile implements IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+    constructor();
+}
 
 
 export const DEFAULT_TILE_WIDTH: number;
@@ -48,44 +110,21 @@ export class DragTileService implements IDragTileService {
     setOptions(options: any): any;
 }
 
-export interface IWidgetTemplateService {
-    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
-    setImageMarginCSS($element: any, image: any): void;
-}
 
-export interface IDashboardWidget {
-    options: any;
-    color: string;
-    size: Object | string | number;
-}
-export class DashboardWidget implements IDashboardWidget {
-    options: any;
-    color: string;
-    size: Object | string | number;
+
+
+
+export class MenuTileService extends DashboardTile {
+    menu: any;
     constructor();
+    callAction(actionName: any, params: any, item: any): void;
+    changeSize(params: any): void;
 }
 
 
-export class WidgetConfigDialogController {
-    params: any;
-    $mdDialog: angular.material.IDialogService;
-    colors: string[];
-    sizes: any;
-    sizeId: string;
-    onCancel: Function;
-    constructor(params: any, $mdDialog: angular.material.IDialogService);
-    onApply(updatedData: any): void;
-}
 
 
-export interface IWidgetConfigService {
-    show(params: IWidgetConfigDialogOptions, successCallback?: (key) => void, cancelCallback?: () => void): any;
-}
-export interface IWidgetConfigDialogOptions extends angular.material.IDialogOptions {
-    dialogClass?: string;
-    extensionUrl?: string;
-    event?: any;
-}
+
 
 
 export interface TilesGridConstructor {
@@ -154,44 +193,9 @@ export class TilesGridService implements ITilesGridService {
     updateTileOptions(opts: any): any;
 }
 
-
-
-
-export class MenuWidgetService extends DashboardWidget {
-    menu: any;
-    constructor();
-    callAction(actionName: any, params: any, item: any): void;
-    changeSize(params: any): void;
-}
-
-
-
-
-
-export class AddComponentDialogWidget {
-    title: string;
-    icon: string;
-    name: string;
-    amount: number;
-}
-export class AddComponentDialogController implements ng.IController {
-    activeGroupIndex: number;
-    $mdDialog: angular.material.IDialogService;
-    defaultWidgets: [AddComponentDialogWidget[]];
-    groups: any;
-    totalWidgets: number;
-    constructor(groups: any, activeGroupIndex: number, widgetList: [AddComponentDialogWidget[]], $mdDialog: angular.material.IDialogService);
-    add(): void;
-    cancel(): void;
-    encrease(groupIndex: number, widgetIndex: number): void;
-    decrease(groupIndex: number, widgetIndex: number): void;
-}
-
-export interface IAddComponentDialogService {
-    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
-}
-export interface IAddComponentDialogprovider {
-    configWidgetList(list: [AddComponentDialogWidget[]]): void;
+export interface ITileTemplateService {
+    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
+    setImageMarginCSS($element: any, image: any): void;
 }
 
 }

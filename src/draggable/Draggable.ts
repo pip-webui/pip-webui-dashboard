@@ -9,7 +9,7 @@ import {
   TilesGridService,
   ITilesGridService,
   ITilesGridConstructor
-} from './draggable_group/DraggableTilesGroupService';
+} from '../tile_group/TileGroupService';
 
 export const DEFAULT_TILE_WIDTH: number = 150;
 export const DEFAULT_TILE_HEIGHT: number = 150;
@@ -643,6 +643,6 @@ const DEFAULT_OPTIONS = {
     controller: DraggableController
   }
 
-  angular.module('pipDragged')
+  angular.module('pipDraggableTiles')
     .component('pipDraggableGrid', DragComponent);
 }

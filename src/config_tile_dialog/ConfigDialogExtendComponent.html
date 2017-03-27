@@ -1,0 +1,15 @@
+<h3 class="tm0 flex-none">{{ 'DASHBOARD_TILE_CONFIG_DIALOG_TITLE' | translate }}</h3>
+<div class="pip-body pip-scroll p16 bp0 flex-auto">
+    <pip-extension-point></pip-extension-point>
+    <pip-toggle-buttons class="bm16" ng-if="!$ctrl.hideSizes" pip-buttons="$ctrl.sizes" ng-model="$ctrl.sizeId">
+    </pip-toggle-buttons>
+    <pip-color-picker ng-if="!$ctrl.hideColors" pip-colors="$ctrl.colors" ng-model="$ctrl.color">
+    </pip-color-picker>
+</div>
+</div>
+<div class="pip-footer flex-none">
+    <div>
+        <md-button class="md-accent" ng-click="$ctrl.onCancel()">{{ 'CANCEL' | translate }}</md-button>
+        <md-button class="md-accent" ng-click="$ctrl.onApply()">{{ 'APPLY' | translate }}</md-button>
+    </div>
+</div>

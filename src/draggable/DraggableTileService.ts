@@ -166,7 +166,7 @@ export class DragTileService implements IDragTileService {
 }
 
 angular
-  .module('pipDragged')
+  .module('pipDraggableTiles')
   .service('pipDragTile', function () {
     return function (options) {
       let newTile = new DragTileService(options);

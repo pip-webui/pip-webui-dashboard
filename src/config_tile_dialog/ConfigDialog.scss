@@ -1,0 +1,18 @@
+.pip-tile-config-dialog {
+    overflow: hidden;
+
+    pip-tile-config-extend-component {
+        overflow: hidden;
+        h3 {
+           padding: 16px 16px 0 16px;
+        }
+        .pip-body {
+            overflow: auto;
+            padding-top: 0 !important;
+        }
+    }
+
+    .pip-color-picker {
+        text-align: center;
+    }
+}
