@@ -7,7 +7,7 @@
     <div class="text-backdrop" style="background-color: rgba(0, 0, 0, {{ $ctrl.opacity }})">
         <div class="widget-heading layout-row layout-align-start-center flex-none">
             <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>
-            <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
+            <pip-tile-menu ng-if="!$ctrl.options.hideMenu"></pip-tile-menu>
         </div>
         <div class="text-container flex-auto pip-scroll">
             <p class="date flex-none" ng-if="$ctrl.options.date">

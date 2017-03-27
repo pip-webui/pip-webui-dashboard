@@ -5,7 +5,7 @@
         big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }">
     <div class="widget-heading layout-row layout-align-start-center flex-none">
         <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>
-        <pip-menu-widget></pip-menu-widget>
+        <pip-tile-menu></pip-tile-menu>
     </div>
     <div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.series && !$ctrl.reset">
         <pip-pie-chart pip-series="$ctrl.options.series" ng-if="!$ctrl.options.chartType || $ctrl.options.chartType == 'pie'"

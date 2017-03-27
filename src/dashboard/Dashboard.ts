@@ -96,9 +96,9 @@ import {
         }
       }
     ];
-    private _includeTpl: string = '<pip-{{ type }}-widget group="groupIndex" index="index"' +
+    private _includeTpl: string = '<pip-{{ type }}-tile group="groupIndex" index="index"' +
       'pip-options="$parent.$ctrl.groupedWidgets[groupIndex][\'source\'][index].opts">' +
-      '</pip-{{ type }}-widget>';
+      '</pip-{{ type }}-tile>';
 
     public groupedWidgets: any;
     public draggableGridOptions: draggableOptions;

@@ -14,7 +14,6 @@ import {
     public chartSize: number = SMALL_CHART;
 
     constructor(
-      pipTileMenu: any,
       $scope: angular.IScope,
       $timeout: angular.ITimeoutService
     ) {

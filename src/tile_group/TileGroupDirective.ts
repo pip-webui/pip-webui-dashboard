@@ -26,16 +26,20 @@
     }
   }
 
-  function DraggableTile() {
+  function DraggableTiles(): ng.IDirective {
     return {
       restrict: 'A',
-      link: DraggableTileLink
+      link: function(
+        $scope: ng.IScope,
+        $elem: JQuery,
+        $attr: DraggableTileAttributes
+      ) {
+          new DraggableTileLink($scope, $elem, $attr);
+      }
     };
   }
 
-console.log('here 3');
-
   angular
     .module('pipDraggableTilesGroup')
-    .directive('pipDraggableTiles', DraggableTile);
+    .directive('pipDraggableTiles', DraggableTiles);
 }

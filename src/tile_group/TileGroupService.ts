@@ -521,14 +521,13 @@ export class TilesGridService implements ITilesGridService {
   };
 }
 
-{
-  angular
-    .module('pipDraggableTilesGroup', [])
-    .service('pipTilesGrid', function () {
-      return function (tiles, options, columns, elem) {
-        const newGrid = new TilesGridService(tiles, options, columns, elem);
 
-        return newGrid;
-      }
-    });
-}
+angular
+  .module('pipDraggableTilesGroup')
+  .service('pipTilesGrid', function () {
+    return function (tiles, options, columns, elem) {
+      const newGrid = new TilesGridService(tiles, options, columns, elem);
+
+      return newGrid;
+    }
+  });

@@ -2,7 +2,7 @@
     <div class="widget-heading layout-row layout-align-start-center flex-none" ng-if="$ctrl.options.title || $ctrl.options.name">
         <span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span>
     </div>
-    <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
+    <pip-tile-menu ng-if="!$ctrl.options.hideMenu"></pip-tile-menu>
     
     <div class="text-container flex-auto pip-scroll">
         <p>{{ $ctrl.options.text }}</p>

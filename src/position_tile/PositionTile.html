@@ -5,12 +5,12 @@
         big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"
         index='{{ $ctrl.index }}' group='{{ $ctrl.group }}'>
     <div class="position-absolute-right-top" ng-if="!$ctrl.options.locationName">
-        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
+        <pip-tile-menu ng-if="!$ctrl.options.hideMenu"></pip-tile-menu>
     </div>
 
     <div class="widget-heading lp16 rp8 layout-row layout-align-end-center flex-none" ng-if="$ctrl.options.locationName">
         <span class="flex text-overflow">{{ $ctrl.options.locationName }}</span>
-        <pip-menu-widget ng-if="!$ctrl.options.hideMenu"></pip-menu-widget>
+        <pip-tile-menu ng-if="!$ctrl.options.hideMenu"></pip-tile-menu>
     </div>
 
     <pip-location-map class="flex" ng-if="$ctrl.showPosition" pip-stretch="true" pip-rebind="true"
