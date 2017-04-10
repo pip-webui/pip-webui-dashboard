@@ -44,7 +44,6 @@ var AddTileDialogController = (function () {
     return AddTileDialogController;
 }());
 exports.AddTileDialogController = AddTileDialogController;
-
 },{}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -116,7 +115,6 @@ var AddTileDialogController_1 = require("./AddTileDialogController");
         .config(setTranslations)
         .provider('pipAddTileDialog', AddTileDialogProvider);
 }
-
 },{"./AddTileDialogController":1}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -124,7 +122,6 @@ angular
     .module('pipAddDashboardTileDialog', ['ngMaterial']);
 require("./AddTileDialogController");
 require("./AddTileProvider");
-
 },{"./AddTileDialogController":1,"./AddTileProvider":2}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -188,7 +185,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipCalendarTile', CalendarTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -198,7 +194,6 @@ var DashboardTile = (function () {
     return DashboardTile;
 }());
 exports.DashboardTile = DashboardTile;
-
 },{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -251,7 +246,6 @@ var TileConfigDialogController = (function () {
     return TileConfigDialogController;
 }());
 exports.TileConfigDialogController = TileConfigDialogController;
-
 },{}],7:[function(require,module,exports){
 {
     var TileConfigExtendComponentBindings = {
@@ -298,7 +292,6 @@ exports.TileConfigDialogController = TileConfigDialogController;
         .module('pipConfigDashboardTileDialog')
         .component('pipTileConfigExtendComponent', pipTileConfigComponent);
 }
-
 },{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -357,7 +350,6 @@ var ConfigDialogController_1 = require("./ConfigDialogController");
         .config(setTranslations)
         .service('pipTileConfigDialogService', TileConfigDialogService);
 }
-
 },{"./ConfigDialogController":6}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -366,7 +358,6 @@ angular
 require("./ConfigDialogController");
 require("./ConfigDialogService");
 require("./ConfigDialogExtendComponent");
-
 },{"./ConfigDialogController":6,"./ConfigDialogExtendComponent":7,"./ConfigDialogService":8}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -571,7 +562,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .config(setTranslations)
         .component('pipDashboard', Dashboard);
 }
-
 },{}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1067,7 +1057,6 @@ var DEFAULT_OPTIONS = {
     angular.module('pipDraggableTiles')
         .component('pipDraggableGrid', DragComponent);
 }
-
 },{"../tile_group/TileGroupService":24,"./DraggableTileService":12}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1202,14 +1191,12 @@ angular
         return newTile;
     };
 });
-
 },{}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipDraggableTiles', []);
 require("./DraggableTileService");
 require("./Draggable");
-
 },{"./Draggable":11,"./DraggableTileService":12}],14:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1337,7 +1324,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipEventTile', EventTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1370,7 +1356,6 @@ require("./picture_slider_tile/PictureSliderTile");
 require("./position_tile/PositionTile");
 require("./statistics_tile/StatisticsTile");
 require("./dashboard/Dashboard");
-
 },{"./add_tile_dialog":3,"./calendar_tile/CalendarTile":4,"./common_tile/Tile":5,"./config_tile_dialog":9,"./dashboard/Dashboard":10,"./draggable":13,"./event_tile/EventTile":14,"./menu_tile":18,"./note_tile/NoteTile":19,"./picture_slider_tile/PictureSliderTile":20,"./position_tile/PositionTile":21,"./statistics_tile/StatisticsTile":22,"./tile_group/index":25,"./utility/TileTemplateUtility":26}],16:[function(require,module,exports){
 {
     var TileMenu = function () {
@@ -1383,7 +1368,6 @@ require("./dashboard/Dashboard");
         .module('pipMenuTile')
         .directive('pipTileMenu', TileMenu);
 }
-
 },{}],17:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1467,7 +1451,6 @@ exports.MenuTileService = MenuTileService;
         .module('pipMenuTile')
         .provider('pipMenuTile', MenuTileProvider);
 }
-
 },{"../common_tile/Tile":5}],18:[function(require,module,exports){
 "use strict";
 function __export(m) {
@@ -1479,7 +1462,6 @@ angular
 require("./MenuTileDirective");
 require("./MenuTileService");
 __export(require("./MenuTileService"));
-
 },{"./MenuTileDirective":16,"./MenuTileService":17}],19:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1543,7 +1525,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipNoteTile', NoteTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],20:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
@@ -1604,7 +1585,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipPictureSliderTile', PictureSliderTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],21:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1709,7 +1689,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipPositionTile', PositionTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],22:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1767,7 +1746,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipStatisticsTile', StatisticsTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],23:[function(require,module,exports){
 {
     function DraggableTileLink($scope, $elem, $attr) {
@@ -1796,7 +1774,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDraggableTilesGroup')
         .directive('pipDraggableTiles', DraggableTiles);
 }
-
 },{}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2230,7 +2207,6 @@ angular
         return newGrid;
     };
 });
-
 },{}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2238,7 +2214,6 @@ angular
     .module('pipDraggableTilesGroup', []);
 require("./TileGroupDirective");
 require("./TileGroupService");
-
 },{"./TileGroupDirective":23,"./TileGroupService":24}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2309,7 +2284,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .service('pipTileTemplate', tileTemplateService)
         .directive('pipImageLoad', ImageLoad);
 }
-
 },{}],27:[function(require,module,exports){
 (function(module) {
 try {
@@ -2390,6 +2364,18 @@ try {
   module = angular.module('pipDashboard.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('draggable/Draggable.html',
+    '<div class="pip-draggable-holder"><div class="pip-draggable-group" ng-repeat="group in $ctrl.groups" data-group-id="{{ $index }}" pip-draggable-tiles="group.source"><div class="pip-draggable-group-title layout-row layout-align-start-center"><div class="title-input-container" ng-click="$ctrl.onTitleClick(group, $event)"><input ng-if="group.editingName" ng-blur="$ctrl.onBlurTitleInput(group)" ng-keypress="$ctrl.onKyepressTitleInput(group, $event)" ng-model="group.title"><div class="text-overflow flex-none" ng-if="!group.editingName">{{ group.title }}</div></div><md-button class="md-icon-button flex-none layout-align-center-center" ng-show="group.editingName" ng-click="$ctrl.cancelEditing(group)" aria-label="Cancel"><md-icon md-svg-icon="icons:cross"></md-icon></md-button><md-menu class="flex-none layout-column" md-position-mode="target-right target" ng-show="!group.editingName"><md-button class="md-icon-button flex-none layout-align-center-center" ng-click="$mdOpenMenu(); groupId = $index" aria-label="Menu"><md-icon md-svg-icon="icons:dots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="action in $ctrl.groupMenuActions"><md-button ng-click="action.callback(groupId)">{{ action.title }}</md-button></md-menu-item></md-menu-content></md-menu></div></div><div class="pip-draggable-group fict-group layout-align-center-center layout-column tm16"><div class="fict-group-text-container"><md-icon md-svg-icon="icons:plus"></md-icon>{{ \'DROP_TO_CREATE_NEW_GROUP\' | translate }}</div></div></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('event_tile/ConfigDialogExtension.html',
     '<div class="w-stretch"><md-input-container class="w-stretch bm0"><label>Title:</label> <input type="text" ng-model="$ctrl.title"></md-input-container>Date:<md-datepicker ng-model="$ctrl.date" class="w-stretch bm8"></md-datepicker><md-input-container class="w-stretch"><label>Description:</label> <textarea type="text" ng-model="$ctrl.text">\n' +
     '    </textarea></md-input-container>Backdrop\'s opacity:<md-slider aria-label="opacity" type="number" min="0.1" max="0.9" step="0.01" ng-model="$ctrl.opacity" ng-change="$ctrl.onOpacitytest($ctrl.opacity)"></md-slider></div>');
@@ -2405,30 +2391,6 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('event_tile/EventTile.html',
     '<div class="widget-box pip-event-widget {{ $ctrl.color }} layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"><img ng-if="$ctrl.options.image" ng-src="{{$ctrl.options.image}}" alt="{{$ctrl.options.title || $ctrl.options.name}}"><div class="text-backdrop" style="background-color: rgba(0, 0, 0, {{ $ctrl.opacity }})"><div class="widget-heading layout-row layout-align-start-center flex-none"><span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span><pip-tile-menu ng-if="!$ctrl.options.hideMenu"></pip-tile-menu></div><div class="text-container flex-auto pip-scroll"><p class="date flex-none" ng-if="$ctrl.options.date">{{ $ctrl.options.date | formatShortDate }}</p><p class="text flex-auto">{{ $ctrl.options.text || $ctrl.options.description }}</p></div></div></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('draggable/Draggable.html',
-    '<div class="pip-draggable-holder"><div class="pip-draggable-group" ng-repeat="group in $ctrl.groups" data-group-id="{{ $index }}" pip-draggable-tiles="group.source"><div class="pip-draggable-group-title layout-row layout-align-start-center"><div class="title-input-container" ng-click="$ctrl.onTitleClick(group, $event)"><input ng-if="group.editingName" ng-blur="$ctrl.onBlurTitleInput(group)" ng-keypress="$ctrl.onKyepressTitleInput(group, $event)" ng-model="group.title"><div class="text-overflow flex-none" ng-if="!group.editingName">{{ group.title }}</div></div><md-button class="md-icon-button flex-none layout-align-center-center" ng-show="group.editingName" ng-click="$ctrl.cancelEditing(group)" aria-label="Cancel"><md-icon md-svg-icon="icons:cross"></md-icon></md-button><md-menu class="flex-none layout-column" md-position-mode="target-right target" ng-show="!group.editingName"><md-button class="md-icon-button flex-none layout-align-center-center" ng-click="$mdOpenMenu(); groupId = $index" aria-label="Menu"><md-icon md-svg-icon="icons:dots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="action in $ctrl.groupMenuActions"><md-button ng-click="action.callback(groupId)">{{ action.title }}</md-button></md-menu-item></md-menu-content></md-menu></div></div><div class="pip-draggable-group fict-group layout-align-center-center layout-column tm16"><div class="fict-group-text-container"><md-icon md-svg-icon="icons:plus"></md-icon>{{ \'DROP_TO_CREATE_NEW_GROUP\' | translate }}</div></div></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipDashboard.Templates');
-} catch (e) {
-  module = angular.module('pipDashboard.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('menu_tile/MenuTile.html',
-    '<md-menu class="widget-menu" md-position-mode="target-right target"><md-button class="md-icon-button flex-none" ng-click="$mdOpenMenu()" aria-label="Menu"><md-icon md-svg-icon="icons:vdots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="item in $ctrl.menu"><md-button ng-if="!item.submenu" ng-click="$ctrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button><md-menu ng-if="item.submenu"><md-button ng-click="$ctrl.callAction(item.action)">{{:: item.title }}</md-button><md-menu-content><md-menu-item ng-repeat="subitem in item.submenu"><md-button ng-click="$ctrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button></md-menu-item></md-menu-content></md-menu></md-menu-item></md-menu-content></md-menu>');
 }]);
 })();
 
@@ -2502,6 +2464,18 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('statistics_tile/StatisticsTile.html',
     '<div class="widget-box pip-statistics-widget layout-column layout-fill" ng-class="{ small: $ctrl.options.size.colSpan == 1 && $ctrl.options.size.rowSpan == 1, medium: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 1, big: $ctrl.options.size.colSpan == 2 && $ctrl.options.size.rowSpan == 2 }"><div class="widget-heading layout-row layout-align-start-center flex-none"><span class="widget-title flex-auto text-overflow">{{ $ctrl.options.title || $ctrl.options.name }}</span><pip-tile-menu></pip-tile-menu></div><div class="widget-content flex-auto layout-row layout-align-center-center" ng-if="$ctrl.options.series && !$ctrl.reset"><pip-pie-chart pip-series="$ctrl.options.series" ng-if="!$ctrl.options.chartType || $ctrl.options.chartType == \'pie\'" pip-donut="true" pip-pie-size="$ctrl.chartSize" pip-show-total="true" pip-centered="true"></pip-pie-chart></div></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipDashboard.Templates');
+} catch (e) {
+  module = angular.module('pipDashboard.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('menu_tile/MenuTile.html',
+    '<md-menu class="widget-menu" md-position-mode="target-right target"><md-button class="md-icon-button flex-none" ng-click="$mdOpenMenu()" aria-label="Menu"><md-icon md-svg-icon="icons:vdots"></md-icon></md-button><md-menu-content width="4"><md-menu-item ng-repeat="item in $ctrl.menu"><md-button ng-if="!item.submenu" ng-click="$ctrl.callAction(item.action, item.params, item)">{{:: item.title }}</md-button><md-menu ng-if="item.submenu"><md-button ng-click="$ctrl.callAction(item.action)">{{:: item.title }}</md-button><md-menu-content><md-menu-item ng-repeat="subitem in item.submenu"><md-button ng-click="$ctrl.callAction(subitem.action, subitem.params, subitem)">{{:: subitem.title }}</md-button></md-menu-item></md-menu-content></md-menu></md-menu-item></md-menu-content></md-menu>');
 }]);
 })();
 
