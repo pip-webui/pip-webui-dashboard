@@ -114,14 +114,14 @@ export class DragTileService implements IDragTileService {
 
 
 
+
+
 export class MenuTileService extends DashboardTile {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
-
-
 
 
 
