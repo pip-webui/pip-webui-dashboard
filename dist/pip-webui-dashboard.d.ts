@@ -1,18 +1,5 @@
 declare module pip.dashboard {
 
-export interface IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-}
-export class DashboardTile implements IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-    constructor();
-}
-
-
 export class AddTileDialog {
     title: string;
     icon: string;
@@ -39,6 +26,19 @@ export interface IAddTileDialogprovider {
     configWidgetList(list: [AddTileDialog[]]): void;
 }
 
+
+
+export interface IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+}
+export class DashboardTile implements IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+    constructor();
+}
 
 export class TileConfigDialogController {
     params: any;
@@ -114,13 +114,13 @@ export class DragTileService implements IDragTileService {
 
 
 
-
 export class MenuTileService extends DashboardTile {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
+
 
 
 
