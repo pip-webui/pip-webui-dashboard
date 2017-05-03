@@ -27,6 +27,7 @@ export interface IAddTileDialogprovider {
 }
 
 
+
 export interface IDashboardTile {
     options: any;
     color: string;
@@ -38,7 +39,6 @@ export class DashboardTile implements IDashboardTile {
     size: Object | string | number;
     constructor();
 }
-
 
 export class TileConfigDialogController {
     params: any;
@@ -109,7 +109,6 @@ export class DragTileService implements IDragTileService {
     getOptions(): any;
     setOptions(options: any): any;
 }
-
 
 
 
@@ -192,6 +191,7 @@ export class TilesGridService implements ITilesGridService {
     removeTile(removeTile: any): any;
     updateTileOptions(opts: any): any;
 }
+
 
 export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
