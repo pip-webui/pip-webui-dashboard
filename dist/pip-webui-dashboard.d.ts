@@ -113,6 +113,7 @@ export class DragTileService implements IDragTileService {
 
 
 
+
 export class MenuTileService extends DashboardTile {
     menu: any;
     constructor();
@@ -191,7 +192,6 @@ export class TilesGridService implements ITilesGridService {
     removeTile(removeTile: any): any;
     updateTileOptions(opts: any): any;
 }
-
 
 export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;

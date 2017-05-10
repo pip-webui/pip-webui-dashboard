@@ -44,7 +44,6 @@ var AddTileDialogController = (function () {
     return AddTileDialogController;
 }());
 exports.AddTileDialogController = AddTileDialogController;
-
 },{}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -116,7 +115,6 @@ var AddTileDialogController_1 = require("./AddTileDialogController");
         .config(setTranslations)
         .provider('pipAddTileDialog', AddTileDialogProvider);
 }
-
 },{"./AddTileDialogController":1}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -124,7 +122,6 @@ angular
     .module('pipAddDashboardTileDialog', ['ngMaterial']);
 require("./AddTileDialogController");
 require("./AddTileProvider");
-
 },{"./AddTileDialogController":1,"./AddTileProvider":2}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -188,7 +185,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipCalendarTile', CalendarTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -198,7 +194,6 @@ var DashboardTile = (function () {
     return DashboardTile;
 }());
 exports.DashboardTile = DashboardTile;
-
 },{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -251,7 +246,6 @@ var TileConfigDialogController = (function () {
     return TileConfigDialogController;
 }());
 exports.TileConfigDialogController = TileConfigDialogController;
-
 },{}],7:[function(require,module,exports){
 {
     var TileConfigExtendComponentBindings = {
@@ -298,7 +292,6 @@ exports.TileConfigDialogController = TileConfigDialogController;
         .module('pipConfigDashboardTileDialog')
         .component('pipTileConfigExtendComponent', pipTileConfigComponent);
 }
-
 },{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -357,7 +350,6 @@ var ConfigDialogController_1 = require("./ConfigDialogController");
         .config(setTranslations)
         .service('pipTileConfigDialogService', TileConfigDialogService);
 }
-
 },{"./ConfigDialogController":6}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -366,7 +358,6 @@ angular
 require("./ConfigDialogController");
 require("./ConfigDialogService");
 require("./ConfigDialogExtendComponent");
-
 },{"./ConfigDialogController":6,"./ConfigDialogExtendComponent":7,"./ConfigDialogService":8}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -571,7 +562,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .config(setTranslations)
         .component('pipDashboard', Dashboard);
 }
-
 },{}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1067,7 +1057,6 @@ var DEFAULT_OPTIONS = {
     angular.module('pipDraggableTiles')
         .component('pipDraggableGrid', DragComponent);
 }
-
 },{"../tile_group/TileGroupService":24,"./DraggableTileService":12}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1202,14 +1191,12 @@ angular
         return newTile;
     };
 });
-
 },{}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipDraggableTiles', []);
 require("./DraggableTileService");
 require("./Draggable");
-
 },{"./Draggable":11,"./DraggableTileService":12}],14:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1337,7 +1324,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipEventTile', EventTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1370,7 +1356,6 @@ require("./picture_slider_tile/PictureSliderTile");
 require("./position_tile/PositionTile");
 require("./statistics_tile/StatisticsTile");
 require("./dashboard/Dashboard");
-
 },{"./add_tile_dialog":3,"./calendar_tile/CalendarTile":4,"./common_tile/Tile":5,"./config_tile_dialog":9,"./dashboard/Dashboard":10,"./draggable":13,"./event_tile/EventTile":14,"./menu_tile":18,"./note_tile/NoteTile":19,"./picture_slider_tile/PictureSliderTile":20,"./position_tile/PositionTile":21,"./statistics_tile/StatisticsTile":22,"./tile_group/index":25,"./utility/TileTemplateUtility":26}],16:[function(require,module,exports){
 {
     var TileMenu = function () {
@@ -1383,7 +1368,6 @@ require("./dashboard/Dashboard");
         .module('pipMenuTile')
         .directive('pipTileMenu', TileMenu);
 }
-
 },{}],17:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1467,7 +1451,6 @@ exports.MenuTileService = MenuTileService;
         .module('pipMenuTile')
         .provider('pipMenuTile', MenuTileProvider);
 }
-
 },{"../common_tile/Tile":5}],18:[function(require,module,exports){
 "use strict";
 function __export(m) {
@@ -1479,7 +1462,6 @@ angular
 require("./MenuTileDirective");
 require("./MenuTileService");
 __export(require("./MenuTileService"));
-
 },{"./MenuTileDirective":16,"./MenuTileService":17}],19:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1543,7 +1525,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipNoteTile', NoteTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],20:[function(require,module,exports){
 'use strict';
 var __extends = (this && this.__extends) || (function () {
@@ -1604,7 +1585,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipPictureSliderTile', PictureSliderTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],21:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1709,7 +1689,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipPositionTile', PositionTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],22:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -1767,7 +1746,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDashboard')
         .component('pipStatisticsTile', StatisticsTile);
 }
-
 },{"../menu_tile/MenuTileService":17}],23:[function(require,module,exports){
 {
     function DraggableTileLink($scope, $elem, $attr) {
@@ -1796,7 +1774,6 @@ var MenuTileService_1 = require("../menu_tile/MenuTileService");
         .module('pipDraggableTilesGroup')
         .directive('pipDraggableTiles', DraggableTiles);
 }
-
 },{}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2230,7 +2207,6 @@ angular
         return newGrid;
     };
 });
-
 },{}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2238,7 +2214,6 @@ angular
     .module('pipDraggableTilesGroup', []);
 require("./TileGroupDirective");
 require("./TileGroupService");
-
 },{"./TileGroupDirective":23,"./TileGroupService":24}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2309,7 +2284,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .service('pipTileTemplate', tileTemplateService)
         .directive('pipImageLoad', ImageLoad);
 }
-
 },{}],27:[function(require,module,exports){
 (function(module) {
 try {
