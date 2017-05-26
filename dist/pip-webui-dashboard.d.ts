@@ -40,7 +40,6 @@ export class DashboardTile implements IDashboardTile {
     constructor();
 }
 
-
 export class TileConfigDialogController {
     params: any;
     extensionUrl: any;
@@ -109,6 +108,7 @@ export class DragTileService implements IDragTileService {
     getOptions(): any;
     setOptions(options: any): any;
 }
+
 
 
 
