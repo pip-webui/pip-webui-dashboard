@@ -27,6 +27,7 @@ export interface IAddTileDialogprovider {
 }
 
 
+
 export class TileConfigDialogController {
     params: any;
     extensionUrl: any;
@@ -61,7 +62,6 @@ export class DashboardTile implements IDashboardTile {
     size: Object | string | number;
     constructor();
 }
-
 
 
 export const DEFAULT_TILE_WIDTH: number;
