@@ -51,7 +51,6 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
 }
 
 
-
 export interface IDashboardTile {
     options: any;
     color: string;
@@ -63,6 +62,7 @@ export class DashboardTile implements IDashboardTile {
     size: Object | string | number;
     constructor();
 }
+
 
 export const DEFAULT_TILE_WIDTH: number;
 export const DEFAULT_TILE_HEIGHT: number;
@@ -123,6 +123,10 @@ export class MenuTileService extends DashboardTile {
 
 
 
+export interface ITileTemplateService {
+    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
+    setImageMarginCSS($element: any, image: any): void;
+}
 
 
 
@@ -193,10 +197,6 @@ export class TilesGridService implements ITilesGridService {
     updateTileOptions(opts: any): any;
 }
 
-export interface ITileTemplateService {
-    getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
-    setImageMarginCSS($element: any, image: any): void;
-}
 
 }
 
