@@ -1,5 +1,16 @@
 declare module pip.dashboard {
 
+export interface IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+}
+export class DashboardTile implements IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+    constructor();
+}
 
 export class AddTileDialog {
     title: string;
@@ -28,18 +39,6 @@ export interface IAddTileDialogprovider {
 }
 
 
-export interface IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-}
-export class DashboardTile implements IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-    constructor();
-}
-
 export class TileConfigDialogController {
     params: any;
     extensionUrl: any;
@@ -63,52 +62,6 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
 }
 
 
-
-export const DEFAULT_TILE_WIDTH: number;
-export const DEFAULT_TILE_HEIGHT: number;
-export const UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
-
-export interface DragTileConstructor {
-    new (options: any): any;
-}
-export function IDragTileConstructor(constructor: DragTileConstructor, options: any): IDragTileService;
-export interface IDragTileService {
-    tpl: any;
-    opts: any;
-    size: any;
-    elem: any;
-    preview: any;
-    getSize(): any;
-    setSize(width: any, height: any): any;
-    setPosition(left: any, top: any): any;
-    getCompiledTemplate(): any;
-    updateElem(parent: any): any;
-    getElem(): any;
-    startDrag(): any;
-    stopDrag(isAnimate: any): any;
-    setPreviewPosition(coords: any): void;
-    getOptions(): any;
-    setOptions(options: any): any;
-}
-export class DragTileService implements IDragTileService {
-    tpl: any;
-    opts: any;
-    size: any;
-    elem: any;
-    preview: any;
-    constructor(options: any);
-    getSize(): any;
-    setSize(width: any, height: any): any;
-    setPosition(left: any, top: any): any;
-    getCompiledTemplate(): any;
-    updateElem(parent: any): any;
-    getElem(): any;
-    startDrag(): any;
-    stopDrag(isAnimate: any): any;
-    setPreviewPosition(coords: any): void;
-    getOptions(): any;
-    setOptions(options: any): any;
-}
 
 
 
@@ -197,6 +150,53 @@ export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
     setImageMarginCSS($element: any, image: any): void;
 }
+
+export const DEFAULT_TILE_WIDTH: number;
+export const DEFAULT_TILE_HEIGHT: number;
+export const UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
+
+export interface DragTileConstructor {
+    new (options: any): any;
+}
+export function IDragTileConstructor(constructor: DragTileConstructor, options: any): IDragTileService;
+export interface IDragTileService {
+    tpl: any;
+    opts: any;
+    size: any;
+    elem: any;
+    preview: any;
+    getSize(): any;
+    setSize(width: any, height: any): any;
+    setPosition(left: any, top: any): any;
+    getCompiledTemplate(): any;
+    updateElem(parent: any): any;
+    getElem(): any;
+    startDrag(): any;
+    stopDrag(isAnimate: any): any;
+    setPreviewPosition(coords: any): void;
+    getOptions(): any;
+    setOptions(options: any): any;
+}
+export class DragTileService implements IDragTileService {
+    tpl: any;
+    opts: any;
+    size: any;
+    elem: any;
+    preview: any;
+    constructor(options: any);
+    getSize(): any;
+    setSize(width: any, height: any): any;
+    setPosition(left: any, top: any): any;
+    getCompiledTemplate(): any;
+    updateElem(parent: any): any;
+    getElem(): any;
+    startDrag(): any;
+    stopDrag(isAnimate: any): any;
+    setPreviewPosition(coords: any): void;
+    getOptions(): any;
+    setOptions(options: any): any;
+}
+
 
 }
 
