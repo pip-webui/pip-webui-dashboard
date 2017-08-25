@@ -12,32 +12,6 @@ export class DashboardTile implements IDashboardTile {
     constructor();
 }
 
-export class AddTileDialog {
-    title: string;
-    icon: string;
-    name: string;
-    amount: number;
-}
-export class AddTileDialogController implements ng.IController {
-    activeGroupIndex: number;
-    $mdDialog: angular.material.IDialogService;
-    defaultTiles: [AddTileDialog[]];
-    groups: any;
-    totalTiles: number;
-    constructor(groups: any, activeGroupIndex: number, widgetList: [AddTileDialog[]], $mdDialog: angular.material.IDialogService);
-    add(): void;
-    cancel(): void;
-    encrease(groupIndex: number, widgetIndex: number): void;
-    decrease(groupIndex: number, widgetIndex: number): void;
-}
-
-export interface IAddTileDialogService {
-    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
-}
-export interface IAddTileDialogprovider {
-    configWidgetList(list: [AddTileDialog[]]): void;
-}
-
 
 export class TileConfigDialogController {
     params: any;
@@ -62,6 +36,53 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
 }
 
 
+export const DEFAULT_TILE_WIDTH: number;
+export const DEFAULT_TILE_HEIGHT: number;
+export const UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
+
+export interface DragTileConstructor {
+    new (options: any): any;
+}
+export function IDragTileConstructor(constructor: DragTileConstructor, options: any): IDragTileService;
+export interface IDragTileService {
+    tpl: any;
+    opts: any;
+    size: any;
+    elem: any;
+    preview: any;
+    getSize(): any;
+    setSize(width: any, height: any): any;
+    setPosition(left: any, top: any): any;
+    getCompiledTemplate(): any;
+    updateElem(parent: any): any;
+    getElem(): any;
+    startDrag(): any;
+    stopDrag(isAnimate: any): any;
+    setPreviewPosition(coords: any): void;
+    getOptions(): any;
+    setOptions(options: any): any;
+}
+export class DragTileService implements IDragTileService {
+    tpl: any;
+    opts: any;
+    size: any;
+    elem: any;
+    preview: any;
+    constructor(options: any);
+    getSize(): any;
+    setSize(width: any, height: any): any;
+    setPosition(left: any, top: any): any;
+    getCompiledTemplate(): any;
+    updateElem(parent: any): any;
+    getElem(): any;
+    startDrag(): any;
+    stopDrag(isAnimate: any): any;
+    setPreviewPosition(coords: any): void;
+    getOptions(): any;
+    setOptions(options: any): any;
+}
+
+
 
 
 
@@ -73,8 +94,6 @@ export class MenuTileService extends DashboardTile {
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
-
-
 
 
 
@@ -151,50 +170,31 @@ export interface ITileTemplateService {
     setImageMarginCSS($element: any, image: any): void;
 }
 
-export const DEFAULT_TILE_WIDTH: number;
-export const DEFAULT_TILE_HEIGHT: number;
-export const UPDATE_GROUPS_EVENT = "pipUpdateDashboardGroupsConfig";
 
-export interface DragTileConstructor {
-    new (options: any): any;
+export class AddTileDialog {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
 }
-export function IDragTileConstructor(constructor: DragTileConstructor, options: any): IDragTileService;
-export interface IDragTileService {
-    tpl: any;
-    opts: any;
-    size: any;
-    elem: any;
-    preview: any;
-    getSize(): any;
-    setSize(width: any, height: any): any;
-    setPosition(left: any, top: any): any;
-    getCompiledTemplate(): any;
-    updateElem(parent: any): any;
-    getElem(): any;
-    startDrag(): any;
-    stopDrag(isAnimate: any): any;
-    setPreviewPosition(coords: any): void;
-    getOptions(): any;
-    setOptions(options: any): any;
+export class AddTileDialogController implements ng.IController {
+    activeGroupIndex: number;
+    $mdDialog: angular.material.IDialogService;
+    defaultTiles: [AddTileDialog[]];
+    groups: any;
+    totalTiles: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [AddTileDialog[]], $mdDialog: angular.material.IDialogService);
+    add(): void;
+    cancel(): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
 }
-export class DragTileService implements IDragTileService {
-    tpl: any;
-    opts: any;
-    size: any;
-    elem: any;
-    preview: any;
-    constructor(options: any);
-    getSize(): any;
-    setSize(width: any, height: any): any;
-    setPosition(left: any, top: any): any;
-    getCompiledTemplate(): any;
-    updateElem(parent: any): any;
-    getElem(): any;
-    startDrag(): any;
-    stopDrag(isAnimate: any): any;
-    setPreviewPosition(coords: any): void;
-    getOptions(): any;
-    setOptions(options: any): any;
+
+export interface IAddTileDialogService {
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddTileDialogprovider {
+    configWidgetList(list: [AddTileDialog[]]): void;
 }
 
 
