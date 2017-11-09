@@ -27,20 +27,6 @@ export interface IAddTileDialogprovider {
 }
 
 
-
-
-export interface IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-}
-export class DashboardTile implements IDashboardTile {
-    options: any;
-    color: string;
-    size: Object | string | number;
-    constructor();
-}
-
 export class TileConfigDialogController {
     params: any;
     extensionUrl: any;
@@ -62,6 +48,21 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
     extensionUrl?: string;
     event?: any;
 }
+
+
+export interface IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+}
+export class DashboardTile implements IDashboardTile {
+    options: any;
+    color: string;
+    size: Object | string | number;
+    constructor();
+}
+
+
 
 
 export const DEFAULT_TILE_WIDTH: number;
@@ -113,14 +114,12 @@ export class DragTileService implements IDragTileService {
 
 
 
-
 export class MenuTileService extends DashboardTile {
     menu: any;
     constructor();
     callAction(actionName: any, params: any, item: any): void;
     changeSize(params: any): void;
 }
-
 
 
 
@@ -197,6 +196,7 @@ export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
     setImageMarginCSS($element: any, image: any): void;
 }
+
 
 }
 
