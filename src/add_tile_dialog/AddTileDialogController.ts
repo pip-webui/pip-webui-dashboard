@@ -23,6 +23,8 @@ export class AddTileDialogController implements ng.IController {
         });
     }
 
+    public $onInit() {}
+    
     public add() {
         this.$mdDialog.hide({
             groupIndex: this.activeGroupIndex,
