@@ -1,5 +1,33 @@
 declare module pip.dashboard {
 
+export class AddTileDialog {
+    title: string;
+    icon: string;
+    name: string;
+    amount: number;
+}
+export class AddTileDialogController implements ng.IController {
+    activeGroupIndex: number;
+    $mdDialog: angular.material.IDialogService;
+    defaultTiles: [AddTileDialog[]];
+    groups: any;
+    totalTiles: number;
+    constructor(groups: any, activeGroupIndex: number, widgetList: [AddTileDialog[]], $mdDialog: angular.material.IDialogService);
+    $onInit(): void;
+    add(): void;
+    cancel(): void;
+    encrease(groupIndex: number, widgetIndex: number): void;
+    decrease(groupIndex: number, widgetIndex: number): void;
+}
+
+export interface IAddTileDialogService {
+    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
+}
+export interface IAddTileDialogprovider {
+    configWidgetList(list: [AddTileDialog[]]): void;
+}
+
+
 
 export interface IDashboardTile {
     options: any;
@@ -12,6 +40,7 @@ export class DashboardTile implements IDashboardTile {
     size: Object | string | number;
     constructor();
 }
+
 
 export class TileConfigDialogController {
     params: any;
@@ -34,7 +63,6 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
     extensionUrl?: string;
     event?: any;
 }
-
 
 
 export const DEFAULT_TILE_WIDTH: number;
@@ -170,34 +198,6 @@ export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
     setImageMarginCSS($element: any, image: any): void;
 }
-
-export class AddTileDialog {
-    title: string;
-    icon: string;
-    name: string;
-    amount: number;
-}
-export class AddTileDialogController implements ng.IController {
-    activeGroupIndex: number;
-    $mdDialog: angular.material.IDialogService;
-    defaultTiles: [AddTileDialog[]];
-    groups: any;
-    totalTiles: number;
-    constructor(groups: any, activeGroupIndex: number, widgetList: [AddTileDialog[]], $mdDialog: angular.material.IDialogService);
-    $onInit(): void;
-    add(): void;
-    cancel(): void;
-    encrease(groupIndex: number, widgetIndex: number): void;
-    decrease(groupIndex: number, widgetIndex: number): void;
-}
-
-export interface IAddTileDialogService {
-    show(groups: any, activeGroupIndex: any): angular.IPromise<any>;
-}
-export interface IAddTileDialogprovider {
-    configWidgetList(list: [AddTileDialog[]]): void;
-}
-
 
 }
 
