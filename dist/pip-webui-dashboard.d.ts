@@ -1,5 +1,6 @@
 declare module pip.dashboard {
 
+
 export class AddTileDialog {
     title: string;
     icon: string;
@@ -26,7 +27,6 @@ export interface IAddTileDialogService {
 export interface IAddTileDialogprovider {
     configWidgetList(list: [AddTileDialog[]]): void;
 }
-
 
 
 export interface IDashboardTile {
