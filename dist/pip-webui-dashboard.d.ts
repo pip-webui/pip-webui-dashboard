@@ -1,6 +1,5 @@
 declare module pip.dashboard {
 
-
 export class AddTileDialog {
     title: string;
     icon: string;
@@ -27,6 +26,7 @@ export interface IAddTileDialogService {
 export interface IAddTileDialogprovider {
     configWidgetList(list: [AddTileDialog[]]): void;
 }
+
 
 
 export interface IDashboardTile {
@@ -127,7 +127,6 @@ export class MenuTileService extends DashboardTile {
 
 
 
-
 export interface TilesGridConstructor {
     new (tiles: any, options: any, columns: any, elem: any): any;
 }
@@ -198,6 +197,7 @@ export interface ITileTemplateService {
     getTemplate(source: any, tpl?: any, tileScope?: any, strictCompile?: any): any;
     setImageMarginCSS($element: any, image: any): void;
 }
+
 
 }
 
