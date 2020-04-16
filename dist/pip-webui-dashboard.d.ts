@@ -28,7 +28,6 @@ export interface IAddTileDialogprovider {
 }
 
 
-
 export interface IDashboardTile {
     options: any;
     color: string;
@@ -40,6 +39,7 @@ export class DashboardTile implements IDashboardTile {
     size: Object | string | number;
     constructor();
 }
+
 
 export class TileConfigDialogController {
     params: any;
@@ -62,7 +62,6 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
     extensionUrl?: string;
     event?: any;
 }
-
 
 
 export const DEFAULT_TILE_WIDTH: number;
@@ -110,6 +109,7 @@ export class DragTileService implements IDragTileService {
     getOptions(): any;
     setOptions(options: any): any;
 }
+
 
 
 
