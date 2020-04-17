@@ -28,6 +28,7 @@ export interface IAddTileDialogprovider {
 }
 
 
+
 export interface IDashboardTile {
     options: any;
     color: string;
@@ -61,6 +62,16 @@ export interface ITileConfigDialogOptions extends angular.material.IDialogOption
     dialogClass?: string;
     extensionUrl?: string;
     event?: any;
+}
+
+
+
+
+export class MenuTileService extends DashboardTile {
+    menu: any;
+    constructor();
+    callAction(actionName: any, params: any, item: any): void;
+    changeSize(params: any): void;
 }
 
 
@@ -110,17 +121,6 @@ export class DragTileService implements IDragTileService {
     setOptions(options: any): any;
 }
 
-
-
-
-
-
-export class MenuTileService extends DashboardTile {
-    menu: any;
-    constructor();
-    callAction(actionName: any, params: any, item: any): void;
-    changeSize(params: any): void;
-}
 
 
 
